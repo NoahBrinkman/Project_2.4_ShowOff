@@ -30,37 +30,126 @@ public class RoadAssetEditor : Editor
         _bounds = _road.GetComponent<Renderer>().bounds;
 
         float roadRotation = _road.transform.localRotation.eulerAngles.y;
+        int direction = _road.Direction;
+        int verticalNumber = _road.VerticalNumber;
+        int horizontalNumber = _road.HorizontalNumber;
         //Debug.Log(roadRotation);
 
-        if (roadRotation == 0)
+        if (direction == 1)
         {
-            _assetStart = new Vector3(_bounds.center.x, _bounds.center.y - _bounds.size.y / 2,
-                _bounds.center.z - _bounds.size.z / 2);
-            _assetEnd = new Vector3(_bounds.center.x, _bounds.center.y - _bounds.size.y / 2,
-                _bounds.center.z + _bounds.size.z / 2);
+            if (roadRotation == 0)
+            {
+                SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / verticalNumber, -_bounds.size.z / 2,
+                    0, _bounds.size.z / 2);
+            }
+            else if (roadRotation == 180)
+            {
+                SpawnPoints(0,_bounds.size.z / 2, 0, -_bounds.size.z/2);
+            }
+            else if (roadRotation == 90)
+            {
+                SpawnPoints(-_bounds.size.x / 2,0,_bounds.size.x/2,0);
+            }
+            else if (roadRotation == 270)
+            {
+                SpawnPoints(_bounds.size.x/2,0,-_bounds.size.x/2, 0);
+            }
         }
-        else if (roadRotation == 180)
+        else if (direction == 2)
         {
-            _assetStart = new Vector3(_bounds.center.x, _bounds.center.y - _bounds.size.y / 2,
-                _bounds.center.z + _bounds.size.z / 2);
-            _assetEnd = new Vector3(_bounds.center.x, _bounds.center.y - _bounds.size.y / 2,
-                _bounds.center.z - _bounds.size.z / 2);
+            if (roadRotation == 0)
+            {
+                SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / verticalNumber,- _bounds.size.z / 2,
+                    -_bounds.size.x / 2,_bounds.size.z / 2 - _bounds.size.z / horizontalNumber);
+            }
+            else if (roadRotation == 180)
+            {
+                SpawnPoints(-_bounds.size.x / 2 + _bounds.size.x / verticalNumber, _bounds.size.z / 2,
+                    _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / horizontalNumber);
+            }
+            else if (roadRotation == 90)
+            {
+                SpawnPoints(-_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / verticalNumber,
+                    _bounds.size.x / 2 - _bounds.size.x / horizontalNumber,_bounds.size.z / 2);
+            }
+            else if (roadRotation == 270)
+            {
+                SpawnPoints(_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / verticalNumber,
+                    -_bounds.size.x / 2 + _bounds.size.x / horizontalNumber,-_bounds.size.z / 2);
+            }
         }
-        else if (roadRotation == 90)
+        else if (direction == 3)
         {
-            _assetStart = new Vector3(_bounds.center.x - _bounds.size.x / 2, _bounds.center.y - _bounds.size.y / 2,
-                _bounds.center.z);
-            _assetEnd = new Vector3(_bounds.center.x + _bounds.size.x / 2, _bounds.center.y - _bounds.size.y / 2,
-                _bounds.center.z);
+            if (roadRotation == 0)
+            {
+                SpawnPoints(-_bounds.size.x / 2 + _bounds.size.x / verticalNumber, -_bounds.size.z/2,
+                    _bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / horizontalNumber);
+            }
+            else if (roadRotation == 180)
+            {
+                SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / verticalNumber, _bounds.size.z/2,
+                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / horizontalNumber);
+            }
+            else if (roadRotation == 90)
+            {
+                SpawnPoints(-_bounds.size.x/2, _bounds.size.z / 2 - _bounds.size.z / verticalNumber,
+                    _bounds.size.x / 2 - _bounds.size.x / horizontalNumber, -_bounds.size.z / 2);
+            }
+            else if (roadRotation == 270)
+            {
+                SpawnPoints(_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / verticalNumber,
+                    -_bounds.size.x / 2 + _bounds.size.x / horizontalNumber, _bounds.size.z / 2);
+            }
         }
-        else if (roadRotation == 270)
+        else if (direction == 4)
         {
-            _assetStart = new Vector3(_bounds.center.x + _bounds.size.x / 2, _bounds.center.y - _bounds.size.y / 2,
-                _bounds.center.z);
-            _assetEnd = new Vector3(_bounds.center.x - _bounds.size.x / 2, _bounds.center.y - _bounds.size.y / 2,
-                _bounds.center.z);
+            if (roadRotation == 0)
+            {
+                SpawnPoints(0, -_bounds.size.z/2,
+                    _bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / horizontalNumber,
+                    true, -_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / horizontalNumber);
+            }
+            else if (roadRotation == 180)
+            {
+                SpawnPoints(0,_bounds.size.z / 2,
+                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / horizontalNumber,
+                    true, _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / horizontalNumber);
+            }
+            else if (roadRotation == 90)
+            {
+                SpawnPoints(-_bounds.size.x / 2, 0,
+                    _bounds.size.x / 2 - _bounds.size.x / horizontalNumber, -_bounds.size.z / 2,
+                    true, _bounds.size.x / 2 - _bounds.size.x / horizontalNumber,_bounds.size.z / 2);
+            }
+            else if (roadRotation == 270)
+            {
+                SpawnPoints(_bounds.size.x / 2,0,
+                    -_bounds.size.x / 2 + _bounds.size.x / horizontalNumber,_bounds.size.z / 2,
+                    true, -_bounds.size.x / 2 + _bounds.size.x / horizontalNumber,-_bounds.size.z / 2);
+            }
         }
+    }
+
+    private void SpawnPoints(float xOffsetStart, float zOffsetStart, float xOffsetEnd, float zOffsetEnd,
+        bool isCrossroad = false, float xOffsetLeft = 0, float zOffsetLeft = 0)
+    {
+        _assetStart = new Vector3(_bounds.center.x + xOffsetStart, _bounds.center.y - _bounds.size.y / 2,
+            _bounds.center.z + zOffsetStart);
+        _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, _bounds.center.y - _bounds.size.y / 2,
+            _bounds.center.z + zOffsetEnd);
+
+        _road.AssetStart = _assetStart;
+        _road.AssetEnd = _assetEnd;
         
+        if (isCrossroad)
+        {
+            _assetLeft = new Vector3(_bounds.center.x + xOffsetLeft,_bounds.center.y - _bounds.size.y / 2,
+                _bounds.center.z + zOffsetLeft);
+            Handles.color = new Color(1, 0.6f, 0);
+            Handles.DrawSolidDisc(_assetLeft, Vector3.up, 0.2f);
+            _road.AssetLeft = _assetLeft;
+        }
+
         Handles.color = Color.green;
         Handles.DrawSolidDisc(_assetStart, Vector3.up, 0.2f);
         Handles.color = Color.red;
