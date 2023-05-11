@@ -14,6 +14,7 @@ public enum InactiveAction
 
 public class StateDependantObject : MonoBehaviour
 {
+    [Header("StateLogic")]
     [SerializeField] protected State state;
     [SerializeField] private InactiveAction _whatToDoWhenInactive = InactiveAction.DoNotUpdate;
 
