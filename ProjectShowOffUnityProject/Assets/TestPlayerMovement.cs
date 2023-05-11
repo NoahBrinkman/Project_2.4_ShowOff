@@ -7,20 +7,25 @@ public class TestPlayerMovement : StateDependantObject
     private Rigidbody _rb;
 
     [SerializeField] private float _speed;
+
+    [SerializeField] private string _horizontalAxis = "Horizontal";
+    [SerializeField] private string _verticalAxis = "Horizontal";
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         _rb = GetComponent<Rigidbody>();
         
     }
-
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Update but it only calls during certain states
+    /// </summary>
+    protected override void ReNew()
     {
-        if(!state.Active) return;
-        
-        float ver = Input.GetAxis("Vertical");
-        float hor = Input.GetAxis("Horizontal");
+        base.ReNew();
+        float ver = Input.GetAxis(_verticalAxis);
+        float hor = Input.GetAxis(_horizontalAxis);
         _rb.velocity = new Vector3(hor, 0, ver) * _speed;
     }
+    
 }

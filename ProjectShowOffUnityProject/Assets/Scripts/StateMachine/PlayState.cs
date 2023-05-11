@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayState : State
 {
-    [SerializeField] private PauseState _pauseState;
-
-
     public override void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))

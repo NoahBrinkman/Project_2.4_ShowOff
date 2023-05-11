@@ -17,20 +17,39 @@ public abstract class State : MonoBehaviour
         _onStateEnteredEvent?.Invoke();
     }
 
-    public abstract void Update();
-    
-    [SerializeField] private UnityEvent _onStatExitEvent;
+    public virtual void Update()
+    { }
+
+    [SerializeField] private UnityEvent _onStateExitEvent;
 
     public virtual void OnStateExit()
     {
         Active = false;
-        _onStatExitEvent?.Invoke();
+        _onStateExitEvent?.Invoke();
     }
     
     
     public void SetStateMachine(StateMachine pStateMachine)
     {
         _stateMachine = pStateMachine;
-    } 
+    }
+
+    public void AddListenerOnStateEnter(UnityAction pcall)
+    {
+        Debug.Log("Trying to add");
+        _onStateEnteredEvent.AddListener(pcall);
+    }
+    public void AddListenerOnStateExit(UnityAction pcall)
+    {
+        _onStateExitEvent.AddListener(pcall);
+    }
+    public void RemoveListenerOnStateEnter(UnityAction pcall)
+    {
+        _onStateEnteredEvent.RemoveListener(pcall);
+    }
+    public void RemoveListenerOnStateExit(UnityAction pcall)
+    {
+        _onStateExitEvent.RemoveListener(pcall);
+    }
 }
 
