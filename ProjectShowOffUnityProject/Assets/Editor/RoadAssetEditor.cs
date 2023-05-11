@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CustomEditor(typeof(RoadPoints))]
 public class RoadAssetEditor : Editor
 {
     private RoadPoints _road;
-    private Vector3 _assetStart;
+    [SerializeField] private Vector3 _assetStartEditor;
     private Vector3 _assetEnd;
     private Vector3 _assetLeft;
     private Vector3 _assetRight;
@@ -23,6 +24,7 @@ public class RoadAssetEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
+        GUILayout.Label(_road.AssetStart.ToString());
     }
 
     private void OnSceneGUI()
@@ -133,13 +135,13 @@ public class RoadAssetEditor : Editor
     private void SpawnPoints(float xOffsetStart, float zOffsetStart, float xOffsetEnd, float zOffsetEnd,
         bool isCrossroad = false, float xOffsetLeft = 0, float zOffsetLeft = 0)
     {
-        _assetStart = new Vector3(_bounds.center.x + xOffsetStart, _bounds.center.y - _bounds.size.y / 2,
+        _assetStartEditor = new Vector3(_bounds.center.x + xOffsetStart, _bounds.center.y - _bounds.size.y / 2,
             _bounds.center.z + zOffsetStart);
         _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, _bounds.center.y - _bounds.size.y / 2,
             _bounds.center.z + zOffsetEnd);
 
-        _road.AssetStart = _assetStart;
-        _road.AssetEnd = _assetEnd;
+        //_road.AssetStart = _assetStartEditor;
+        //_road.AssetEnd = _assetEnd;
         
         if (isCrossroad)
         {
@@ -147,11 +149,11 @@ public class RoadAssetEditor : Editor
                 _bounds.center.z + zOffsetLeft);
             Handles.color = new Color(1, 0.6f, 0);
             Handles.DrawSolidDisc(_assetLeft, Vector3.up, 0.2f);
-            _road.AssetLeft = _assetLeft;
+            //_road.AssetLeft = _assetLeft;
         }
 
         Handles.color = Color.green;
-        Handles.DrawSolidDisc(_assetStart, Vector3.up, 0.2f);
+        Handles.DrawSolidDisc(_assetStartEditor, Vector3.up, 0.2f);
         Handles.color = Color.red;
         Handles.DrawSolidDisc(_assetEnd, Vector3.up, 0.2f);
     }
