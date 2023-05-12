@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPlayerMovement : StateDependantObject
+public class PlayerMovement : StateDependantObject
 {
     private Rigidbody _rb;
     [Header("PlayerMovement")]
@@ -15,6 +15,12 @@ public class TestPlayerMovement : StateDependantObject
     [SerializeField] private string _horizontalAxis = "Horizontal";
     [SerializeField] private string _verticalAxis = "Horizontal";
 
+    [SerializeField] private AnimationCurve _jumpCurve;
+    [SerializeField] private float startY;
+    [SerializeField, Tooltip("This counts as both the intensit of movement and the highest point")] private float _jumpMultiplier = 3;
+    [SerializeField] private float _jumpDuration = 2;
+    private bool _jumping = false;
+    private float _timer = 0;
     [Header("Debug")] [SerializeField] private bool _showVisualAid = true;
 
     [SerializeField] private Color debugCubeColor;
@@ -24,7 +30,7 @@ public class TestPlayerMovement : StateDependantObject
         base.Start();
         _rb = GetComponent<Rigidbody>();
         startX = transform.position.x;
-
+        startY = transform.position.y;
     }
     /// <summary>
     /// Update but it only calls during certain states
@@ -32,14 +38,53 @@ public class TestPlayerMovement : StateDependantObject
     protected override void ReNew()
     {
         base.ReNew();
-        float ver = Input.GetAxis(_verticalAxis);
+        float ver = Input.GetAxisRaw(_verticalAxis);
+        
+        if (ver > 0 && !_jumping)
+        {
+            //Jump
+            _jumping = true;
+
+        }else if (ver < 0)
+        {
+            
+        }
+        else
+        {
+            Move();
+        }
+
+        if (_jumping)
+        {
+            _timer += Time.deltaTime;
+            Jump(Mathf.Clamp(1/(_jumpDuration/_timer),0,1));
+            if (_timer >= _jumpDuration)
+            {
+                Vector3 p = transform.position;
+                p.y = startY;
+                transform.position = p;
+                _timer = 0;
+                _jumping = false;
+            }
+        }
+        
+    }
+
+    private void Jump(float t)
+    {
+        Vector3 pos = transform.position;
+        pos.y = _jumpCurve.Evaluate(t) * _jumpMultiplier;
+        transform.position = pos;
+    }
+
+    private void Move()
+    {
         float hor = Input.GetAxis(_horizontalAxis);
-        _rb.velocity = new Vector3(hor, 0, ver) * _speed;
+        _rb.velocity = new Vector3(hor, 0, 0) * _speed;
         Vector3 newPos = transform.position;
         newPos.x = Mathf.Clamp(transform.position.x, startX + minX, startX + maxX);
         transform.position = newPos;
     }
-
 
     private void OnDrawGizmosSelected()
     {
