@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LevelGeneration;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class RoadGenerator : MonoBehaviour
@@ -43,36 +45,37 @@ public class RoadGenerator : MonoBehaviour
     private void GenerateStartRoads()
     {
 
-        for (int i = 0; i < piecesGeneratedAtOnce - 1; i++)
-        {
-            
-            _startPosition = _activePoints.AssetEnd;
+        // for (int i = 0; i < piecesGeneratedAtOnce - 1; i++)
+        // {
 
-            Vector3 offset = roadPieces[0].AssetStart - roadPieces[0].gameObject.transform.position;
-            Debug.Log(offset);
-            float yDirection = 0;
-            switch (_activePoints.Direction)
-            {
-                case 2:
-                    //left
-                    yDirection = -90 + _activePiece.transform.eulerAngles.y;
-                    break;
-                case 3:
-                    //right
-                    yDirection = 90 + _activePiece.transform.eulerAngles.y;
-                    break;
-                case 4:
-                    //tpose
-                    break;
-                default: //straight 🤢
-                    yDirection = 0 + _activePiece.transform.eulerAngles.y;
-                    break;
-            }
-            Quaternion rotation = Quaternion.Euler(-90,0,yDirection);
-            _activePiece = Instantiate(roadPieces[0].gameObject, _startPosition-offset , rotation);
-            _activePiece.name = "road1";
-            _activePieces.Add(_activePiece);
-            _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
-        }
+            _startPosition = _activePoints.AssetEnd;
+            
+            Debug.Log(_startPosition);
+            // Vector3 offset = roadPieces[0].AssetStart - roadPieces[0].gameObject.transform.position;
+            // Debug.Log(offset);
+            // float yDirection = 0;
+            // switch (_activePoints.Direction)
+            // {
+            //     case 2:
+            //         //left
+            //         yDirection = -90 + _activePiece.transform.eulerAngles.y;
+            //         break;
+            //     case 3:
+            //         //right
+            //         yDirection = 90 + _activePiece.transform.eulerAngles.y;
+            //         break;
+            //     case 4:
+            //         //tpose
+            //         break;
+            //     default: //straight 🤢
+            //         yDirection = 0 + _activePiece.transform.eulerAngles.y;
+            //         break;
+            // }
+            // Quaternion rotation = Quaternion.Euler(-90,0,yDirection);
+            _activePiece = Instantiate(roadPieces[0].gameObject, _startPosition , roadPieces[0].gameObject.transform.rotation);
+            // _activePiece.name = "road1";
+            // _activePieces.Add(_activePiece);
+            // _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
+        //}
     }
 }

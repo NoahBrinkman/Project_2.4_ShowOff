@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LevelGeneration;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -27,101 +28,107 @@ public class RoadAssetEditor : Editor
 
         float roadRotation = _road.transform.localRotation.eulerAngles.y;
         int direction = _road.Direction;
-        int verticalNumber = _road.VerticalNumber;
-        int horizontalNumber = _road.HorizontalNumber;
-        //Debug.Log(roadRotation);
+        int roadLength = _road.Length;
+        int roadWidth = _road.Width;
 
         if (direction == 1)
         {
             if (roadRotation == 0)
             {
-                SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / verticalNumber, -_bounds.size.z / 2,
-                    0, _bounds.size.z / 2);
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(0,_bounds.size.z / 2, 0, -_bounds.size.z/2);
+                SpawnPoints(-_bounds.size.x/2, 0,
+                    _bounds.size.x/2, 0);
             }
             else if (roadRotation == 90)
             {
-                SpawnPoints(-_bounds.size.x / 2,0,_bounds.size.x/2,0);
+                SpawnPoints(0,-_bounds.size.z/2,
+                    0,_bounds.size.z/2);
+            }
+            else if (roadRotation == 180)
+            {
+                SpawnPoints(_bounds.size.x/2, 0,
+                    -_bounds.size.x/2, 0);
             }
             else if (roadRotation == 270)
             {
-                SpawnPoints(_bounds.size.x/2,0,-_bounds.size.x/2, 0);
+                SpawnPoints(0,_bounds.size.z/2,
+                    0,-_bounds.size.z/2);
             }
         }
         else if (direction == 2)
         {
             if (roadRotation == 0)
             {
-                SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / verticalNumber,- _bounds.size.z / 2,
-                    -_bounds.size.x / 2,_bounds.size.z / 2 - _bounds.size.z / horizontalNumber);
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(-_bounds.size.x / 2 + _bounds.size.x / verticalNumber, _bounds.size.z / 2,
-                    _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / horizontalNumber);
+                SpawnPoints(-_bounds.size.x/2,_bounds.size.z/2 - _bounds.size.z/ (2 * roadLength),
+                    _bounds.size.x/2 - _bounds.size.x/ (2*roadWidth),-_bounds.size.z/2);
             }
             else if (roadRotation == 90)
             {
-                SpawnPoints(-_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / verticalNumber,
-                    _bounds.size.x / 2 - _bounds.size.x / horizontalNumber,_bounds.size.z / 2);
+                SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / (2 * roadWidth),_bounds.size.z / 2,
+                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*roadLength));
+            }
+            else if (roadRotation == 180)
+            {
+                SpawnPoints(_bounds.size.x/2,-_bounds.size.z/2 + _bounds.size.z / (2 * roadLength),
+                    -_bounds.size.x/2 + _bounds.size.x/ (2 * roadWidth),_bounds.size.z/2);
             }
             else if (roadRotation == 270)
             {
-                SpawnPoints(_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / verticalNumber,
-                    -_bounds.size.x / 2 + _bounds.size.x / horizontalNumber,-_bounds.size.z / 2);
+                SpawnPoints(-_bounds.size.x / 2+ _bounds.size.x/ (2 * roadWidth), -_bounds.size.z / 2,
+                    _bounds.size.x / 2,_bounds.size.z / 2 - _bounds.size.z / (2*roadLength));
+                
             }
         }
         else if (direction == 3)
         {
             if (roadRotation == 0)
             {
-                SpawnPoints(-_bounds.size.x / 2 + _bounds.size.x / verticalNumber, -_bounds.size.z/2,
-                    _bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / horizontalNumber);
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / verticalNumber, _bounds.size.z/2,
-                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / horizontalNumber);
+                SpawnPoints(-_bounds.size.x / 2, -_bounds.size.z/2 + _bounds.size.z / (2 * roadLength),
+                    _bounds.size.x / 2- _bounds.size.x / (2*roadWidth), _bounds.size.z / 2);
             }
             else if (roadRotation == 90)
             {
-                SpawnPoints(-_bounds.size.x/2, _bounds.size.z / 2 - _bounds.size.z / verticalNumber,
-                    _bounds.size.x / 2 - _bounds.size.x / horizontalNumber, -_bounds.size.z / 2);
+                SpawnPoints(-_bounds.size.x/2 + _bounds.size.x/(2*roadWidth), _bounds.size.z / 2,
+                    _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*roadLength));
+            }
+            else if (roadRotation == 180)
+            {
+                SpawnPoints(_bounds.size.x / 2, _bounds.size.z/2 - _bounds.size.z / (2 * roadLength),
+                    -_bounds.size.x / 2 +_bounds.size.x / (2*roadWidth), -_bounds.size.z / 2);
             }
             else if (roadRotation == 270)
             {
-                SpawnPoints(_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / verticalNumber,
-                    -_bounds.size.x / 2 + _bounds.size.x / horizontalNumber, _bounds.size.z / 2);
+                SpawnPoints(_bounds.size.x / 2-_bounds.size.x/(2*roadWidth), -_bounds.size.z / 2,
+                    -_bounds.size.x / 2 , _bounds.size.z / 2 - _bounds.size.z / (2*roadLength));
             }
         }
         else if (direction == 4)
         {
             if (roadRotation == 0)
             {
-                SpawnPoints(0, -_bounds.size.z/2,
-                    _bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / horizontalNumber,
-                    true, -_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / horizontalNumber);
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(0,_bounds.size.z / 2,
-                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / horizontalNumber,
-                    true, _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / horizontalNumber);
+                SpawnPoints(-_bounds.size.x / 2, 0,
+                    _bounds.size.x / 2 - _bounds.size.x / (2*roadWidth), -_bounds.size.z / 2,
+                    true, _bounds.size.x / 2 - _bounds.size.x / (2*roadWidth),_bounds.size.z / 2);
+                
             }
             else if (roadRotation == 90)
             {
-                SpawnPoints(-_bounds.size.x / 2, 0,
-                    _bounds.size.x / 2 - _bounds.size.x / horizontalNumber, -_bounds.size.z / 2,
-                    true, _bounds.size.x / 2 - _bounds.size.x / horizontalNumber,_bounds.size.z / 2);
+                SpawnPoints(0,_bounds.size.z / 2,
+                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*roadLength),
+                    true, _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*roadLength));
+            }
+            else if (roadRotation == 180)
+            {
+                SpawnPoints(_bounds.size.x / 2,0,
+                    -_bounds.size.x / 2 + _bounds.size.x / (2*roadWidth),_bounds.size.z / 2,
+                    true, -_bounds.size.x / 2 + _bounds.size.x / (2*roadWidth),-_bounds.size.z / 2);
+                
             }
             else if (roadRotation == 270)
             {
-                SpawnPoints(_bounds.size.x / 2,0,
-                    -_bounds.size.x / 2 + _bounds.size.x / horizontalNumber,_bounds.size.z / 2,
-                    true, -_bounds.size.x / 2 + _bounds.size.x / horizontalNumber,-_bounds.size.z / 2);
+                SpawnPoints(0, -_bounds.size.z/2,
+                    _bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2*roadLength),
+                    true, -_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2*roadLength));
+                
             }
         }
     }
