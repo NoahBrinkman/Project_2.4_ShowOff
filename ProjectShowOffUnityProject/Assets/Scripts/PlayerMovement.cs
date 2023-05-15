@@ -6,23 +6,33 @@ using UnityEngine;
 public class PlayerMovement : StateDependantObject
 {
     private Rigidbody _rb;
-    [Header("PlayerMovement")]
-    [SerializeField] private float _speed;
 
-    [SerializeField] private float minX = -2.0f;
-    [SerializeField] private float maxX = 2.0f;
+    [Header("PlayerMovement")] [SerializeField]
+    private float _speed;
+
+    [SerializeField]
+    private float minX = -2.0f;
+    [SerializeField]
+    private float maxX = 2.0f;
     private float startX;
-    [SerializeField] private string _horizontalAxis = "Horizontal";
-    [SerializeField] private string _verticalAxis = "Horizontal";
-
-    [SerializeField] private AnimationCurve _jumpCurve;
-    [SerializeField] private float startY;
-    [SerializeField, Tooltip("This counts as both the intensit of movement and the highest point")] private float _jumpMultiplier = 3;
-    [SerializeField] private float _jumpDuration = 2;
+    [SerializeField] 
+    private string _horizontalAxis = "Horizontal";
+    [SerializeField]
+    private string _verticalAxis = "Horizontal";
+    
+    [Header("Jumping")]
+    [SerializeField, Tooltip("This is the trajectory of our player, the vertical axis shows the position where the horizontal axis shows where in the 'animation'.")]
+    private AnimationCurve _jumpCurve;
+    private float startY;
+    [SerializeField, Tooltip("This counts as both the intensit of movement and the highest point")] 
+    private float _jumpMultiplier = 3;
+    [SerializeField] 
+    private float _jumpDuration = 2;
     private bool _jumping = false;
     private float _timer = 0;
-    [Header("Debug")] [SerializeField] private bool _showVisualAid = true;
-
+    
+    [Header("Debug")] 
+    [SerializeField] private bool _showVisualAid = true;
     [SerializeField] private Color debugCubeColor;
     // Start is called before the first frame update
     protected override void Start()
