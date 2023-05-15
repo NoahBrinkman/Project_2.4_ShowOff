@@ -19,7 +19,7 @@ public class RoadPoints : MonoBehaviour
     public int VerticalNumber => verticalNumber;
 
     [SerializeField] private Vector3 _assetStart;
-    private Vector3 _assetEnd;
+    [SerializeField] private Vector3 _assetEnd;
     private Vector3 _assetLeft;
     private Bounds _bounds;
 
@@ -47,7 +47,7 @@ public class RoadPoints : MonoBehaviour
         _bounds = GetComponent<Renderer>().bounds;
     }
 
-    private void Start()
+    private void OnEnable()
     {
         float roadRotation = transform.localRotation.eulerAngles.y;
         
@@ -166,14 +166,14 @@ public class RoadPoints : MonoBehaviour
     private void SpawnPoints(float xOffsetStart, float zOffsetStart, float xOffsetEnd, float zOffsetEnd,
         bool isCrossroad = false, float xOffsetLeft = 0, float zOffsetLeft = 0)
     {
-        _assetStart = new Vector3(_bounds.center.x + xOffsetStart, _bounds.center.y - _bounds.size.y / 2,
+        _assetStart = new Vector3(_bounds.center.x + xOffsetStart, _bounds.center.y - _bounds.size.y/2,
             _bounds.center.z + zOffsetStart);
-        _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, _bounds.center.y - _bounds.size.y / 2,
+        _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, _bounds.center.y - _bounds.size.y/2,
             _bounds.center.z + zOffsetEnd);
 
         if (isCrossroad)
         {
-            _assetLeft = new Vector3(_bounds.center.x + xOffsetLeft,_bounds.center.y - _bounds.size.y / 2,
+            _assetLeft = new Vector3(_bounds.center.x + xOffsetLeft,_bounds.center.y - _bounds.size.y/2,
                 _bounds.center.z + zOffsetLeft);
         }
     }

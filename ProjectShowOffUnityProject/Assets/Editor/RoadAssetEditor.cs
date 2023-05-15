@@ -21,12 +21,6 @@ public class RoadAssetEditor : Editor
         _road = (RoadPoints)target;
     }
 
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        GUILayout.Label(_road.AssetStart.ToString());
-    }
-
     private void OnSceneGUI()
     {
         _bounds = _road.GetComponent<Renderer>().bounds;
@@ -140,16 +134,12 @@ public class RoadAssetEditor : Editor
         _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, _bounds.center.y - _bounds.size.y / 2,
             _bounds.center.z + zOffsetEnd);
 
-        //_road.AssetStart = _assetStartEditor;
-        //_road.AssetEnd = _assetEnd;
-        
         if (isCrossroad)
         {
             _assetLeft = new Vector3(_bounds.center.x + xOffsetLeft,_bounds.center.y - _bounds.size.y / 2,
                 _bounds.center.z + zOffsetLeft);
             Handles.color = new Color(1, 0.6f, 0);
             Handles.DrawSolidDisc(_assetLeft, Vector3.up, 0.2f);
-            //_road.AssetLeft = _assetLeft;
         }
 
         Handles.color = Color.green;
