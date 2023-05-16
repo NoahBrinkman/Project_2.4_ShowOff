@@ -10,6 +10,7 @@ using Random = UnityEngine.Random;
 public class RoadGenerator : MonoBehaviour
 {
     [SerializeField] private List<RoadPoints> roadPieces;
+    [SerializeField] private GameObject startRoad;
     [SerializeField] private int piecesGeneratedAtOnce;
     [SerializeField] private bool generateNewPiece;
 
@@ -21,8 +22,9 @@ public class RoadGenerator : MonoBehaviour
 
     private void Start()
     {
-        _startPosition = transform.position;
-        _activePiece = Instantiate(roadPieces[0].gameObject, _startPosition, roadPieces[0].gameObject.transform.rotation);
+        //_startPosition = transform.position;
+        //_activePiece = Instantiate(roadPieces[0].gameObject, _startPosition, roadPieces[0].gameObject.transform.rotation);
+        _activePiece = startRoad;
         _activePieces.Add(_activePiece);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
 
@@ -85,6 +87,7 @@ public class RoadGenerator : MonoBehaviour
                 _activePiece = Instantiate(roadPieces[randomRoad].gameObject, _startPosition , rotationT);
                 _activePiece.name = $"road{i}";
                 _activePieces.Add(_activePiece);
+                _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
             }
             
             _activePieces.Add(_activePiece);
