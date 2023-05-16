@@ -11,6 +11,7 @@ public class RoadGenerator : MonoBehaviour
 {
     [SerializeField] private List<RoadPoints> roadPieces;
     [SerializeField] private GameObject startRoad;
+    [SerializeField] private PlayerTest player;
     [SerializeField] private int piecesGeneratedAtOnce;
     [SerializeField] private bool generateNewPiece;
 
@@ -34,6 +35,9 @@ public class RoadGenerator : MonoBehaviour
             GenerateStartRoads();
             generateNewPiece = false;
         }
+
+        
+            RemoveRoad();
         
     }
 
@@ -89,8 +93,17 @@ public class RoadGenerator : MonoBehaviour
             
             _activePieces.Add(_activePiece);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
+        }
+    }
 
+    private void RemoveRoad()
+    {
+        if (player.currentRoad == _activePieces[1])
+        {
+            Destroy(_activePieces[0]);
+            _activePieces.RemoveAt(0);
             
         }
+        
     }
 }
