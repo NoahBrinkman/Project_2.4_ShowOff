@@ -173,8 +173,8 @@ namespace LevelGeneration
                 _bounds.center.z + zOffsetStart);
             _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, _bounds.center.y - _bounds.size.y / 2,
                 _bounds.center.z + zOffsetEnd);
-            
-            Debug.Log(_assetEnd);
+            Debug.Log("START" + _assetStart);
+            Debug.Log("END" + _assetEnd);
 
             if (isCrossroad)
             {
