@@ -22,12 +22,9 @@ public class RoadGenerator : MonoBehaviour
 
     private void Start()
     {
-        //_startPosition = transform.position;
-        //_activePiece = Instantiate(roadPieces[0].gameObject, _startPosition, roadPieces[0].gameObject.transform.rotation);
         _activePiece = startRoad;
         _activePieces.Add(_activePiece);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
-
     }
 
     private void Update()
