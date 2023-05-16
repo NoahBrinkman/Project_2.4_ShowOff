@@ -27,7 +27,7 @@ public class RoadAssetEditor : Editor
         _bounds = _road.GetComponent<Renderer>().bounds;
 
         float roadRotation = _road.transform.localRotation.eulerAngles.y;
-        int direction = _road.Direction;
+        int direction = _road.Type;
         int roadLength = _road.Length;
         int roadWidth = _road.Width;
 

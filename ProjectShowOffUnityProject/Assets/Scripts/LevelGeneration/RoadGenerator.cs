@@ -20,6 +20,7 @@ public class RoadGenerator : MonoBehaviour
     private Vector3 _startPosition;
     private GameObject _activePiece;
     private RoadPoints _activePoints;
+    private int _generation;
 
     private void Start()
     {
@@ -47,12 +48,14 @@ public class RoadGenerator : MonoBehaviour
 
     private void GenerateRoad()
     {
+        _generation++;
+        Debug.Log("Road generation:" + _generation);
         int randomRoad = Random.Range(0, 3);
         _startPosition = _activePoints.AssetEnd;
         float yDirection = 0;
         float yDirectionT = 0;
         bool isTPiece = false;
-        switch (_activePoints.Direction)
+        switch (_activePoints.Type)
         {
             case 2:
                 //left
@@ -62,12 +65,12 @@ public class RoadGenerator : MonoBehaviour
                 //right
                 yDirection = -90 + _activePiece.transform.eulerAngles.y;
                 break;
-            case 4:
-                //tpose
-                isTPiece = true;
-                yDirection = 90 + _activePiece.transform.eulerAngles.y;
-                yDirectionT = -90 + _activePiece.transform.eulerAngles.y;
-                break;
+            // case 4:
+            //     //tpose
+            //     isTPiece = true;
+            //     yDirection = 90 + _activePiece.transform.eulerAngles.y;
+            //     yDirectionT = -90 + _activePiece.transform.eulerAngles.y;
+            //     break;
             default: //straight 🤢
                 yDirection = 0 + _activePiece.transform.eulerAngles.y;
                 break;
@@ -77,6 +80,7 @@ public class RoadGenerator : MonoBehaviour
         _activePiece = Instantiate(roadPieces[randomRoad].gameObject, _startPosition, rotation);
         _activePieces.Add(_activePiece);
         _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
+        
             
         // if (isTPiece)
         // {

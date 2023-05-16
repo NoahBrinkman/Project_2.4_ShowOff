@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace LevelGeneration
 {
@@ -8,11 +9,11 @@ namespace LevelGeneration
         [SerializeField] private GameObject startPoint;
         [SerializeField] private GameObject endPoint;
         [SerializeField] private GameObject leftPoint;
-        [SerializeField] private int direction;
+        [SerializeField] private int type;
         [SerializeField] private int width;
         [SerializeField] private int length;
 
-        public int Direction => direction;
+        public int Type => type;
         public int Width => width;
         public int Length => length;
 
@@ -47,108 +48,105 @@ namespace LevelGeneration
 
         private void OnEnable()
         {
-            float roadRotation = transform.localRotation.eulerAngles.y;
+            int roadRotation = ((int)transform.localRotation.eulerAngles.y + 360 ) % 360;
+            Debug.Log($"Road rotation: {roadRotation}");
 
-            if (direction == 1)
-        {
-            if (roadRotation == 0)
+            if (type == 1)
             {
-                SpawnPoints(-_bounds.size.x/2, 0,
-                    _bounds.size.x/2, 0);
+                if (roadRotation == 0)
+                {
+                    SpawnPoints(-_bounds.size.x / 2, 0,
+                        _bounds.size.x / 2, 0);
+                }
+                else if (roadRotation == 90)
+                {
+                    SpawnPoints(0, _bounds.size.z / 2,
+                        0, -_bounds.size.z / 2);
+                }
+                else if (roadRotation == 180)
+                {
+                    SpawnPoints(_bounds.size.x / 2, 0,
+                        -_bounds.size.x / 2, 0);
+                }
+                else if (roadRotation == 270)
+                {
+                    SpawnPoints(0, -_bounds.size.z / 2,
+                        0, _bounds.size.z / 2);
+                }
             }
-            else if (roadRotation == 90)
+            else if (type == 2)
             {
-                SpawnPoints(0,-_bounds.size.z/2,
-                    0,_bounds.size.z/2);
+                if (roadRotation == 0)
+                {
+                    SpawnPoints(-_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2 * length),
+                        _bounds.size.x / 2 - _bounds.size.x / (2 * width), -_bounds.size.z / 2);
+                }
+                else if (roadRotation == 90)
+                {
+                    SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / (2 * width), _bounds.size.z / 2,
+                        -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2 * length));
+                }
+                else if (roadRotation == 180)
+                {
+                    SpawnPoints(_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2 * length),
+                        -_bounds.size.x / 2 + _bounds.size.x / (2 * width), _bounds.size.z / 2);
+                }
+                else if (roadRotation == 270)
+                {
+                    SpawnPoints(-_bounds.size.x / 2 + _bounds.size.x / (2 * width), -_bounds.size.z / 2,
+                        _bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2 * length));
+                }
             }
-            else if (roadRotation == 180)
+            else if (type == 3)
             {
-                SpawnPoints(_bounds.size.x/2, 0,
-                    -_bounds.size.x/2, 0);
+                if (roadRotation == 0)
+                {
+                    SpawnPoints(-_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2 * length),
+                        _bounds.size.x / 2 - _bounds.size.x / (2 * width), _bounds.size.z / 2);
+                }
+                else if (roadRotation == 90)
+                {
+                    SpawnPoints(-_bounds.size.x / 2 + _bounds.size.x / (2 * width), _bounds.size.z / 2,
+                        _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2 * length));
+                }
+                else if (roadRotation == 180)
+                {
+                    SpawnPoints(_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2 * length),
+                        -_bounds.size.x / 2 + _bounds.size.x / (2 * width), -_bounds.size.z / 2);
+                }
+                else if (roadRotation == 270)
+                {
+                    SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / (2 * width), -_bounds.size.z / 2,
+                        -_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2 * length));
+                }
             }
-            else if (roadRotation == 270)
+            else if (type == 4)
             {
-                SpawnPoints(0,_bounds.size.z/2,
-                    0,-_bounds.size.z/2);
+                if (roadRotation == 0)
+                {
+                    SpawnPoints(-_bounds.size.x / 2, 0,
+                        _bounds.size.x / 2 - _bounds.size.x / (2 * width), -_bounds.size.z / 2,
+                        true, _bounds.size.x / 2 - _bounds.size.x / (2 * width), _bounds.size.z / 2);
+                }
+                else if (roadRotation == 90)
+                {
+                    SpawnPoints(0, _bounds.size.z / 2,
+                        -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2 * length),
+                        true, _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2 * length));
+                }
+                else if (roadRotation == 180)
+                {
+                    SpawnPoints(_bounds.size.x / 2, 0,
+                        -_bounds.size.x / 2 + _bounds.size.x / (2 * width), _bounds.size.z / 2,
+                        true, -_bounds.size.x / 2 + _bounds.size.x / (2 * width), -_bounds.size.z / 2);
+                }
+                else if (roadRotation == 270)
+                {
+                    SpawnPoints(0, -_bounds.size.z / 2,
+                        _bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2 * length),
+                        true, -_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2 * length));
+                }
             }
-        }
-        else if (direction == 2)
-        {
-            if (roadRotation == 0)
-            {
-                SpawnPoints(-_bounds.size.x/2,_bounds.size.z/2 - _bounds.size.z/ (2 * length),
-                    _bounds.size.x/2 - _bounds.size.x/ (2*width),-_bounds.size.z/2);
-            }
-            else if (roadRotation == 90)
-            {
-                SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / (2 * width),_bounds.size.z / 2,
-                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*length));
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x/2,-_bounds.size.z/2 + _bounds.size.z / (2 * length),
-                    -_bounds.size.x/2 + _bounds.size.x/ (2 * width),_bounds.size.z/2);
-            }
-            else if (roadRotation == 270)
-            {
-                SpawnPoints(-_bounds.size.x / 2+ _bounds.size.x/ (2 * width), -_bounds.size.z / 2,
-                    _bounds.size.x / 2,_bounds.size.z / 2 - _bounds.size.z / (2*length));
-                
-            }
-        }
-        else if (direction == 3)
-        {
-            if (roadRotation == 0)
-            {
-                SpawnPoints(-_bounds.size.x / 2, -_bounds.size.z/2 + _bounds.size.z / (2 * length),
-                    _bounds.size.x / 2- _bounds.size.x / (2*width), _bounds.size.z / 2);
-            }
-            else if (roadRotation == 90)
-            {
-                SpawnPoints(-_bounds.size.x/2 + _bounds.size.x/(2*width), _bounds.size.z / 2,
-                    _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*length));
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x / 2, _bounds.size.z/2 - _bounds.size.z / (2 * length),
-                    -_bounds.size.x / 2 +_bounds.size.x / (2*width), -_bounds.size.z / 2);
-            }
-            else if (roadRotation == 270)
-            {
-                SpawnPoints(_bounds.size.x / 2-_bounds.size.x/(2*width), -_bounds.size.z / 2,
-                    -_bounds.size.x / 2 , _bounds.size.z / 2 - _bounds.size.z / (2*length));
-            }
-        }
-        else if (direction == 4)
-        {
-            if (roadRotation == 0)
-            {
-                SpawnPoints(-_bounds.size.x / 2, 0,
-                    _bounds.size.x / 2 - _bounds.size.x / (2*width), -_bounds.size.z / 2,
-                    true, _bounds.size.x / 2 - _bounds.size.x / (2*width),_bounds.size.z / 2);
-                
-            }
-            else if (roadRotation == 90)
-            {
-                SpawnPoints(0,_bounds.size.z / 2,
-                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*length),
-                    true, _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*length));
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x / 2,0,
-                    -_bounds.size.x / 2 + _bounds.size.x / (2*width),_bounds.size.z / 2,
-                    true, -_bounds.size.x / 2 + _bounds.size.x / (2*width),-_bounds.size.z / 2);
-                
-            }
-            else if (roadRotation == 270)
-            {
-                SpawnPoints(0, -_bounds.size.z/2,
-                    _bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2*length),
-                    true, -_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2*length));
-                
-            }
-        }
 
             GameObject point1 = Instantiate(startPoint, _assetStart, transform.rotation);
             point1.name = "StartPoint";
@@ -158,7 +156,7 @@ namespace LevelGeneration
             point2.name = "EndPoint";
             point2.transform.parent = transform;
 
-            if (direction == 4)
+            if (type == 4)
             {
                 GameObject point3 = Instantiate(leftPoint, _assetLeft, transform.rotation);
                 point3.name = "LeftPoint";

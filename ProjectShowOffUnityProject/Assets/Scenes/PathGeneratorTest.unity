@@ -195,7 +195,12 @@ PrefabInstance:
     - target: {fileID: 8879941698672051362, guid: c6c214e69b64b4c40baaab2d457a2b07,
         type: 3}
       propertyPath: m_Name
-      value: roadStraight 1 Variant
+      value: startRoad
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985191832336451392, guid: c6c214e69b64b4c40baaab2d457a2b07,
+        type: 3}
+      propertyPath: type
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -455,6 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  currentRoad: {fileID: 0}
 --- !u!65 &1276042043
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -621,12 +627,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadPieces:
-  - {fileID: 8053866049416574992, guid: f967ff5660ebe42a282e25dc80cb789c, type: 3}
-  - {fileID: 1022556771895320842, guid: 45272009642b84818964e566866956fa, type: 3}
-  - {fileID: 54317092968964847, guid: d6e02477e170a418ebbaa582ff07e5fa, type: 3}
   - {fileID: 8985191832336451392, guid: c6c214e69b64b4c40baaab2d457a2b07, type: 3}
+  - {fileID: 54317092968964847, guid: d6e02477e170a418ebbaa582ff07e5fa, type: 3}
+  - {fileID: 8053866049416574992, guid: f967ff5660ebe42a282e25dc80cb789c, type: 3}
   startRoad: {fileID: 678222688}
-  piecesGeneratedAtOnce: 4
+  player: {fileID: 1276042042}
+  piecesGeneratedAtOnce: 3
   generateNewPiece: 1
 --- !u!4 &1365178345
 Transform:

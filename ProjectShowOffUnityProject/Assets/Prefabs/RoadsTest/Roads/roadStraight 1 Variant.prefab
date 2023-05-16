@@ -110,7 +110,7 @@ MonoBehaviour:
     type: 3}
   leftPoint: {fileID: 2250389955141814807, guid: 569f2a2a6e9724e9c85b47e223d2b7d2,
     type: 3}
-  direction: 1
+  type: 1
   width: 1
   length: 8
   _assetStart: {x: 0, y: 0, z: 0}
