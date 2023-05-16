@@ -65,32 +65,41 @@ public class RoadGenerator : MonoBehaviour
                 //right
                 yDirection = -90 + _activePiece.transform.eulerAngles.y;
                 break;
-            // case 4:
-            //     //tpose
-            //     isTPiece = true;
-            //     yDirection = 90 + _activePiece.transform.eulerAngles.y;
-            //     yDirectionT = -90 + _activePiece.transform.eulerAngles.y;
-            //     break;
+            case 4:
+                //tpose
+                isTPiece = true;
+                break;
             default: //straight 🤢
                 yDirection = 0 + _activePiece.transform.eulerAngles.y;
                 break;
         }
 
-        Quaternion rotation = Quaternion.Euler(-90, 0, yDirection);
-        _activePiece = Instantiate(roadPieces[randomRoad].gameObject, _startPosition, rotation);
-        _activePieces.Add(_activePiece);
-        _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
-        
+        if (isTPiece)
+        {
+            yDirection = 90 + _activePiece.transform.eulerAngles.y;
+            yDirectionT = -90 + _activePiece.transform.eulerAngles.y;
+            Quaternion rotation = Quaternion.Euler(-90, 0, yDirection);
+            Quaternion rotationT = Quaternion.Euler(-90, 0, yDirectionT);
+            Vector3 rightPosition = _activePoints.AssetEnd;
+            Vector3 leftPosition = _activePoints.AssetLeft;
             
-        // if (isTPiece)
-        // {
-        //     _startPosition = _activePoints.AssetLeft;
-        //     Quaternion rotationT = Quaternion.Euler(-90, 0, yDirectionT);
-        //     _activePiece = Instantiate(roadPieces[randomRoad].gameObject, _startPosition, rotationT);
-        //     _activePiece.name = $"road{i}";
-        //     _activePieces.Add(_activePiece);
-        //     _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
-        // }
+            GameObject leftSpawn = Instantiate(roadPieces[0].gameObject, leftPosition, rotationT);
+            _activePieces.Add(leftSpawn);
+            GameObject rightSpawn = Instantiate(roadPieces[0].gameObject, rightPosition, rotation);
+            _activePieces.Add(rightSpawn);
+            
+        }
+        else
+        {
+            if (_generation % 6 == 0)
+            {
+                randomRoad = 3;
+            }
+            Quaternion rotation = Quaternion.Euler(-90, 0, yDirection);
+            _activePiece = Instantiate(roadPieces[randomRoad].gameObject, _startPosition, rotation);
+            _activePieces.Add(_activePiece);
+            _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
+        }
     }
 
     private void GenerateStartRoads()

@@ -630,6 +630,7 @@ MonoBehaviour:
   - {fileID: 8985191832336451392, guid: c6c214e69b64b4c40baaab2d457a2b07, type: 3}
   - {fileID: 54317092968964847, guid: d6e02477e170a418ebbaa582ff07e5fa, type: 3}
   - {fileID: 8053866049416574992, guid: f967ff5660ebe42a282e25dc80cb789c, type: 3}
+  - {fileID: 1022556771895320842, guid: 45272009642b84818964e566866956fa, type: 3}
   startRoad: {fileID: 678222688}
   player: {fileID: 1276042042}
   piecesGeneratedAtOnce: 3
