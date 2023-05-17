@@ -3,12 +3,9 @@ using UnityEngine.Serialization;
 
 namespace LevelGeneration
 {
-    [RequireComponent(typeof(Renderer))]
+    [RequireComponent(typeof(Renderer), typeof(BoxCollider))]
     public class RoadPoints : MonoBehaviour
     {
-        [SerializeField] private GameObject startPoint;
-        [SerializeField] private GameObject endPoint;
-        [SerializeField] private GameObject leftPoint;
         [SerializeField] private int type;
         [SerializeField] private int width;
         [SerializeField] private int length;
@@ -147,36 +144,21 @@ namespace LevelGeneration
                         true, -_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2 * length));
                 }
             }
-
-            GameObject point1 = Instantiate(startPoint, _assetStart, transform.rotation);
-            point1.name = "StartPoint";
-            point1.transform.parent = transform;
-
-            GameObject point2 = Instantiate(endPoint, _assetEnd, transform.rotation);
-            point2.name = "EndPoint";
-            point2.transform.parent = transform;
-
-            if (type == 4)
-            {
-                GameObject point3 = Instantiate(leftPoint, _assetLeft, transform.rotation);
-                point3.name = "LeftPoint";
-                point3.transform.parent = transform;
-            }
         }
 
         private void SpawnPoints(float xOffsetStart, float zOffsetStart, float xOffsetEnd, float zOffsetEnd,
             bool isCrossroad = false, float xOffsetLeft = 0, float zOffsetLeft = 0)
         {
-            _assetStart = new Vector3(_bounds.center.x + xOffsetStart, _bounds.center.y - _bounds.size.y / 2,
-                _bounds.center.z + zOffsetStart);
-            _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, _bounds.center.y - _bounds.size.y / 2,
+            _assetStart = new Vector3(_bounds.center.x + xOffsetStart, transform.position.y,
+                _bounds.center.z + zOffsetStart); 
+            _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, transform.position.y,
                 _bounds.center.z + zOffsetEnd);
             Debug.Log("START" + _assetStart);
             Debug.Log("END" + _assetEnd);
 
             if (isCrossroad)
             {
-                _assetLeft = new Vector3(_bounds.center.x + xOffsetLeft, _bounds.center.y - _bounds.size.y / 2,
+                _assetLeft = new Vector3(_bounds.center.x + xOffsetLeft,  transform.position.y,
                     _bounds.center.z + zOffsetLeft);
             }
         }

@@ -31,7 +31,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 36433180e1cdc410f8b7edf109d4fcb3,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36433180e1cdc410f8b7edf109d4fcb3,
         type: 3}
@@ -46,12 +46,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 36433180e1cdc410f8b7edf109d4fcb3,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36433180e1cdc410f8b7edf109d4fcb3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36433180e1cdc410f8b7edf109d4fcb3,
         type: 3}
@@ -101,7 +101,7 @@ MonoBehaviour:
     type: 3}
   leftPoint: {fileID: 2250389955141814807, guid: 569f2a2a6e9724e9c85b47e223d2b7d2,
     type: 3}
-  direction: 4
+  type: 4
   width: 8
   length: 8
   _assetStart: {x: 0, y: 0, z: 0}

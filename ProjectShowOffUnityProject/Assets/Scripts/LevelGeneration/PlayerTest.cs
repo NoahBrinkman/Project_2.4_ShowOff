@@ -27,7 +27,6 @@ public class PlayerTest : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Road") || collision.gameObject.CompareTag("RoadT"))
         {
-            Debug.Log($"Player entered {collision.gameObject.name}");
             currentRoad = collision.gameObject;
         }
     }
@@ -36,7 +35,7 @@ public class PlayerTest : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Road") || collision.gameObject.CompareTag("RoadT"))
         {
-            Debug.Log($"Player left {collision.gameObject.name}");
+            
         }
     }
 }
