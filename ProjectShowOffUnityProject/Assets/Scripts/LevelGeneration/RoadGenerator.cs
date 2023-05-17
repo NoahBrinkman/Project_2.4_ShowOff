@@ -64,17 +64,17 @@ public class RoadGenerator : MonoBehaviour
         float yDirection = 0;
         float yDirectionT = 0;
         bool isTPiece = false;
-        switch (_activePoints.Type)
+        switch (_activePoints.TypeOfRoad)
         {
-            case 2:
+            case RoadPoints.RoadType.Right:
                 //left
                 yDirection = 90 + _activePiece.transform.eulerAngles.y;
                 break;
-            case 3:
+            case RoadPoints.RoadType.Left:
                 //right
                 yDirection = -90 + _activePiece.transform.eulerAngles.y;
                 break;
-            case 4:
+            case RoadPoints.RoadType.Crossroad:
                 //tpose
                 isTPiece = true;
                 break;

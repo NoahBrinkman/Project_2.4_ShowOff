@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e206d21b829b44b65acca60782cef965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roadType: 1
   type: 1
   width: 1
   length: 8

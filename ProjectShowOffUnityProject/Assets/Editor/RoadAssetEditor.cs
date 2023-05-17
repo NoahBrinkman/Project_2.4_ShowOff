@@ -27,11 +27,11 @@ public class RoadAssetEditor : Editor
         _bounds = _road.GetComponent<Renderer>().bounds;
 
         float roadRotation = _road.transform.localRotation.eulerAngles.y;
-        int direction = _road.Type;
+        //int direction = _road.Type;
         int roadLength = _road.Length;
         int roadWidth = _road.Width;
 
-        if (direction == 1)
+        if (_road.TypeOfRoad == RoadPoints.RoadType.Straight)
         {
             if (roadRotation == 0)
             {
@@ -54,7 +54,7 @@ public class RoadAssetEditor : Editor
                     0,-_bounds.size.z/2);
             }
         }
-        else if (direction == 2)
+        else if (_road.TypeOfRoad == RoadPoints.RoadType.Right)
         {
             if (roadRotation == 0)
             {
@@ -78,7 +78,7 @@ public class RoadAssetEditor : Editor
                 
             }
         }
-        else if (direction == 3)
+        else if (_road.TypeOfRoad == RoadPoints.RoadType.Left)
         {
             if (roadRotation == 0)
             {
@@ -101,7 +101,7 @@ public class RoadAssetEditor : Editor
                     -_bounds.size.x / 2 , _bounds.size.z / 2 - _bounds.size.z / (2*roadLength));
             }
         }
-        else if (direction == 4)
+        else if (_road.TypeOfRoad == RoadPoints.RoadType.Crossroad)
         {
             if (roadRotation == 0)
             {
