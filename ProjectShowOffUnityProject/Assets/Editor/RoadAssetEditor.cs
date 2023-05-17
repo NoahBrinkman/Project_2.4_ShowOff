@@ -22,115 +22,87 @@ public class RoadAssetEditor : Editor
         _road = (RoadPoints)target;
     }
 
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        EditorGUILayout.HelpBox("Green point - start\n" +
+                                "Red point - end\n" +
+                                "Orange point - left\n" +
+                                "To check if the points are generated correctly, click on the path in the editor", MessageType.Info);
+    }
+
     private void OnSceneGUI()
     {
         _bounds = _road.GetComponent<Renderer>().bounds;
 
-        float roadRotation = _road.transform.localRotation.eulerAngles.y;
-        //int direction = _road.Type;
-        int roadLength = _road.Length;
-        int roadWidth = _road.Width;
+        int roadRotation = ((int)_road.transform.localRotation.eulerAngles.y + 360) % 360;
 
-        if (_road.TypeOfRoad == RoadPoints.RoadType.Straight)
-        {
-            if (roadRotation == 0)
+            float simpleX = _bounds.size.x / 2;
+            float simpleZ = _bounds.size.z / 2;
+            float lengthZ = _bounds.size.z / (2 * _road.Length);
+            float widthX = _bounds.size.x / (2 * _road.Width);
+            float xMinusWidthX = simpleX - widthX;
+            float xPlusWidthX = -simpleX + widthX;
+            float zMinusLengthZ = simpleZ - lengthZ;
+            float zPlusLengthZ = -simpleZ + lengthZ;
+            switch (_road.TypeOfRoad)
             {
-                SpawnPoints(-_bounds.size.x/2, 0,
-                    _bounds.size.x/2, 0);
+                case RoadPoints.RoadType.Straight when roadRotation == 0:
+                    SpawnPoints(-simpleX, 0, simpleX, 0);
+                    break;
+                case RoadPoints.RoadType.Straight when roadRotation == 90:
+                    SpawnPoints(0, simpleZ, 0, -simpleZ);
+                    break;
+                case RoadPoints.RoadType.Straight when roadRotation == 180:
+                    SpawnPoints(simpleX, 0, -simpleX, 0);
+                    break;
+                case RoadPoints.RoadType.Straight when roadRotation == 270:
+                    SpawnPoints(0, -simpleZ, 0, simpleZ);
+                    break;
+                //RIGHT-------------------------------------------------------------------------------------------------
+                case RoadPoints.RoadType.Right when roadRotation == 0:
+                    SpawnPoints(-simpleX, zMinusLengthZ, xMinusWidthX, -simpleZ);
+                    break;
+                case RoadPoints.RoadType.Right when roadRotation == 90:
+                    SpawnPoints(xMinusWidthX, simpleZ, -simpleX, zPlusLengthZ);
+                    break;
+                case RoadPoints.RoadType.Right when roadRotation == 180:
+                    SpawnPoints(simpleX, zPlusLengthZ, xPlusWidthX, simpleZ);
+                    break;
+                case RoadPoints.RoadType.Right when roadRotation == 270:
+                    SpawnPoints(xPlusWidthX, -simpleZ, simpleX, zMinusLengthZ);
+                    break;
+                //LEFT--------------------------------------------------------------------------------------------------
+                case RoadPoints.RoadType.Left when roadRotation == 0:
+                    SpawnPoints(simpleX, zPlusLengthZ, xMinusWidthX, simpleZ);
+                    break;
+                case RoadPoints.RoadType.Left when roadRotation == 90:
+                    SpawnPoints(xPlusWidthX, simpleZ, simpleX, zPlusLengthZ);
+                    break;
+                case RoadPoints.RoadType.Left when roadRotation == 180:
+                    SpawnPoints(simpleX, zMinusLengthZ, xPlusWidthX, -simpleZ);
+                    break;
+                case RoadPoints.RoadType.Left when roadRotation == 270:
+                    SpawnPoints(xMinusWidthX, -simpleZ, -simpleX, zMinusLengthZ);
+                    break;
+                //CROSSROAD---------------------------------------------------------------------------------------------
+                case RoadPoints.RoadType.Crossroad when roadRotation == 0:
+                    SpawnPoints(-simpleX, 0, xMinusWidthX, -simpleZ,
+                        true, xMinusWidthX, simpleZ);
+                    break;
+                case RoadPoints.RoadType.Crossroad when roadRotation == 90:
+                    SpawnPoints(0, simpleZ, -simpleX, zPlusLengthZ,
+                        true, simpleX, zPlusLengthZ);
+                    break;
+                case RoadPoints.RoadType.Crossroad when roadRotation == 180:
+                    SpawnPoints(simpleX, 0, xPlusWidthX, simpleZ,
+                        true, xPlusWidthX, -simpleZ);
+                    break;
+                case RoadPoints.RoadType.Crossroad when roadRotation == 270:
+                    SpawnPoints(0, -simpleZ, simpleX, zMinusLengthZ,
+                        true, -simpleX, zMinusLengthZ);
+                    break;
             }
-            else if (roadRotation == 90)
-            {
-                SpawnPoints(0,-_bounds.size.z/2,
-                    0,_bounds.size.z/2);
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x/2, 0,
-                    -_bounds.size.x/2, 0);
-            }
-            else if (roadRotation == 270)
-            {
-                SpawnPoints(0,_bounds.size.z/2,
-                    0,-_bounds.size.z/2);
-            }
-        }
-        else if (_road.TypeOfRoad == RoadPoints.RoadType.Right)
-        {
-            if (roadRotation == 0)
-            {
-                SpawnPoints(-_bounds.size.x/2,_bounds.size.z/2 - _bounds.size.z/ (2 * roadLength),
-                    _bounds.size.x/2 - _bounds.size.x/ (2*roadWidth),-_bounds.size.z/2);
-            }
-            else if (roadRotation == 90)
-            {
-                SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / (2 * roadWidth),_bounds.size.z / 2,
-                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*roadLength));
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x/2,-_bounds.size.z/2 + _bounds.size.z / (2 * roadLength),
-                    -_bounds.size.x/2 + _bounds.size.x/ (2 * roadWidth),_bounds.size.z/2);
-            }
-            else if (roadRotation == 270)
-            {
-                SpawnPoints(-_bounds.size.x / 2+ _bounds.size.x/ (2 * roadWidth), -_bounds.size.z / 2,
-                    _bounds.size.x / 2,_bounds.size.z / 2 - _bounds.size.z / (2*roadLength));
-                
-            }
-        }
-        else if (_road.TypeOfRoad == RoadPoints.RoadType.Left)
-        {
-            if (roadRotation == 0)
-            {
-                SpawnPoints(-_bounds.size.x / 2, -_bounds.size.z/2 + _bounds.size.z / (2 * roadLength),
-                    _bounds.size.x / 2- _bounds.size.x / (2*roadWidth), _bounds.size.z / 2);
-            }
-            else if (roadRotation == 90)
-            {
-                SpawnPoints(-_bounds.size.x/2 + _bounds.size.x/(2*roadWidth), _bounds.size.z / 2,
-                    _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*roadLength));
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x / 2, _bounds.size.z/2 - _bounds.size.z / (2 * roadLength),
-                    -_bounds.size.x / 2 +_bounds.size.x / (2*roadWidth), -_bounds.size.z / 2);
-            }
-            else if (roadRotation == 270)
-            {
-                SpawnPoints(_bounds.size.x / 2-_bounds.size.x/(2*roadWidth), -_bounds.size.z / 2,
-                    -_bounds.size.x / 2 , _bounds.size.z / 2 - _bounds.size.z / (2*roadLength));
-            }
-        }
-        else if (_road.TypeOfRoad == RoadPoints.RoadType.Crossroad)
-        {
-            if (roadRotation == 0)
-            {
-                SpawnPoints(-_bounds.size.x / 2, 0,
-                    _bounds.size.x / 2 - _bounds.size.x / (2*roadWidth), -_bounds.size.z / 2,
-                    true, _bounds.size.x / 2 - _bounds.size.x / (2*roadWidth),_bounds.size.z / 2);
-                
-            }
-            else if (roadRotation == 90)
-            {
-                SpawnPoints(0,_bounds.size.z / 2,
-                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*roadLength),
-                    true, _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*roadLength));
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x / 2,0,
-                    -_bounds.size.x / 2 + _bounds.size.x / (2*roadWidth),_bounds.size.z / 2,
-                    true, -_bounds.size.x / 2 + _bounds.size.x / (2*roadWidth),-_bounds.size.z / 2);
-                
-            }
-            else if (roadRotation == 270)
-            {
-                SpawnPoints(0, -_bounds.size.z/2,
-                    _bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2*roadLength),
-                    true, -_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2*roadLength));
-                
-            }
-        }
     }
 
     private void SpawnPoints(float xOffsetStart, float zOffsetStart, float xOffsetEnd, float zOffsetEnd,

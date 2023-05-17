@@ -14,7 +14,6 @@ public class RoadGenerator : MonoBehaviour
     [SerializeField] private PlayerTest player;
     [SerializeField] private int piecesGeneratedAtOnce;
     [SerializeField] private int howManyTVariants;
-    [SerializeField] private bool generateNewPiece;
 
     private List<GameObject> _activePieces = new List<GameObject>();
 
@@ -27,6 +26,7 @@ public class RoadGenerator : MonoBehaviour
     private RoadPoints _activePoints;
     private int _generation;
     private bool _crossRoadGenerated;
+    private bool _generateNewPiece;
 
     private void Start()
     {
@@ -37,10 +37,10 @@ public class RoadGenerator : MonoBehaviour
 
     private void Update()
     {
-        if (generateNewPiece)
+        if (_generateNewPiece)
         {
             GenerateStartRoads();
-            generateNewPiece = false;
+            _generateNewPiece = false;
         }
 
         if (_activePieces.Count <= piecesGeneratedAtOnce && !_crossRoadGenerated)
