@@ -124,7 +124,7 @@ public class PlayerMovement : StateDependantObject
     private void Move()
     {
         float hor = Input.GetAxis(_horizontalAxis);
-        _rb.velocity = new Vector3(hor, 0, 0) * _speed;
+        _rb.velocity = transform.right * hor  * _speed;
         Vector3 newPos = transform.position;
         newPos.x = Mathf.Clamp(transform.position.x, startX + minX, startX + maxX);
         transform.position = newPos;
