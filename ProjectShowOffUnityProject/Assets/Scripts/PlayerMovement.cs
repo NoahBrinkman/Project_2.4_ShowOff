@@ -145,10 +145,10 @@ public class PlayerMovement : StateDependantObject
         
         
         
-        Vector3 minPos = transform.position;
-        minPos.x += minX;
-        Vector3 maxPos = transform.position;
-        maxPos.x += maxX;
+        Vector3 minPos = transform.position - (transform.right * minX);
+        
+        Vector3 maxPos = transform.position - (transform.right * maxX);
+       
         Gizmos.color = _debugCubeColor;
         Gizmos.DrawCube(minPos, Vector3.one);
         Gizmos.DrawCube(maxPos, Vector3.one);
