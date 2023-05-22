@@ -51,6 +51,14 @@ public class PlayerMovement : StateDependantObject
     [SerializeField] private UnityEvent _onObstacleHit;
     private BoxCollider _collider;
     
+    [Header("Roads")]
+    private GameObject _currentRoad;
+    public GameObject CurrentRoad
+    {
+        get => _currentRoad;
+        set => _currentRoad = value;
+    }
+
     [Header("Debug")] 
     [SerializeField] private bool _showVisualAid = true;
     [SerializeField, Tooltip("In case the player has no model. Use this")] private Transform _debugCube;
@@ -137,6 +145,18 @@ public class PlayerMovement : StateDependantObject
             _onObstacleHit?.Invoke();
             Debug.Log($"{gameObject.name} hit an obstacle");
         }
+        if (collision.gameObject.CompareTag("Road") || collision.gameObject.CompareTag("RoadT"))
+        {
+            _currentRoad = collision.gameObject;
+        }
+    }
+    
+    private void OnCollisionExit(Collision collision)
+    {
+        // if (collision.gameObject.CompareTag("Road") || collision.gameObject.CompareTag("RoadT"))
+        // {
+        //     
+        // }
     }
 
     private void OnDrawGizmosSelected()

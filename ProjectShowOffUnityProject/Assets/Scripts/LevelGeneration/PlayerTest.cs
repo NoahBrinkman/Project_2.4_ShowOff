@@ -7,7 +7,7 @@ public class PlayerTest : MonoBehaviour
 {
     private Rigidbody rb;
     public float moveSpeed = 5f;
-    public GameObject currentRoad;
+    
 
     void Start()
     {
@@ -25,10 +25,7 @@ public class PlayerTest : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Road") || collision.gameObject.CompareTag("RoadT"))
-        {
-            currentRoad = collision.gameObject;
-        }
+        
     }
 
     private void OnCollisionExit(Collision collision)
