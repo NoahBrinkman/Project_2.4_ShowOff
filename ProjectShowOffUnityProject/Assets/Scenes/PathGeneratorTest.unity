@@ -630,7 +630,6 @@ MonoBehaviour:
   player: {fileID: 1276042042}
   piecesGeneratedAtOnce: 3
   howManyTVariants: 1
-  generateNewPiece: 1
 --- !u!4 &1365178345
 Transform:
   m_ObjectHideFlags: 0

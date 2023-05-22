@@ -104,12 +104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e206d21b829b44b65acca60782cef965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  roadType: 3
   width: 8
   length: 8
-  roadType: 3
-  _assetStart: {x: 0, y: 0, z: 0}
-  _assetEnd: {x: 0, y: 0, z: 0}
 --- !u!65 &192097862238936332
 BoxCollider:
   m_ObjectHideFlags: 0
