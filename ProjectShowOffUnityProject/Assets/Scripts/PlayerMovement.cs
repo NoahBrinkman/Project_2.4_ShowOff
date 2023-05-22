@@ -79,10 +79,10 @@ public class PlayerMovement : StateDependantObject
         slideTweens = new List<Tween>();
        // startXZ = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
         startY = transform.position.y;
-        
-        _activeRoad = biomes[0];
-        _activeRoad.IsActive = true;
-        Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
+        startXZ = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
+//        _activeRoad = biomes[0];
+        //      _activeRoad.IsActive = true;
+        //     Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
     }
     /// <summary>
     /// Update but it only calls during certain states
@@ -145,19 +145,17 @@ public class PlayerMovement : StateDependantObject
         
     }
     
-    private void Move()
-    {
-        float hor = Input.GetAxis(_horizontalAxis);
-        
-        Vector3 rightMovement = -transform.right * hor * _speed;
-        xMovement += rightMovement.magnitude;
-        
-        Vector3 forwardMovement = transform.forward * _speed;
-        
-        _rb.velocity = Vector3.forward + ( xMovement > minX && xMovement < maxX ? rightMovement : new Vector3());
 
-    }
-    private void OnCollisionEnter(Collision collision)
+     private void Move()
+     {
+         float hor = Input.GetAxis(_horizontalAxis);
+         _rb.velocity = new Vector3(hor, 0, 0) * _speed;
+         Vector3 newPos = transform.position;
+         newPos.x = Mathf.Clamp(transform.localPosition.x, startXZ.x + minX, startXZ.x + maxX);
+         newPos.z = Mathf.Clamp(transform.localPosition.z, startXZ.z + minX, startXZ.z + maxX);
+         transform.localPosition = newPos;
+     }
+     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log($"Hit {collision.gameObject.name}");
         if (     _obstacleLayer == (_obstacleLayer | (1 << collision.gameObject.layer)))
@@ -193,13 +191,9 @@ public class PlayerMovement : StateDependantObject
 
     public void Teleport(Vector3 position, Vector3 forwardDirection)
     {
-        transform.position = new Vector3(position.x, transform.position.y, position.z);
-        _lookAtPoint.position = new Vector3(position.x, _lookAtPoint.position.y, position.z);
-        startXZ.x = transform.localPosition.x;
-        startXZ.z = transform.localPosition.z;
-        
-        transform.rotation = Quaternion.LookRotation(forwardDirection);
-        _lookAtPoint.rotation = Quaternion.LookRotation(-forwardDirection);
+        transform.parent.position = new Vector3(position.x, transform.parent.position.y, position.z);
+        transform.parent.rotation = Quaternion.LookRotation(forwardDirection);
+
        
     }
 

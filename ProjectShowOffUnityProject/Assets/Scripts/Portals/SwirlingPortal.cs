@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -18,8 +19,10 @@ public class SwirlingPortal : MonoBehaviour
         {
             if (p != null)
             {
+                DOTween.Kill(p.transform.parent);
                 p.Teleport(_linkedPortal.transform.position + _linkedPortal.TeleportPosition, _linkedPortal.OutwardDirection);
-   
+                p.transform.parent.GetComponent<PathFollower>().MoveForward();
+                
             }
         }
     }
