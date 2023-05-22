@@ -24,6 +24,11 @@ public class PlayerMovement : StateDependantObject
     private string _horizontalAxis = "Horizontal";
     [SerializeField]
     private string _verticalAxis = "Horizontal";
+
+
+    [SerializeField] private Transform _lookAtPoint;
+    public Transform LookAtPoint => _lookAtPoint;
+    [SerializeField] private Transform _virtualCameraTransform;
     
     [Header("Jumping")]
     [SerializeField, Tooltip("This is the trajectory of our player, the vertical axis shows the position where the horizontal axis shows where in the 'animation'.")]
@@ -79,6 +84,17 @@ public class PlayerMovement : StateDependantObject
     protected override void ReNew()
     {
         base.ReNew();
+        Vector3 loopPos = _lookAtPoint.position;
+        loopPos.z = transform.position.z;
+        _lookAtPoint.position = loopPos;
+        if (Input.GetKey(KeyCode.W))
+        {
+            _rb.velocity = transform.forward * _speed;
+        }
+        else
+        {
+            _rb.velocity = new Vector3();
+        }
         float ver = Input.GetAxisRaw(_verticalAxis);
         
         if (ver > 0 && !_jumping)
@@ -124,7 +140,7 @@ public class PlayerMovement : StateDependantObject
         }
         else
         {
-            Move();
+            //Move();
         }
         
     }
@@ -158,6 +174,15 @@ public class PlayerMovement : StateDependantObject
         // {
         //     
         // }
+    }
+
+    public void Teleport(Vector3 position, Vector3 forwardDirection)
+    {
+        transform.position = new Vector3(position.x, transform.position.y, position.z);
+        _lookAtPoint.position = new Vector3(position.x, _lookAtPoint.position.y, position.z);
+        transform.rotation = Quaternion.LookRotation(forwardDirection);
+        _lookAtPoint.rotation = Quaternion.LookRotation(-forwardDirection);
+       
     }
 
     private void OnDrawGizmosSelected()
