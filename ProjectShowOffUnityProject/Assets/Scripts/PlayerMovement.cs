@@ -24,6 +24,10 @@ public class PlayerMovement : StateDependantObject
     private string _horizontalAxis = "Horizontal";
     [SerializeField]
     private string _verticalAxis = "Horizontal";
+
+
+    [SerializeField] private Transform _lookAtPoint;
+    public Transform LookAtPoint => _lookAtPoint;
     
     [Header("Jumping")]
     [SerializeField, Tooltip("This is the trajectory of our player, the vertical axis shows the position where the horizontal axis shows where in the 'animation'.")]
