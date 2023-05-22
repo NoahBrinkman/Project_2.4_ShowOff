@@ -5,12 +5,15 @@ using LevelGeneration;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 [CustomEditor(typeof(RoadPoints))]
 public class RoadAssetEditor : Editor
 {
     private RoadPoints _road;
     [SerializeField] private Vector3 _assetStartEditor;
+
+    
     private Vector3 _assetEnd;
     private Vector3 _assetLeft;
     private Vector3 _assetRight;
@@ -74,16 +77,20 @@ public class RoadAssetEditor : Editor
                     break;
                 //LEFT--------------------------------------------------------------------------------------------------
                 case RoadPoints.RoadType.Left when roadRotation == 0:
-                    SpawnPoints(-simpleX, zPlusLengthZ, xMinusWidthX, simpleZ);
+                    SpawnPoints(-simpleX, zPlusLengthZ, xMinusWidthX, simpleZ,
+                        true, xMinusWidthX,zPlusLengthZ);
                     break;
                 case RoadPoints.RoadType.Left when roadRotation == 90:
-                    SpawnPoints(xPlusWidthX, simpleZ, simpleX, zPlusLengthZ);
+                    SpawnPoints(xPlusWidthX, simpleZ, simpleX, zPlusLengthZ,
+                        true, xPlusWidthX,zPlusLengthZ);
                     break;
                 case RoadPoints.RoadType.Left when roadRotation == 180:
-                    SpawnPoints(simpleX, zMinusLengthZ, xPlusWidthX, -simpleZ);
+                    SpawnPoints(simpleX, zMinusLengthZ, xPlusWidthX, -simpleZ,
+                        true,xPlusWidthX, zMinusLengthZ);
                     break;
                 case RoadPoints.RoadType.Left when roadRotation == 270:
-                    SpawnPoints(xMinusWidthX, -simpleZ, -simpleX, zMinusLengthZ);
+                    SpawnPoints(xMinusWidthX, -simpleZ, -simpleX, zMinusLengthZ,
+                        true, xMinusWidthX, zMinusLengthZ);
                     break;
                 //CROSSROAD---------------------------------------------------------------------------------------------
                 case RoadPoints.RoadType.Crossroad when roadRotation == 0:
@@ -102,6 +109,13 @@ public class RoadAssetEditor : Editor
                     SpawnPoints(0, -simpleZ, simpleX, zMinusLengthZ,
                         true, -simpleX, zMinusLengthZ);
                     break;
+            }
+        
+            foreach (var curve in _road.CurvePoints)
+            {
+                
+                Handles.DrawSolidDisc(curve, Vector3.up,0.2f);
+                //Handles.PositionHandle(curve, Quaternion.identity);
             }
     }
 

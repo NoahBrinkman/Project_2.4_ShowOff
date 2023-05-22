@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -23,6 +24,10 @@ namespace LevelGeneration
         public int Width => width;
         public int Length => length;
         public RoadType TypeOfRoad => roadType;
+        public int xHelper;
+        public int zHelper;
+
+        public List<Vector3> CurvePoints = new List<Vector3>();
 
         private Vector3 _assetStart;
         private Vector3 _assetEnd;
@@ -45,6 +50,12 @@ namespace LevelGeneration
         private void OnEnable()
         {
             GeneratePoints();
+            
+            for (int i = 0; i <= 10; i++)
+            {
+                float t = i / (float)10;
+                CurvePoints.Add(CalculateBezierPoint(t, _assetStart, _assetLeft,_assetEnd));
+            }
         }
 
         /// <summary>
@@ -119,16 +130,20 @@ namespace LevelGeneration
                     break;
                 //LEFT--------------------------------------------------------------------------------------------------
                 case RoadType.Left when roadRotation == 0:
-                    SpawnPoints(simpleX, zPlusLengthZ, xMinusWidthX, simpleZ);
+                    SpawnPoints(-simpleX, zPlusLengthZ, xMinusWidthX, simpleZ,
+                        true, xMinusWidthX,zPlusLengthZ);
                     break;
                 case RoadType.Left when roadRotation == 90:
-                    SpawnPoints(xPlusWidthX, simpleZ, simpleX, zPlusLengthZ);
+                    SpawnPoints(xPlusWidthX, simpleZ, simpleX, zPlusLengthZ,
+                        true, xPlusWidthX,zPlusLengthZ);
                     break;
                 case RoadType.Left when roadRotation == 180:
-                    SpawnPoints(simpleX, zMinusLengthZ, xPlusWidthX, -simpleZ);
+                    SpawnPoints(simpleX, zMinusLengthZ, xPlusWidthX, -simpleZ,
+                        true,xPlusWidthX, zMinusLengthZ);
                     break;
                 case RoadType.Left when roadRotation == 270:
-                    SpawnPoints(xMinusWidthX, -simpleZ, -simpleX, zMinusLengthZ);
+                    SpawnPoints(xMinusWidthX, -simpleZ, -simpleX, zMinusLengthZ,
+                        true, xMinusWidthX, zMinusLengthZ);
                     break;
                 //CROSSROAD---------------------------------------------------------------------------------------------
                 case RoadType.Crossroad when roadRotation == 0:
@@ -148,6 +163,15 @@ namespace LevelGeneration
                         true, -simpleX, zMinusLengthZ);
                     break;
             }
+        }
+        
+        private Vector3 CalculateBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
+        {
+            float u = 1 - t;
+            float tt = t * t;
+            float uu = u * u;
+            Vector3 point = uu * p0 + 2 * u * t * p1 + tt * p2;
+            return point;
         }
     }
 }
