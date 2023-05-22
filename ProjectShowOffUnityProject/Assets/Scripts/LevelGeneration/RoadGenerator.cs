@@ -11,13 +11,16 @@ public class RoadGenerator : MonoBehaviour
 {
     [SerializeField] private List<RoadPoints> roadPieces;
     [SerializeField] private GameObject startRoad;
-    [SerializeField] private PlayerMovement player;
+    [SerializeField] private PlayerTest player;
     [Tooltip("How many pieces the generator will keep generated at once. I recommend number smaller than 4 to prevent overlapping")]
     [SerializeField] private int piecesGeneratedAtOnce = 3;
     [Tooltip("How many crossroads variants do we have in the generator")]
     [SerializeField] private int howManyTVariants;
     [Tooltip("After how many road pieces the crossroad should be generated")]
     [SerializeField] private int whenToSpawnCross = 6;
+
+    [SerializeField] private int borderSize = 1000;
+    public int BorderSize => borderSize;
 
     private readonly List<GameObject> _activePieces = new List<GameObject>();
 
@@ -27,6 +30,7 @@ public class RoadGenerator : MonoBehaviour
     private GameObject _leftSpawn;
     private RoadPoints _activePoints;
     private int _generation;
+    private bool _closeToEdge;
     private bool _crossRoadGenerated;
     private bool _generateNewPiece;
 
@@ -120,7 +124,7 @@ public class RoadGenerator : MonoBehaviour
         _startPosition = _activePoints.AssetEnd;
         
         int randomRoad = Random.Range(0, roadPieces.Count-1);
-        
+        //int randomRoad = 0;
         bool isACrossroad = false;
         float yDirection = 0;
         float pieceYRotation = _activePiece.transform.eulerAngles.y;
@@ -137,8 +141,20 @@ public class RoadGenerator : MonoBehaviour
                 isACrossroad = true;
                 break;
             case RoadPoints.RoadType.Straight:
-            default:
                 yDirection = 0 + pieceYRotation;
+                int roadRotation = ((int)pieceYRotation + 360) % 360;
+                if ((_activePiece.transform.position.x * 3 >= transform.position.x + borderSize && roadRotation == 0)
+                    || (_activePiece.transform.position.z * 3 >= transform.position.z + borderSize && roadRotation == 270)
+                    || (-_activePiece.transform.position.x * 3 <= transform.position.x - borderSize && roadRotation == 180)
+                    || (-_activePiece.transform.position.z * 3 <= transform.position.z - borderSize && roadRotation == 90))
+                {
+                    Debug.Log("It will be too much");
+                    _closeToEdge = true;
+                    randomRoad = Random.Range(1, roadPieces.Count-1);
+                }
+                break;
+            default:
+                
                 break;
         }
 
@@ -148,12 +164,30 @@ public class RoadGenerator : MonoBehaviour
             GenerateCrossRoad();
 
         }
+        else if (_closeToEdge)
+        {
+            int roadRotation = ((int)pieceYRotation + 360) % 360;
+            Debug.Log(roadRotation);
+            if (roadRotation == 270)
+            {
+                randomRoad = 3;
+            }
+            else
+            {
+                randomRoad = 2;
+            }
+            Quaternion rotation = Quaternion.Euler(-90, 0, yDirection);
+            _activePiece = CreateNewActivePiece(rotation,_startPosition, randomRoad);
+            _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
+            _closeToEdge = false;
+        }
         else
         {
             if (_generation % whenToSpawnCross == 0)
             {
                 randomRoad = Random.Range(roadPieces.Count-howManyTVariants, roadPieces.Count-1);
             }
+
             Quaternion rotation = Quaternion.Euler(-90, 0, yDirection);
             _activePiece = CreateNewActivePiece(rotation,_startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
@@ -191,6 +225,7 @@ public class RoadGenerator : MonoBehaviour
     private GameObject CreateNewActivePiece(Quaternion rotation, Vector3 startPosition, int roadPieceNumber = 0)
     {
         GameObject newPiece = Instantiate(roadPieces[roadPieceNumber].gameObject, startPosition, rotation);
+        newPiece.transform.parent = transform;
         _activePieces.Add(newPiece);
         return newPiece;
     }
