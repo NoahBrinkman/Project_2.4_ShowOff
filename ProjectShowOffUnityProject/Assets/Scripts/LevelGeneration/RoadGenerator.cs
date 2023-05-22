@@ -11,7 +11,7 @@ public class RoadGenerator : MonoBehaviour
 {
     [SerializeField] private List<RoadPoints> roadPieces;
     [SerializeField] private GameObject startRoad;
-    [SerializeField] private PlayerTest player;
+    [SerializeField] private PlayerMovement player;
     [Tooltip("How many pieces the generator will keep generated at once. I recommend number smaller than 4 to prevent overlapping")]
     [SerializeField] private int piecesGeneratedAtOnce = 3;
     [Tooltip("How many crossroads variants do we have in the generator")]
