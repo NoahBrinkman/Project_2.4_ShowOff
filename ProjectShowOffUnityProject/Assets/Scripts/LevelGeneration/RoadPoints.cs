@@ -24,8 +24,6 @@ namespace LevelGeneration
         public int Width => width;
         public int Length => length;
         public RoadType TypeOfRoad => roadType;
-        public int xHelper;
-        public int zHelper;
 
         public List<Vector3> CurvePoints = new List<Vector3>();
 
@@ -117,16 +115,20 @@ namespace LevelGeneration
                     break;
                 //RIGHT-------------------------------------------------------------------------------------------------
                 case RoadType.Right when roadRotation == 0:
-                    SpawnPoints(-simpleX, zMinusLengthZ, xMinusWidthX, -simpleZ);
+                    SpawnPoints(-simpleX, zMinusLengthZ, xMinusWidthX, -simpleZ,
+                        true, xMinusWidthX, zMinusLengthZ);
                     break;
                 case RoadType.Right when roadRotation == 90:
-                    SpawnPoints(xMinusWidthX, simpleZ, -simpleX, zPlusLengthZ);
+                    SpawnPoints(xMinusWidthX, simpleZ, -simpleX, zPlusLengthZ,
+                        true, xMinusWidthX,zPlusLengthZ);
                     break;
                 case RoadType.Right when roadRotation == 180:
-                    SpawnPoints(simpleX, zPlusLengthZ, xPlusWidthX, simpleZ);
+                    SpawnPoints(simpleX, zPlusLengthZ, xPlusWidthX, simpleZ,
+                        true, xPlusWidthX,zPlusLengthZ);
                     break;
                 case RoadType.Right when roadRotation == 270:
-                    SpawnPoints(xPlusWidthX, -simpleZ, simpleX, zMinusLengthZ);
+                    SpawnPoints(xPlusWidthX, -simpleZ, simpleX, zMinusLengthZ,
+                        true, xPlusWidthX,zMinusLengthZ);
                     break;
                 //LEFT--------------------------------------------------------------------------------------------------
                 case RoadType.Left when roadRotation == 0:

@@ -64,16 +64,20 @@ public class RoadAssetEditor : Editor
                     break;
                 //RIGHT-------------------------------------------------------------------------------------------------
                 case RoadPoints.RoadType.Right when roadRotation == 0:
-                    SpawnPoints(-simpleX, zMinusLengthZ, xMinusWidthX, -simpleZ);
+                    SpawnPoints(-simpleX, zMinusLengthZ, xMinusWidthX, -simpleZ,
+                        true, xMinusWidthX, zMinusLengthZ);
                     break;
                 case RoadPoints.RoadType.Right when roadRotation == 90:
-                    SpawnPoints(xMinusWidthX, simpleZ, -simpleX, zPlusLengthZ);
+                    SpawnPoints(xMinusWidthX, simpleZ, -simpleX, zPlusLengthZ,
+                        true, xMinusWidthX,zPlusLengthZ);
                     break;
                 case RoadPoints.RoadType.Right when roadRotation == 180:
-                    SpawnPoints(simpleX, zPlusLengthZ, xPlusWidthX, simpleZ);
+                    SpawnPoints(simpleX, zPlusLengthZ, xPlusWidthX, simpleZ,
+                        true, xPlusWidthX,zPlusLengthZ);
                     break;
                 case RoadPoints.RoadType.Right when roadRotation == 270:
-                    SpawnPoints(xPlusWidthX, -simpleZ, simpleX, zMinusLengthZ);
+                    SpawnPoints(xPlusWidthX, -simpleZ, simpleX, zMinusLengthZ,
+                        true, xPlusWidthX,zMinusLengthZ);
                     break;
                 //LEFT--------------------------------------------------------------------------------------------------
                 case RoadPoints.RoadType.Left when roadRotation == 0:
@@ -113,9 +117,8 @@ public class RoadAssetEditor : Editor
         
             foreach (var curve in _road.CurvePoints)
             {
-                
+                Handles.color = Color.cyan;
                 Handles.DrawSolidDisc(curve, Vector3.up,0.2f);
-                //Handles.PositionHandle(curve, Quaternion.identity);
             }
     }
 
@@ -139,10 +142,5 @@ public class RoadAssetEditor : Editor
         Handles.DrawSolidDisc(_assetStartEditor, Vector3.up, 0.2f);
         Handles.color = Color.red;
         Handles.DrawSolidDisc(_assetEnd, Vector3.up, 0.2f);
-        
-        Handles.color = Color.cyan;
-        //Handles.DrawLine(_assetStartEditor, _assetEnd);
-        // Handles.DrawBezier(_assetStartEditor, _assetEnd, Vector3.zero, Vector3.zero,
-        //     Color.cyan,null, 2f);
     }
 }
