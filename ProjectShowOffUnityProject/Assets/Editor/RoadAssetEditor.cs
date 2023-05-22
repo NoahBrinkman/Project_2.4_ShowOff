@@ -120,6 +120,12 @@ public class RoadAssetEditor : Editor
                 Handles.color = Color.cyan;
                 Handles.DrawSolidDisc(curve, Vector3.up,0.2f);
             }
+            
+            foreach (var curve in _road.CurvePointsCross)
+            {
+                Handles.color = Color.yellow;
+                Handles.DrawSolidDisc(curve, Vector3.up,0.2f);
+            }
     }
 
     private void SpawnPoints(float xOffsetStart, float zOffsetStart, float xOffsetEnd, float zOffsetEnd,
