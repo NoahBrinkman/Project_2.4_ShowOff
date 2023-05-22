@@ -79,6 +79,8 @@ public class PlayerMovement : StateDependantObject
     protected override void ReNew()
     {
         base.ReNew();
+        
+        transform.forward *= 2;
         float ver = Input.GetAxisRaw(_verticalAxis);
         
         if (ver > 0 && !_jumping)
