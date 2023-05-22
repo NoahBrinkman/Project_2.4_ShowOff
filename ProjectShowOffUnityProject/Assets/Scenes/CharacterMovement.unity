@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2168.5764, g: 2280.0256, b: 3327.477, a: 1}
+  m_IndirectSpecularColor: {r: 2162.763, g: 2267.6038, b: 3291.6802, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -941,7 +941,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &596330179
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1071,8 +1071,8 @@ MonoBehaviour:
   state: {fileID: 781834105}
   _whatToDoWhenInactive: 0
   _speed: 4
-  minX: -2.5
-  maxX: 2.5
+  minX: -1
+  maxX: 1
   _horizontalAxis: Horizontal
   _verticalAxis: Vertical
   _jumpCurve:
@@ -1616,7 +1616,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012845883}
-  m_LocalRotation: {x: 0.17149836, y: 0.68599534, z: -0.17149884, w: 0.6859934}
+  m_LocalRotation: {x: 0.17149836, y: 0.68599534, z: -0.17149884, w: 0.68599343}
   m_LocalPosition: {x: -7.049999, y: 4.5, z: -0.039978825}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2764,7 +2764,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
-  m_LocalRotation: {x: 0.17149836, y: 0.68599534, z: -0.17149884, w: 0.6859934}
+  m_LocalRotation: {x: 0.17149836, y: 0.68599534, z: -0.17149884, w: 0.68599343}
   m_LocalPosition: {x: -7.049999, y: 4.5, z: -0.039978825}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3050,7 +3050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1967265048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3106,7 +3106,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 80c1287f80cdcc747add1bd91efa7db7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3243,11 +3243,11 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1967265048}
+      objectReference: {fileID: 596330185}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
       propertyPath: borderSize
-      value: 50
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5194057038490928240, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}

@@ -6,6 +6,7 @@ using DG.Tweening.Core.Easing;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(BoxCollider))]
 public class PlayerMovement : StateDependantObject
@@ -55,14 +56,14 @@ public class PlayerMovement : StateDependantObject
     [SerializeField] private LayerMask _obstacleLayer = 8;
     [SerializeField] private UnityEvent _onObstacleHit;
     private BoxCollider _collider;
+
+    [field: Header("Roads")]
+    [SerializeField] private List<RoadGenerator> biomes;
+    [HideInInspector]
+    public GameObject CurrentRoad { get; private set; }
+
+    private RoadGenerator _activeRoad;
     
-    [Header("Roads")]
-    private GameObject _currentRoad;
-    public GameObject CurrentRoad
-    {
-        get => _currentRoad;
-        set => _currentRoad = value;
-    }
 
     [Header("Debug")] 
     [SerializeField] private bool _showVisualAid = true;
@@ -77,6 +78,10 @@ public class PlayerMovement : StateDependantObject
         slideTweens = new List<Tween>();
         startXZ = new Vector3(transform.position.x, 0, transform.position.z);
         startY = transform.position.y;
+        
+        _activeRoad = biomes[0];
+        _activeRoad.IsActive = true;
+        Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
     }
     /// <summary>
     /// Update but it only calls during certain states
@@ -96,6 +101,8 @@ public class PlayerMovement : StateDependantObject
             _rb.velocity = new Vector3();
         }
         float ver = Input.GetAxisRaw(_verticalAxis);
+        
+        SwitchBiome();
         
         if (ver > 0 && !_jumping)
         {
@@ -164,16 +171,28 @@ public class PlayerMovement : StateDependantObject
         }
         if (collision.gameObject.CompareTag("Road") || collision.gameObject.CompareTag("RoadT"))
         {
-            _currentRoad = collision.gameObject;
+            CurrentRoad = collision.gameObject;
         }
     }
-    
-    private void OnCollisionExit(Collision collision)
+
+    private void SwitchBiome()
     {
-        // if (collision.gameObject.CompareTag("Road") || collision.gameObject.CompareTag("RoadT"))
-        // {
-        //     
-        // }
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
+            int randomBiome = Random.Range(0, biomes.Count-1);
+            _activeRoad.IsActive = false;
+            _activeRoad.Clear = true;
+            Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
+            _activeRoad = biomes[1];
+            Debug.Log($"Road NEW: {_activeRoad.transform.position} is {_activeRoad.IsActive}");
+            Vector3 playersPosition;
+            playersPosition = new Vector3(_activeRoad.transform.position.x, 3, _activeRoad.transform.position.z);
+            transform.localPosition = playersPosition;
+            transform.rotation = _activeRoad.transform.rotation;
+            _activeRoad.IsActive = true;
+            Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
+        }
     }
 
     public void Teleport(Vector3 position, Vector3 forwardDirection)

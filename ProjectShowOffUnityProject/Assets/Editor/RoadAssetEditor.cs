@@ -74,7 +74,7 @@ public class RoadAssetEditor : Editor
                     break;
                 //LEFT--------------------------------------------------------------------------------------------------
                 case RoadPoints.RoadType.Left when roadRotation == 0:
-                    SpawnPoints(simpleX, zPlusLengthZ, xMinusWidthX, simpleZ);
+                    SpawnPoints(-simpleX, zPlusLengthZ, xMinusWidthX, simpleZ);
                     break;
                 case RoadPoints.RoadType.Left when roadRotation == 90:
                     SpawnPoints(xPlusWidthX, simpleZ, simpleX, zPlusLengthZ);
@@ -125,5 +125,10 @@ public class RoadAssetEditor : Editor
         Handles.DrawSolidDisc(_assetStartEditor, Vector3.up, 0.2f);
         Handles.color = Color.red;
         Handles.DrawSolidDisc(_assetEnd, Vector3.up, 0.2f);
+        
+        Handles.color = Color.cyan;
+        //Handles.DrawLine(_assetStartEditor, _assetEnd);
+        // Handles.DrawBezier(_assetStartEditor, _assetEnd, Vector3.zero, Vector3.zero,
+        //     Color.cyan,null, 2f);
     }
 }
