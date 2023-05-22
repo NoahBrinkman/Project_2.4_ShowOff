@@ -21,6 +21,7 @@ public class PlayerMovement : StateDependantObject
     [SerializeField]
     private float maxX = 2.0f;
     private Vector3 startXZ;
+    private float xMovement = 0;
     [SerializeField] 
     private string _horizontalAxis = "Horizontal";
     [SerializeField]
@@ -76,7 +77,7 @@ public class PlayerMovement : StateDependantObject
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
         slideTweens = new List<Tween>();
-        startXZ = new Vector3(transform.position.x, 0, transform.position.z);
+       // startXZ = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
         startY = transform.position.y;
         
         _activeRoad = biomes[0];
@@ -92,14 +93,6 @@ public class PlayerMovement : StateDependantObject
         Vector3 loopPos = _lookAtPoint.position;
         loopPos.z = transform.position.z;
         _lookAtPoint.position = loopPos;
-        if (Input.GetKey(KeyCode.W))
-        {
-            _rb.velocity = transform.forward * _speed;
-        }
-        else
-        {
-            _rb.velocity = new Vector3();
-        }
         float ver = Input.GetAxisRaw(_verticalAxis);
         
         SwitchBiome();
@@ -147,7 +140,7 @@ public class PlayerMovement : StateDependantObject
         }
         else
         {
-            //Move();
+            Move();
         }
         
     }
@@ -155,11 +148,14 @@ public class PlayerMovement : StateDependantObject
     private void Move()
     {
         float hor = Input.GetAxis(_horizontalAxis);
-        _rb.velocity = transform.right * hor  * _speed;
-        Vector3 newPos = transform.position;
-        newPos.x = Mathf.Clamp(transform.position.x, startXZ.x + minX, startXZ.x + maxX);
-        newPos.z = Mathf.Clamp(transform.position.z, startXZ.z + minX, startXZ.z + maxX);
-        transform.position = newPos;
+        
+        Vector3 rightMovement = -transform.right * hor * _speed;
+        xMovement += rightMovement.magnitude;
+        
+        Vector3 forwardMovement = transform.forward * _speed;
+        
+        _rb.velocity = Vector3.forward + ( xMovement > minX && xMovement < maxX ? rightMovement : new Vector3());
+
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -199,6 +195,9 @@ public class PlayerMovement : StateDependantObject
     {
         transform.position = new Vector3(position.x, transform.position.y, position.z);
         _lookAtPoint.position = new Vector3(position.x, _lookAtPoint.position.y, position.z);
+        startXZ.x = transform.localPosition.x;
+        startXZ.z = transform.localPosition.z;
+        
         transform.rotation = Quaternion.LookRotation(forwardDirection);
         _lookAtPoint.rotation = Quaternion.LookRotation(-forwardDirection);
        
@@ -209,14 +208,14 @@ public class PlayerMovement : StateDependantObject
         if (!_showVisualAid) return;
         
         
-        
+        /*
+        Gizmos.color = _debugCubeColor;
         Vector3 minPos = transform.position - (transform.right * minX);
         
         Vector3 maxPos = transform.position - (transform.right * maxX);
        
-        Gizmos.color = _debugCubeColor;
         Gizmos.DrawCube(minPos, Vector3.one);
-        Gizmos.DrawCube(maxPos, Vector3.one);
+        Gizmos.DrawCube(maxPos, Vector3.one);*/
         Gizmos.DrawWireCube(transform.position + _slideLowestPointCentre, _slideLowestPointSize);
     }
 
