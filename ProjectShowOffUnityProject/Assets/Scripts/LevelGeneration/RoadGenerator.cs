@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using LevelGeneration;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -21,6 +22,17 @@ public class RoadGenerator : MonoBehaviour
 
     [SerializeField] private int borderSize = 1000;
     public int BorderSize => borderSize;
+    public bool IsActive
+    {
+        get => _isActive;
+        set => _isActive = value;
+    }
+
+    public bool Clear
+    {
+        get => _clear;
+        set => _clear = value;
+    }
 
     private readonly List<GameObject> _activePieces = new List<GameObject>();
 
@@ -33,34 +45,62 @@ public class RoadGenerator : MonoBehaviour
     private bool _closeToEdge;
     private bool _crossRoadGenerated;
     private bool _generateNewPiece;
+    private bool _isActive;
+    private bool _clear;
+
+    
 
     private void Start()
     {
-        _activePiece = startRoad;
-        _activePieces.Add(_activePiece);
+        _activePiece = CreateNewActivePiece(Quaternion.Euler(-90, 0, 0), transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
+        
+        Debug.Log($"I am {name} and my position is {transform.position}");
     }
 
     private void Update()
     {
-        if (_generateNewPiece)
+        if (_isActive)
         {
-            GenerateStartRoads();
-            _generateNewPiece = false;
+            if (_generateNewPiece)
+            {
+                GenerateStartRoads();
+                _generateNewPiece = false;
+            }
+
+            if (_activePieces.Count <= piecesGeneratedAtOnce && !_crossRoadGenerated)
+            {
+                GenerateRoad();
+            }
+
+            if (_crossRoadGenerated)
+            {
+                GenerateRoadsAfterCrossRoad();
+            }
+
+            RemoveRoad();
         }
 
-        if (_activePieces.Count <= piecesGeneratedAtOnce && !_crossRoadGenerated)
+        if (_clear && !_isActive)
         {
-            GenerateRoad();
+            ClearGenerator();
         }
-
-        if (_crossRoadGenerated)
-        {
-            GenerateRoadsAfterCrossRoad();
-        }
-        RemoveRoad();
     }
 
+    private void ClearGenerator()
+    {
+        _clear = false;
+        foreach (GameObject piece in _activePieces)
+        {
+            Destroy(piece);
+        }
+        
+        _activePieces.Clear();
+        
+        CreateNewActivePiece(Quaternion.Euler(-90, 0, 0), transform.position);
+        _activePoints = _activePiece.GetComponent<RoadPoints>();
+        
+    }
     
 
     /// <summary>
