@@ -19,7 +19,7 @@ public class PlayerMovement : StateDependantObject
     private float minX = -2.0f;
     [SerializeField]
     private float maxX = 2.0f;
-    private float startX;
+    private Vector3 startXZ;
     [SerializeField] 
     private string _horizontalAxis = "Horizontal";
     [SerializeField]
@@ -70,7 +70,7 @@ public class PlayerMovement : StateDependantObject
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
         slideTweens = new List<Tween>();
-        startX = transform.position.x;
+        startXZ = new Vector3(transform.position.x, 0, transform.position.z);
         startY = transform.position.y;
     }
     /// <summary>
@@ -134,7 +134,8 @@ public class PlayerMovement : StateDependantObject
         float hor = Input.GetAxis(_horizontalAxis);
         _rb.velocity = transform.right * hor  * _speed;
         Vector3 newPos = transform.position;
-        newPos.x = Mathf.Clamp(transform.position.x, startX + minX, startX + maxX);
+        newPos.x = Mathf.Clamp(transform.position.x, startXZ.x + minX, startXZ.x + maxX);
+        newPos.z = Mathf.Clamp(transform.position.z, startXZ.z + minX, startXZ.z + maxX);
         transform.position = newPos;
     }
     private void OnCollisionEnter(Collision collision)
