@@ -1,43 +1,39 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace LevelGeneration
 {
-    [RequireComponent(typeof(Renderer))]
+    [RequireComponent(typeof(Renderer), typeof(BoxCollider))]
     public class RoadPoints : MonoBehaviour
     {
-        [SerializeField] private GameObject startPoint;
-        [SerializeField] private GameObject endPoint;
-        [SerializeField] private GameObject leftPoint;
-        [SerializeField] private int direction;
-        [SerializeField] private int width;
-        [SerializeField] private int length;
+        public enum RoadType
+        {
+            Straight = 1,
+            Right = 2,
+            Left = 3,
+            Crossroad = 4
+        };
 
-        public int Direction => direction;
+        [SerializeField] private RoadType roadType;
+        [SerializeField] private int width = 8;
+        [SerializeField] private int length = 8;
+
+
         public int Width => width;
         public int Length => length;
+        public RoadType TypeOfRoad => roadType;
 
-        [SerializeField] private Vector3 _assetStart;
-        [SerializeField] private Vector3 _assetEnd;
+        private Vector3 _assetStart;
+        private Vector3 _assetEnd;
         private Vector3 _assetLeft;
         private Bounds _bounds;
 
-        public Vector3 AssetStart
-        {
-            get => _assetStart;
-            set => _assetStart = value;
-        }
+        //Used in the editor
+        public Vector3 AssetStart => _assetStart;
 
-        public Vector3 AssetEnd
-        {
-            get => _assetEnd;
-            set => _assetEnd = value;
-        }
+        public Vector3 AssetEnd => _assetEnd;
 
-        public Vector3 AssetLeft
-        {
-            get => _assetLeft;
-            set => _assetLeft = value;
-        }
+        public Vector3 AssetLeft => _assetLeft;
 
 
         private void Awake()
@@ -47,139 +43,109 @@ namespace LevelGeneration
 
         private void OnEnable()
         {
-            float roadRotation = transform.localRotation.eulerAngles.y;
-
-            if (direction == 1)
-        {
-            if (roadRotation == 0)
-            {
-                SpawnPoints(-_bounds.size.x/2, 0,
-                    _bounds.size.x/2, 0);
-            }
-            else if (roadRotation == 90)
-            {
-                SpawnPoints(0,-_bounds.size.z/2,
-                    0,_bounds.size.z/2);
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x/2, 0,
-                    -_bounds.size.x/2, 0);
-            }
-            else if (roadRotation == 270)
-            {
-                SpawnPoints(0,_bounds.size.z/2,
-                    0,-_bounds.size.z/2);
-            }
-        }
-        else if (direction == 2)
-        {
-            if (roadRotation == 0)
-            {
-                SpawnPoints(-_bounds.size.x/2,_bounds.size.z/2 - _bounds.size.z/ (2 * length),
-                    _bounds.size.x/2 - _bounds.size.x/ (2*width),-_bounds.size.z/2);
-            }
-            else if (roadRotation == 90)
-            {
-                SpawnPoints(_bounds.size.x / 2 - _bounds.size.x / (2 * width),_bounds.size.z / 2,
-                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*length));
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x/2,-_bounds.size.z/2 + _bounds.size.z / (2 * length),
-                    -_bounds.size.x/2 + _bounds.size.x/ (2 * width),_bounds.size.z/2);
-            }
-            else if (roadRotation == 270)
-            {
-                SpawnPoints(-_bounds.size.x / 2+ _bounds.size.x/ (2 * width), -_bounds.size.z / 2,
-                    _bounds.size.x / 2,_bounds.size.z / 2 - _bounds.size.z / (2*length));
-                
-            }
-        }
-        else if (direction == 3)
-        {
-            if (roadRotation == 0)
-            {
-                SpawnPoints(-_bounds.size.x / 2, -_bounds.size.z/2 + _bounds.size.z / (2 * length),
-                    _bounds.size.x / 2- _bounds.size.x / (2*width), _bounds.size.z / 2);
-            }
-            else if (roadRotation == 90)
-            {
-                SpawnPoints(-_bounds.size.x/2 + _bounds.size.x/(2*width), _bounds.size.z / 2,
-                    _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*length));
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x / 2, _bounds.size.z/2 - _bounds.size.z / (2 * length),
-                    -_bounds.size.x / 2 +_bounds.size.x / (2*width), -_bounds.size.z / 2);
-            }
-            else if (roadRotation == 270)
-            {
-                SpawnPoints(_bounds.size.x / 2-_bounds.size.x/(2*width), -_bounds.size.z / 2,
-                    -_bounds.size.x / 2 , _bounds.size.z / 2 - _bounds.size.z / (2*length));
-            }
-        }
-        else if (direction == 4)
-        {
-            if (roadRotation == 0)
-            {
-                SpawnPoints(-_bounds.size.x / 2, 0,
-                    _bounds.size.x / 2 - _bounds.size.x / (2*width), -_bounds.size.z / 2,
-                    true, _bounds.size.x / 2 - _bounds.size.x / (2*width),_bounds.size.z / 2);
-                
-            }
-            else if (roadRotation == 90)
-            {
-                SpawnPoints(0,_bounds.size.z / 2,
-                    -_bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*length),
-                    true, _bounds.size.x / 2, -_bounds.size.z / 2 + _bounds.size.z / (2*length));
-            }
-            else if (roadRotation == 180)
-            {
-                SpawnPoints(_bounds.size.x / 2,0,
-                    -_bounds.size.x / 2 + _bounds.size.x / (2*width),_bounds.size.z / 2,
-                    true, -_bounds.size.x / 2 + _bounds.size.x / (2*width),-_bounds.size.z / 2);
-                
-            }
-            else if (roadRotation == 270)
-            {
-                SpawnPoints(0, -_bounds.size.z/2,
-                    _bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2*length),
-                    true, -_bounds.size.x / 2, _bounds.size.z / 2 - _bounds.size.z / (2*length));
-                
-            }
+            GeneratePoints();
         }
 
-            GameObject point1 = Instantiate(startPoint, _assetStart, transform.rotation);
-            point1.name = "StartPoint";
-            point1.transform.parent = transform;
-
-            GameObject point2 = Instantiate(endPoint, _assetEnd, transform.rotation);
-            point2.name = "EndPoint";
-            point2.transform.parent = transform;
-
-            if (direction == 4)
-            {
-                GameObject point3 = Instantiate(leftPoint, _assetLeft, transform.rotation);
-                point3.name = "LeftPoint";
-                point3.transform.parent = transform;
-            }
-        }
-
+        /// <summary>
+        /// Method used to generate points on correct positions
+        /// </summary>
+        /// <param name="xOffsetStart"> Offset of X position of the start point</param>
+        /// <param name="zOffsetStart"> Offset of Z position of the start point</param>
+        /// <param name="xOffsetEnd">   Offset of X position of the end point</param>
+        /// <param name="zOffsetEnd">   Offset of Z position of the end point</param>
+        /// <param name="isCrossroad">  Bool to check if the road is a crossroad</param>
+        /// <param name="xOffsetLeft">  Offset of X position of the left point</param>
+        /// <param name="zOffsetLeft">  Offset of Z position of the left point</param>
         private void SpawnPoints(float xOffsetStart, float zOffsetStart, float xOffsetEnd, float zOffsetEnd,
             bool isCrossroad = false, float xOffsetLeft = 0, float zOffsetLeft = 0)
         {
-            _assetStart = new Vector3(_bounds.center.x + xOffsetStart, _bounds.center.y - _bounds.size.y / 2,
+            float height = transform.position.y;
+            _assetStart = new Vector3(_bounds.center.x + xOffsetStart, height,
                 _bounds.center.z + zOffsetStart);
-            _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, _bounds.center.y - _bounds.size.y / 2,
+            _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, height,
                 _bounds.center.z + zOffsetEnd);
-            Debug.Log("START" + _assetStart);
-            Debug.Log("END" + _assetEnd);
+            // Debug.Log("START" + _assetStart);
+            // Debug.Log("END" + _assetEnd);
 
             if (isCrossroad)
             {
-                _assetLeft = new Vector3(_bounds.center.x + xOffsetLeft, _bounds.center.y - _bounds.size.y / 2,
+                _assetLeft = new Vector3(_bounds.center.x + xOffsetLeft, height,
                     _bounds.center.z + zOffsetLeft);
+            }
+        }
+
+        /// <summary>
+        /// Method used to calculate all the points' positions
+        /// </summary>
+        private void GeneratePoints()
+        {
+            int roadRotation = ((int)transform.localRotation.eulerAngles.y + 360) % 360;
+
+            float simpleX = _bounds.size.x / 2;
+            float simpleZ = _bounds.size.z / 2;
+            float lengthZ = _bounds.size.z / (2 * length);
+            float widthX = _bounds.size.x / (2 * width);
+            float xMinusWidthX = simpleX - widthX;
+            float xPlusWidthX = -simpleX + widthX;
+            float zMinusLengthZ = simpleZ - lengthZ;
+            float zPlusLengthZ = -simpleZ + lengthZ;
+            switch (roadType)
+            {
+                case RoadType.Straight when roadRotation == 0:
+                    SpawnPoints(-simpleX, 0, simpleX, 0);
+                    break;
+                case RoadType.Straight when roadRotation == 90:
+                    SpawnPoints(0, simpleZ, 0, -simpleZ);
+                    break;
+                case RoadType.Straight when roadRotation == 180:
+                    SpawnPoints(simpleX, 0, -simpleX, 0);
+                    break;
+                case RoadType.Straight when roadRotation == 270:
+                    SpawnPoints(0, -simpleZ, 0, simpleZ);
+                    break;
+                //RIGHT-------------------------------------------------------------------------------------------------
+                case RoadType.Right when roadRotation == 0:
+                    SpawnPoints(-simpleX, zMinusLengthZ, xMinusWidthX, -simpleZ);
+                    break;
+                case RoadType.Right when roadRotation == 90:
+                    SpawnPoints(xMinusWidthX, simpleZ, -simpleX, zPlusLengthZ);
+                    break;
+                case RoadType.Right when roadRotation == 180:
+                    SpawnPoints(simpleX, zPlusLengthZ, xPlusWidthX, simpleZ);
+                    break;
+                case RoadType.Right when roadRotation == 270:
+                    SpawnPoints(xPlusWidthX, -simpleZ, simpleX, zMinusLengthZ);
+                    break;
+                //LEFT--------------------------------------------------------------------------------------------------
+                case RoadType.Left when roadRotation == 0:
+                    SpawnPoints(simpleX, zPlusLengthZ, xMinusWidthX, simpleZ);
+                    break;
+                case RoadType.Left when roadRotation == 90:
+                    SpawnPoints(xPlusWidthX, simpleZ, simpleX, zPlusLengthZ);
+                    break;
+                case RoadType.Left when roadRotation == 180:
+                    SpawnPoints(simpleX, zMinusLengthZ, xPlusWidthX, -simpleZ);
+                    break;
+                case RoadType.Left when roadRotation == 270:
+                    SpawnPoints(xMinusWidthX, -simpleZ, -simpleX, zMinusLengthZ);
+                    break;
+                //CROSSROAD---------------------------------------------------------------------------------------------
+                case RoadType.Crossroad when roadRotation == 0:
+                    SpawnPoints(-simpleX, 0, xMinusWidthX, -simpleZ,
+                        true, xMinusWidthX, simpleZ);
+                    break;
+                case RoadType.Crossroad when roadRotation == 90:
+                    SpawnPoints(0, simpleZ, -simpleX, zPlusLengthZ,
+                        true, simpleX, zPlusLengthZ);
+                    break;
+                case RoadType.Crossroad when roadRotation == 180:
+                    SpawnPoints(simpleX, 0, xPlusWidthX, simpleZ,
+                        true, xPlusWidthX, -simpleZ);
+                    break;
+                case RoadType.Crossroad when roadRotation == 270:
+                    SpawnPoints(0, -simpleZ, simpleX, zMinusLengthZ,
+                        true, -simpleX, zMinusLengthZ);
+                    break;
             }
         }
     }
