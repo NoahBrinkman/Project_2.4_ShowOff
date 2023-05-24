@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class PathFollower : MonoBehaviour
+public class PathFollower : StateDependantObject<PlayerState>
 {
     [SerializeField] private float secondsPerUnit = .25f;
     [SerializeField] private List<Vector3> points = new List<Vector3>();
@@ -13,7 +13,6 @@ public class PathFollower : MonoBehaviour
      private float totalMoveTime;
      private Vector3 oldPosition;
     private bool moving;
-    private int currentIndex = 0;
     private bool rotating = false;
     [SerializeField] private float _secondsPerRotation = 1.0f;
     private float rotationTimer;
@@ -35,7 +34,6 @@ public class PathFollower : MonoBehaviour
          }
          totalMoveTime = Vector3.Distance(transform.position, path[0]) * secondsPerUnit;
          oldPosition = transform.position;
-         currentIndex = 0;
          moveTimer = 0;
          moving = true;
      }
@@ -55,7 +53,6 @@ public class PathFollower : MonoBehaviour
              ResetRotation(path[0]);
              totalMoveTime = Vector3.Distance(transform.position, path[0]) * secondsPerUnit;
              oldPosition = transform.position;
-             currentIndex = 0;
              moveTimer = 0;
          }
          else

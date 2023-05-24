@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(BoxCollider))]
-public class PlayerMovement : StateDependantObject
+public class PlayerMovement : StateDependantObject<PlayerState>
 {
     private Rigidbody _rb;
 
@@ -21,7 +21,7 @@ public class PlayerMovement : StateDependantObject
     [SerializeField]
     private float maxX = 2.0f;
     private Vector3 startXZ;
-    private float xMovement = 0;
+   
     [SerializeField] 
     private string _horizontalAxis = "Horizontal";
     [SerializeField]
@@ -87,9 +87,9 @@ public class PlayerMovement : StateDependantObject
     /// <summary>
     /// Update but it only calls during certain states
     /// </summary>
-    protected override void ReNew()
+    protected override void Run()
     {
-        base.ReNew();
+        base.Run();
         Vector3 loopPos = _lookAtPoint.position;
         loopPos.z = transform.position.z;
         _lookAtPoint.position = loopPos;

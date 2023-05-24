@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseState : State
+public class PauseState : GameState
 {
-    public override void Update()
+    public override void Run()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {

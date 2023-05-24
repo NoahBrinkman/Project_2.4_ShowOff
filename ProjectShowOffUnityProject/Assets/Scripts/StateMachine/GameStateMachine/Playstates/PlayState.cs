@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayState : State
+public class PlayState : GameState
 {
-    public override void Update()
+    public override void Run()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
