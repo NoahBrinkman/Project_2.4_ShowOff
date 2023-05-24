@@ -35,6 +35,20 @@ namespace LevelGeneration
         private Bounds _bounds;
         private bool _curve;
         private bool _doubleCurve;
+        private float _height;
+        private float _width;
+
+        public float Height
+        {
+            get => _height;
+            set => _height = value;
+        }
+
+        public float RoadWidth
+        {
+            get => _width;
+            set => _width = value;
+        }
 
         //Used in the editor
         public Vector3 AssetStart => _assetStart;
@@ -47,6 +61,8 @@ namespace LevelGeneration
         private void Awake()
         {
             _bounds = GetComponent<Renderer>().bounds;
+            _height = _bounds.size.x;
+            _width = _bounds.size.z;
         }
 
         private void OnEnable()

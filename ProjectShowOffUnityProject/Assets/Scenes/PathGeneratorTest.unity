@@ -214,7 +214,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 658137625}
+      objectReference: {fileID: 0}
     - target: {fileID: 5194057038490928240, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
       propertyPath: m_RootOrder
@@ -383,7 +383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &658137625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +403,8 @@ MonoBehaviour:
   maxX: 1
   _horizontalAxis: Horizontal
   _verticalAxis: Vertical
+  _lookAtPoint: {fileID: 0}
+  _virtualCameraTransform: {fileID: 0}
   _jumpCurve:
     serializedVersion: 2
     m_Curve:
@@ -943,7 +945,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1276042042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -957,7 +959,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  CurrentRoad: {fileID: 0}
+  biomes:
+  - {fileID: 1575810340}
 --- !u!65 &1276042043
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1465,7 +1468,17 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 658137625}
+      objectReference: {fileID: 1276042042}
+    - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
+        type: 3}
+      propertyPath: _clockwise
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
+        type: 3}
+      propertyPath: borderSize
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5194057038490928240, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
       propertyPath: m_RootOrder
