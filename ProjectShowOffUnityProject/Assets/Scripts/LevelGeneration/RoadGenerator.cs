@@ -11,8 +11,7 @@ using Random = UnityEngine.Random;
 public class RoadGenerator : MonoBehaviour
 {
     [SerializeField] private List<RoadPoints> roadPieces;
-    [SerializeField] private GameObject startRoad;
-    [SerializeField] private PlayerMovement player;
+    [SerializeField] private PlayerTest player;
     [Tooltip("How many pieces the generator will keep generated at once. I recommend number smaller than 4 to prevent overlapping")]
     [SerializeField] private int piecesGeneratedAtOnce = 3;
     [Tooltip("How many crossroads variants do we have in the generator")]
@@ -47,6 +46,8 @@ public class RoadGenerator : MonoBehaviour
     private bool _generateNewPiece;
     private bool _isActive;
     private bool _clear;
+    [SerializeField]
+    private bool _clockwise;
 
     
 
@@ -111,10 +112,12 @@ public class RoadGenerator : MonoBehaviour
         if (player.CurrentRoad == _leftSpawn)
         {
             ChooseRoad(_leftSpawn, _rightSpawn);
+            _clockwise = false;
 
         } else if (player.CurrentRoad == _rightSpawn)
         {
             ChooseRoad(_rightSpawn, _leftSpawn);
+            _clockwise = true;
         }
     }
 
@@ -183,14 +186,30 @@ public class RoadGenerator : MonoBehaviour
             case RoadPoints.RoadType.Straight:
                 yDirection = 0 + pieceYRotation;
                 int roadRotation = ((int)pieceYRotation + 360) % 360;
-                if ((_activePiece.transform.position.x * 3 >= transform.position.x + borderSize && roadRotation == 0)
-                    || (_activePiece.transform.position.z * 3 >= transform.position.z + borderSize && roadRotation == 270)
-                    || (-_activePiece.transform.position.x * 3 <= transform.position.x - borderSize && roadRotation == 180)
-                    || (-_activePiece.transform.position.z * 3 <= transform.position.z - borderSize && roadRotation == 90))
+                Debug.Log($"Road rotation: {roadRotation}");
+                Debug.Log("Last road position: " + _activePieces[^1].transform.position.z);
+                Debug.Log("Border position: " + (transform.position.z + borderSize));
+                Debug.Log($"IS it clockwise? {_clockwise}");
+                if ((_activePiece.transform.position.x + _activePoints.Height * 3 >= transform.position.x + borderSize / 2.0f && roadRotation == 0)
+                    || (_activePiece.transform.position.x - _activePoints.Height * 3 <= transform.position.x - borderSize / 2.0f && roadRotation == 180)
+                    || (_activePiece.transform.position.z + _activePoints.RoadWidth * 3 >= transform.position.z + borderSize / 2.0f && roadRotation == 270)
+                    || (_activePiece.transform.position.z - _activePoints.RoadWidth * 3 <= transform.position.z - borderSize / 2.0f && roadRotation == 90))
                 {
                     Debug.Log("It will be too much");
                     _closeToEdge = true;
                     randomRoad = Random.Range(1, roadPieces.Count-1);
+                    Debug.DrawLine(_activePiece.transform.position, 
+                        new Vector3(_activePiece.transform.position.x + _activePoints.Height * 3, _activePiece.transform.position.y, _activePiece.transform.position.z), 
+                        Color.red, 20.0f);
+                    Debug.DrawLine(_activePiece.transform.position, 
+                        new Vector3(_activePiece.transform.position.x - _activePoints.Height * 3, _activePiece.transform.position.y, _activePiece.transform.position.z), 
+                        Color.red, 20.0f);
+                    Debug.DrawLine(_activePiece.transform.position, 
+                        new Vector3(_activePiece.transform.position.x, _activePiece.transform.position.y, _activePiece.transform.position.z + _activePoints.RoadWidth * 3), 
+                        Color.red, 20.0f);
+                    Debug.DrawLine(_activePiece.transform.position, 
+                        new Vector3(_activePiece.transform.position.x, _activePiece.transform.position.y, _activePiece.transform.position.z - _activePoints.RoadWidth * 3), 
+                        Color.red, 20.0f);
                 }
                 break;
             default:
@@ -207,10 +226,9 @@ public class RoadGenerator : MonoBehaviour
         else if (_closeToEdge)
         {
             int roadRotation = ((int)pieceYRotation + 360) % 360;
-            Debug.Log(roadRotation);
-            if (roadRotation == 270)
+            if (!_clockwise)
             {
-                randomRoad = 3;
+                randomRoad = 1;
             }
             else
             {
@@ -229,7 +247,7 @@ public class RoadGenerator : MonoBehaviour
             }
 
             Quaternion rotation = Quaternion.Euler(-90, 0, yDirection);
-            _activePiece = CreateNewActivePiece(rotation,_startPosition, randomRoad);
+            _activePiece = CreateNewActivePiece(rotation,_startPosition, 0);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
         }
     }
@@ -265,6 +283,8 @@ public class RoadGenerator : MonoBehaviour
     private GameObject CreateNewActivePiece(Quaternion rotation, Vector3 startPosition, int roadPieceNumber = 0)
     {
         GameObject newPiece = Instantiate(roadPieces[roadPieceNumber].gameObject, startPosition, rotation);
+        if (roadPieceNumber == 1) _clockwise = false;
+        if (roadPieceNumber == 2) _clockwise = true;
         newPiece.transform.parent = transform;
         _activePieces.Add(newPiece);
         return newPiece;
