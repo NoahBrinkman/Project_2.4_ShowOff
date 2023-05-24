@@ -21,8 +21,6 @@ public class SwirlingPortal : MonoBehaviour
             {
                 DOTween.Kill(p.transform.parent);
                 p.Teleport(_linkedPortal.transform.position + _linkedPortal.TeleportPosition, _linkedPortal.OutwardDirection);
-                p.transform.parent.GetComponent<PathFollower>().MoveForward();
-                
             }
         }
     }
