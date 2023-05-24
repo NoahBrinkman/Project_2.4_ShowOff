@@ -7,7 +7,7 @@ public class PlayerTest : MonoBehaviour
 {
     private Rigidbody rb;
     public float moveSpeed = 5f;
-    public GameObject currentRoad;
+    public GameObject CurrentRoad;
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class PlayerTest : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Road") || collision.gameObject.CompareTag("RoadT"))
         {
-            currentRoad = collision.gameObject;
+            CurrentRoad = collision.gameObject;
         }
     }
 

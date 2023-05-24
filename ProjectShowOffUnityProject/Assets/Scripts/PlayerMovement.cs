@@ -6,6 +6,7 @@ using DG.Tweening.Core.Easing;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(BoxCollider))]
 public class PlayerMovement : StateDependantObject
@@ -19,11 +20,17 @@ public class PlayerMovement : StateDependantObject
     private float minX = -2.0f;
     [SerializeField]
     private float maxX = 2.0f;
-    private float startX;
+    private Vector3 startXZ;
+    private float xMovement = 0;
     [SerializeField] 
     private string _horizontalAxis = "Horizontal";
     [SerializeField]
     private string _verticalAxis = "Horizontal";
+
+
+    [SerializeField] private Transform _lookAtPoint;
+    public Transform LookAtPoint => _lookAtPoint;
+    [SerializeField] private Transform _virtualCameraTransform;
     
     [Header("Jumping")]
     [SerializeField, Tooltip("This is the trajectory of our player, the vertical axis shows the position where the horizontal axis shows where in the 'animation'.")]
@@ -50,7 +57,15 @@ public class PlayerMovement : StateDependantObject
     [SerializeField] private LayerMask _obstacleLayer = 8;
     [SerializeField] private UnityEvent _onObstacleHit;
     private BoxCollider _collider;
+
+    [field: Header("Roads")]
+    [SerializeField] private List<RoadGenerator> biomes;
+    [HideInInspector]
+    public GameObject CurrentRoad { get; private set; }
+
+    private RoadGenerator _activeRoad;
     
+
     [Header("Debug")] 
     [SerializeField] private bool _showVisualAid = true;
     [SerializeField, Tooltip("In case the player has no model. Use this")] private Transform _debugCube;
@@ -62,8 +77,12 @@ public class PlayerMovement : StateDependantObject
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
         slideTweens = new List<Tween>();
-        startX = transform.position.x;
+       // startXZ = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
         startY = transform.position.y;
+        startXZ = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
+//        _activeRoad = biomes[0];
+        //      _activeRoad.IsActive = true;
+        //     Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
     }
     /// <summary>
     /// Update but it only calls during certain states
@@ -71,7 +90,12 @@ public class PlayerMovement : StateDependantObject
     protected override void ReNew()
     {
         base.ReNew();
+        Vector3 loopPos = _lookAtPoint.position;
+        loopPos.z = transform.position.z;
+        _lookAtPoint.position = loopPos;
         float ver = Input.GetAxisRaw(_verticalAxis);
+        
+        SwitchBiome();
         
         if (ver > 0 && !_jumping)
         {
@@ -121,15 +145,17 @@ public class PlayerMovement : StateDependantObject
         
     }
     
-    private void Move()
-    {
-        float hor = Input.GetAxis(_horizontalAxis);
-        _rb.velocity = transform.right * hor  * _speed;
-        Vector3 newPos = transform.position;
-        newPos.x = Mathf.Clamp(transform.position.x, startX + minX, startX + maxX);
-        transform.position = newPos;
-    }
-    private void OnCollisionEnter(Collision collision)
+
+     private void Move()
+     {
+         float hor = Input.GetAxis(_horizontalAxis);
+         _rb.velocity = new Vector3(hor, 0, 0) * _speed;
+         Vector3 newPos = transform.position;
+         newPos.x = Mathf.Clamp(transform.localPosition.x, startXZ.x + minX, startXZ.x + maxX);
+         newPos.z = Mathf.Clamp(transform.localPosition.z, startXZ.z + minX, startXZ.z + maxX);
+         transform.localPosition = newPos;
+     }
+     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log($"Hit {collision.gameObject.name}");
         if (     _obstacleLayer == (_obstacleLayer | (1 << collision.gameObject.layer)))
@@ -137,6 +163,38 @@ public class PlayerMovement : StateDependantObject
             _onObstacleHit?.Invoke();
             Debug.Log($"{gameObject.name} hit an obstacle");
         }
+        if (collision.gameObject.CompareTag("Road") || collision.gameObject.CompareTag("RoadT"))
+        {
+            CurrentRoad = collision.gameObject;
+        }
+    }
+
+    private void SwitchBiome()
+    {
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
+            int randomBiome = Random.Range(0, biomes.Count-1);
+            _activeRoad.IsActive = false;
+            _activeRoad.Clear = true;
+            Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
+            _activeRoad = biomes[1];
+            Debug.Log($"Road NEW: {_activeRoad.transform.position} is {_activeRoad.IsActive}");
+            Vector3 playersPosition;
+            playersPosition = new Vector3(_activeRoad.transform.position.x, 3, _activeRoad.transform.position.z);
+            transform.localPosition = playersPosition;
+            transform.rotation = _activeRoad.transform.rotation;
+            _activeRoad.IsActive = true;
+            Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
+        }
+    }
+
+    public void Teleport(Vector3 position, Vector3 forwardDirection)
+    {
+        transform.parent.position = new Vector3(position.x, transform.parent.position.y, position.z);
+        transform.parent.rotation = Quaternion.LookRotation(forwardDirection);
+
+       
     }
 
     private void OnDrawGizmosSelected()
@@ -144,14 +202,14 @@ public class PlayerMovement : StateDependantObject
         if (!_showVisualAid) return;
         
         
-        
-        Vector3 minPos = transform.position;
-        minPos.x += minX;
-        Vector3 maxPos = transform.position;
-        maxPos.x += maxX;
+        /*
         Gizmos.color = _debugCubeColor;
+        Vector3 minPos = transform.position - (transform.right * minX);
+        
+        Vector3 maxPos = transform.position - (transform.right * maxX);
+       
         Gizmos.DrawCube(minPos, Vector3.one);
-        Gizmos.DrawCube(maxPos, Vector3.one);
+        Gizmos.DrawCube(maxPos, Vector3.one);*/
         Gizmos.DrawWireCube(transform.position + _slideLowestPointCentre, _slideLowestPointSize);
     }
 
