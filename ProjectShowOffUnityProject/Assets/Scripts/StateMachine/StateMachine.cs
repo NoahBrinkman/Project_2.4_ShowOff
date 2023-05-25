@@ -20,7 +20,7 @@ using UnityEngine;
                 return;
             }
 
-            if (_states.Contains(newPlayState))
+            if (!_states.Contains(newPlayState))
             {
                 _states.Add(newPlayState);
             }

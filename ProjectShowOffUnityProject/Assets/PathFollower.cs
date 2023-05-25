@@ -18,9 +18,18 @@ public class PathFollower : StateDependantObject<PlayerState>
     private float rotationTimer;
     private Quaternion rotationTarget;
 
-     private void Start()
+    [SerializeField] private float _staggerDistance = 3;
+    [SerializeField] private float _staggerDuration = 1;
+    [SerializeField] private AnimationCurve _staggerCurveForward;
+
+    private PlayerMovement _player;
+    
+    private Vector3 previousPoint;
+    protected override void Start()
      {
+         base.Start();
          path = new List<Vector3>();
+         previousPoint = transform.position;
          SetPath(points);
          rotationTimer = 0;
          moveTimer = 0;
@@ -37,6 +46,12 @@ public class PathFollower : StateDependantObject<PlayerState>
          moveTimer = 0;
          moving = true;
      }
+
+     public void SetMovingAndRotating(bool acive)
+     {
+         moving = acive;
+         rotating = acive;
+     }
      
      private void ResetRotation(Vector3 point)
      {
@@ -47,6 +62,7 @@ public class PathFollower : StateDependantObject<PlayerState>
      }
      private void NextMovePoint()
      {
+         previousPoint = path[0];
          if (path.Count > 1)
          {
              path.RemoveAt(0);
@@ -58,8 +74,15 @@ public class PathFollower : StateDependantObject<PlayerState>
          else
          {
             path.RemoveAt(0);
+            
             moving = false;
          }
+
+     }
+
+     public bool ShouldGoRight()
+     {
+         return _player.transform.localPosition.x < 0;
      }
 
      private void RotateFollower()
@@ -76,13 +99,25 @@ public class PathFollower : StateDependantObject<PlayerState>
              }
          }
      }
+
+     public void StaggerBackThenGoBackToMoving()
+     {
+         PlayerStateMachine sm = GetComponent<PlayerStateMachine>();
+         Vector3 endValue = (transform.position + transform.forward * _staggerDistance);
+
+         float percentageTravlled = (endValue - previousPoint).magnitude / (path[0] - previousPoint).magnitude;
+         moveTimer = percentageTravlled;
+         sm.SwitchState(sm.GetState<PlayerStaggerState>());
+         transform.DOMove(endValue, _staggerDuration + .1f).SetEase(_staggerCurveForward).OnComplete(
+             delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());});
+     }
      
      private void MoveFollower()
      {
          if (path.Count >= 1)
          {
              moveTimer += Time.deltaTime;
-             Vector3 newPos = Vector3.Lerp(oldPosition, path[0], moveTimer / totalMoveTime);
+             Vector3 newPos = Vector3.LerpUnclamped(oldPosition, path[0], moveTimer / totalMoveTime);
              transform.position = newPos;
              if (moveTimer >= totalMoveTime)
              {
@@ -92,7 +127,6 @@ public class PathFollower : StateDependantObject<PlayerState>
          else
          {
              transform.Translate(-transform.forward * secondsPerUnit * Time.deltaTime);
-                 
          }
      }
      
