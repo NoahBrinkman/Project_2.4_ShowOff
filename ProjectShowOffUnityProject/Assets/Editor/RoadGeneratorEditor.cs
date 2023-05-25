@@ -38,6 +38,8 @@ public class RoadGeneratorEditor : Editor
             _generator.ShowBorder = GUILayout.Toggle(_generator.ShowBorder, "Show border");
             
             EditorGUILayout.LabelField("Advanced settings", EditorStyles.boldLabel);
+            EditorGUILayout.HelpBox("Advanced settings used for easier debugging. If you're not sure you should change them, please don't.",
+                MessageType.Error);
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Space from the border (N)");
             EditorGUILayout.Space();
@@ -51,14 +53,11 @@ public class RoadGeneratorEditor : Editor
             EditorGUILayout.LabelField("Default Road Rotation");
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("X:",GUILayout.MaxWidth(25.0f));
-            _generator.DefaultRotationX =
-                EditorGUILayout.FloatField(_generator.DefaultRotationX, GUILayout.MaxWidth(50.0f));
+            _generator.DefaultRotationX = EditorGUILayout.FloatField(_generator.DefaultRotationX, GUILayout.MaxWidth(50.0f));
             EditorGUILayout.LabelField("Y:",GUILayout.MaxWidth(25.0f));
-            _generator.DefaultRotationY =
-                EditorGUILayout.FloatField(_generator.DefaultRotationY, GUILayout.MaxWidth(50.0f));
+            _generator.DefaultRotationY = EditorGUILayout.FloatField( _generator.DefaultRotationY, GUILayout.MaxWidth(50.0f));
             EditorGUILayout.LabelField("Z:",GUILayout.MaxWidth(25.0f));
-            _generator.DefaultRotationZ =
-                EditorGUILayout.FloatField(_generator.DefaultRotationZ, GUILayout.MaxWidth(50.0f));
+            _generator.DefaultRotationZ = EditorGUILayout.FloatField(_generator.DefaultRotationZ, GUILayout.MaxWidth(50.0f));
             EditorGUILayout.EndHorizontal();
            
             EditorGUI.indentLevel--;

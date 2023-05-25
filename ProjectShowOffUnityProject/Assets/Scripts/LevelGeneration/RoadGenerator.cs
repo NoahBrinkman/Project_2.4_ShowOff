@@ -1,31 +1,30 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using LevelGeneration;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class RoadGenerator : MonoBehaviour
 {
-    [SerializeField] private List<RoadPoints> roadPieces;
-    [SerializeField] private PlayerTest player;
-
+    [Tooltip("Pieces of roads specific to the generator / area." +
+             "Remember that the first one should always be straight start and the T variants should be at the end.")] 
+    [SerializeField] 
+    private List<RoadPoints> roadPieces;
+    
+    [Tooltip("Player needs to be added to every area that needs to be active.")] [SerializeField] 
+    private PlayerTest player;
+    
     [Tooltip(
         "How many pieces the generator will keep generated at once. I recommend number smaller than 4 to prevent overlapping")]
     [SerializeField]
-    private int piecesGeneratedAtOnce = 3;
+    private int piecesAtOnce = 3;
 
     [Tooltip("How many crossroads variants do we have in the generator")] [SerializeField]
-    private int howManyTVariants;
+    private int crossroadsVariants;
 
     [Tooltip("After how many road pieces the crossroad should be generated")] [SerializeField]
     private int whenToSpawnCross = 6;
 
-    [SerializeField]
+    [Tooltip("The size of the whole generator area")] [SerializeField]
     private int borderSize = 100;
     
 
@@ -63,9 +62,9 @@ public class RoadGenerator : MonoBehaviour
     public int NormalRoadBorderSpace { get; set; } = 3;
     public int CrossRoadBorderSpace { get; set; } = 5;
 
-    public float DefaultRotationX = -90.0f;
-    public float DefaultRotationY;
-    public float DefaultRotationZ;
+    [HideInInspector] public float DefaultRotationX = -90.0f;
+    [HideInInspector] public float DefaultRotationY;
+    [HideInInspector] public float DefaultRotationZ;
 
 
     private void Start()
@@ -86,7 +85,7 @@ public class RoadGenerator : MonoBehaviour
                 _generateNewPiece = false;
             }
 
-            if (_activePieces.Count <= piecesGeneratedAtOnce && !_crossRoadGenerated)
+            if (_activePieces.Count <= piecesAtOnce && !_crossRoadGenerated)
             {
                 GenerateRoad();
             }
@@ -156,7 +155,7 @@ public class RoadGenerator : MonoBehaviour
     /// </summary>
     private void GenerateStartRoads()
     {
-        for (int i = 0; i < piecesGeneratedAtOnce - 1; i++)
+        for (int i = 0; i < piecesAtOnce - 1; i++)
         {
             GenerateRoad();
         }
@@ -239,7 +238,7 @@ public class RoadGenerator : MonoBehaviour
                 }
                 else
                 {
-                    randomRoad = Random.Range(roadPieces.Count-howManyTVariants, roadPieces.Count-1);
+                    randomRoad = Random.Range(roadPieces.Count-crossroadsVariants, roadPieces.Count-1);
                 }
 
             }
