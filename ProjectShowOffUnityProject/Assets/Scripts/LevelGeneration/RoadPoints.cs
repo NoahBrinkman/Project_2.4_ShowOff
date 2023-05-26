@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace LevelGeneration
 {
@@ -25,7 +23,9 @@ namespace LevelGeneration
         public int Length => length;
         public RoadType TypeOfRoad => roadType;
 
+        [HideInInspector]
         public List<Vector3> CurvePoints = new List<Vector3>();
+        [HideInInspector]
         public List<Vector3> CurvePointsCross = new List<Vector3>();
 
         private Vector3 _assetStart;
@@ -35,19 +35,19 @@ namespace LevelGeneration
         private Bounds _bounds;
         private bool _curve;
         private bool _doubleCurve;
-        private float _height;
-        private float _width;
+        private float _roadHeight;
+        private float _roadWidth;
 
-        public float Height
+        public float RoadHeight
         {
-            get => _height;
-            set => _height = value;
+            get => _roadHeight;
+            set => _roadHeight = value;
         }
 
         public float RoadWidth
         {
-            get => _width;
-            set => _width = value;
+            get => _roadWidth;
+            set => _roadWidth = value;
         }
 
         //Used in the editor
@@ -61,8 +61,8 @@ namespace LevelGeneration
         private void Awake()
         {
             _bounds = GetComponent<Renderer>().bounds;
-            _height = _bounds.size.x;
-            _width = _bounds.size.z;
+            _roadHeight = _bounds.size.x;
+            _roadWidth = _bounds.size.z;
         }
 
         private void OnEnable()
