@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace LevelGeneration
 {
+    //TODO: tool to specify what type of object needs to spawn, how many areas etc
     public class ObstaclesSpawn : MonoBehaviour
     {
         [HideInInspector]
