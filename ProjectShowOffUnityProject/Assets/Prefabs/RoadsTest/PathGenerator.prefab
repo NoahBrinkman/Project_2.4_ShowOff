@@ -50,10 +50,10 @@ MonoBehaviour:
   - {fileID: 5087415297942288958, guid: a7dbe712aba3b424a8ab6e1a2d8f5477, type: 3}
   - {fileID: 1209165723970896359, guid: e4de05d9a6fb5456990ba002b3327773, type: 3}
   player: {fileID: 0}
-  piecesGeneratedAtOnce: 3
-  howManyTVariants: 1
+  piecesAtOnce: 3
+  crossroadsVariants: 0
   whenToSpawnCross: 6
   borderSize: 100
-  DefaultRotationX: -90
+  DefaultRotationX: 0
   DefaultRotationY: 0
   DefaultRotationZ: 0

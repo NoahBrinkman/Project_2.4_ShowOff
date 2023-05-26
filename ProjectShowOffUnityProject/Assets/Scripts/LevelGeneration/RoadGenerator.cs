@@ -62,7 +62,7 @@ public class RoadGenerator : MonoBehaviour
     public int NormalRoadBorderSpace { get; set; } = 3;
     public int CrossRoadBorderSpace { get; set; } = 5;
 
-    [HideInInspector] public float DefaultRotationX = -90.0f;
+    [HideInInspector] public float DefaultRotationX;
     [HideInInspector] public float DefaultRotationY;
     [HideInInspector] public float DefaultRotationZ;
 
@@ -223,14 +223,14 @@ public class RoadGenerator : MonoBehaviour
                 randomRoad = 2;
             }
 
-            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ+yDirection);
+            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirection, DefaultRotationZ);
             _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
             _closeToEdge = false;
         }
         else
         {
-            if (_generation % whenToSpawnCross == 0)
+            if (_generation % whenToSpawnCross == 0 && crossroadsVariants != 0)
             {
                 if (BordersCondition(((int)pieceYRotation + 360) % 360, CrossRoadBorderSpace))
                 {
@@ -242,7 +242,8 @@ public class RoadGenerator : MonoBehaviour
                 }
 
             }
-            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ+yDirection);
+            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirection, DefaultRotationZ);
+            Debug.Log(randomRoad);
             _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
         }
@@ -309,8 +310,8 @@ public class RoadGenerator : MonoBehaviour
         float yDirection = 90 + pieceYRotation;
         float yDirectionT = -90 + pieceYRotation;
 
-        Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ+yDirection);
-        Quaternion rotationT = Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ+yDirectionT);
+        Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirection, DefaultRotationZ);
+        Quaternion rotationT = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirectionT, DefaultRotationZ);
 
         Vector3 rightPosition = _activePoints.AssetEnd;
         Vector3 leftPosition = _activePoints.AssetLeft;

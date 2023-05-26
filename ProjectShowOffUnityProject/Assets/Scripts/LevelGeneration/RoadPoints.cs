@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace LevelGeneration
 {
@@ -25,7 +23,9 @@ namespace LevelGeneration
         public int Length => length;
         public RoadType TypeOfRoad => roadType;
 
+        [HideInInspector]
         public List<Vector3> CurvePoints = new List<Vector3>();
+        [HideInInspector]
         public List<Vector3> CurvePointsCross = new List<Vector3>();
 
         private Vector3 _assetStart;
