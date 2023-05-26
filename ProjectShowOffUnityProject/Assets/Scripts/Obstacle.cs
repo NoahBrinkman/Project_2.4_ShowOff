@@ -2,16 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Obstacle : MonoBehaviour
 {
-    private enum ObstacleType
+    public enum WhichObstacle
     {
         RunAround = 1,
         Jump,
         Slide
     }
 
-    [SerializeField]
-    private ObstacleType obstacleType;
+   [SerializeField]
+    private WhichObstacle obstacleType;
+
+    public WhichObstacle ObstacleType
+    {
+        get => obstacleType;
+        set => obstacleType = value;
+    }
 }

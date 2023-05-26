@@ -73,25 +73,23 @@ namespace LevelGeneration
             if (_curve)
             {
                 GenerateCurve(ref CurvePoints, curvePoints, _assetStart,_helperVector,_assetEnd);
-                // for (int i = 0; i <= curvePoints; i++)
-                // {
-                //     float t = i / (float)curvePoints;
-                //     CurvePoints.Add(CalculateBezierPoint(t, _assetStart, _helperVector, _assetEnd));
-                // }
-                
+
             }
 
             if (_doubleCurve)
             {
                 GenerateCurve(ref CurvePointsCross, curvePoints, _assetStart, _helperVector, _assetLeft);
-                // for (int i = 0; i <= curvePoints; i++)
-                // {
-                //     float t = i / (float)curvePoints;
-                //     CurvePointsCross.Add(CalculateBezierPoint(t, _assetStart, _helperVector, _assetLeft));
-                // }
             }
         }
 
+        /// <summary>
+        /// Generates bezier curve to help our player with movement
+        /// </summary>
+        /// <param name="curves">           List of curves that will get the necessary points (CurvePointsCross if it's a crossroad)</param>
+        /// <param name="numberOfPoints">   How many points you want to generate. The more the points, the smoother the curve</param>
+        /// <param name="startPoint">       Start point of the curve</param>
+        /// <param name="helperPoint">      Helper point needed to generate the curve</param>
+        /// <param name="endPoint">         End point of the curve</param>
         private void GenerateCurve(ref List<Vector3> curves, int numberOfPoints, Vector3 startPoint, Vector3 helperPoint, Vector3 endPoint)
         {
             for (int i = 0; i <= numberOfPoints; i++)

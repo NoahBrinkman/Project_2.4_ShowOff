@@ -17,14 +17,14 @@ public class ObstaclesSpawnEditor : Editor
     {
         Handles.color = Color.red;
 
-        for (int i = 2; i <= 6; i += 2)
-        {
-            Handles.DrawWireCube(new Vector3(_obstacles.transform.position.x+i,
-                    _obstacles.GetComponent<Renderer>().bounds.size.y,
-                    _obstacles.transform.position.z), 
-                new Vector3(1,0.5f,
-                    _obstacles.GetComponent<Renderer>().bounds.size.z));
-        }
+        // for (int i = 2; i <= 6; i += 2)
+        // {
+        //     Handles.DrawWireCube(new Vector3(_obstacles.transform.position.x+i,
+        //             _obstacles.GetComponent<Renderer>().bounds.size.y,
+        //             _obstacles.transform.position.z), 
+        //         new Vector3(1,0.5f,
+        //             _obstacles.GetComponent<Renderer>().bounds.size.z));
+        // }
 
         Handles.color = Color.cyan;
         foreach (Vector3 point in _obstacles._areasPoints)
