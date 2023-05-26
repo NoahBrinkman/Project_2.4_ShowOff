@@ -181,7 +181,7 @@ public class RoadGenerator : MonoBehaviour
         _generation++;
         _startPosition = _activePoints.AssetEnd;
 
-        int randomRoad = Random.Range(0, roadPieces.Count - 1);
+        int randomRoad = Random.Range(0, roadPieces.Count-crossroadsVariants);
         bool isACrossroad = false;
         float yDirection = 0;
         float pieceYRotation = _activePiece.transform.eulerAngles.y;
@@ -238,7 +238,7 @@ public class RoadGenerator : MonoBehaviour
                 }
                 else
                 {
-                    randomRoad = Random.Range(roadPieces.Count-crossroadsVariants, roadPieces.Count-1);
+                    randomRoad = Random.Range(roadPieces.Count-crossroadsVariants, roadPieces.Count);
                 }
 
             }

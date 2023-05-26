@@ -1,44 +1,42 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using LevelGeneration;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
-[CustomEditor(typeof(RoadPoints))]
-public class RoadAssetEditor : Editor
+namespace Editor
 {
-    private RoadPoints _road;
-    [SerializeField] private Vector3 _assetStartEditor;
-
-    
-    private Vector3 _assetEnd;
-    private Vector3 _assetLeft;
-    private Vector3 _assetRight;
-
-    private Bounds _bounds;
-
-    private void OnEnable()
+    [CustomEditor(typeof(RoadPoints))]
+    public class RoadAssetEditor : UnityEditor.Editor
     {
-        _road = (RoadPoints)target;
-    }
+        private RoadPoints _road;
+        [SerializeField] private Vector3 _assetStartEditor;
 
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        EditorGUILayout.HelpBox("Green point - start\n" +
-                                "Red point - end\n" +
-                                "Orange point - left\n" +
-                                "To check if the points are generated correctly, click on the path in the editor", MessageType.Info);
-    }
 
-    private void OnSceneGUI()
-    {
-        _bounds = _road.GetComponent<Renderer>().bounds;
+        private Vector3 _assetEnd;
+        private Vector3 _assetLeft;
+        private Vector3 _assetRight;
 
-        int roadRotation = ((int)_road.transform.localRotation.eulerAngles.y + 360) % 360;
+        private Bounds _bounds;
+
+        private void OnEnable()
+        {
+            _road = (RoadPoints)target;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            EditorGUILayout.HelpBox("Green point - start\n" +
+                                    "Red point - end\n" +
+                                    "Orange point - left\n" +
+                                    "To check if the points are generated correctly, click on the path in the editor",
+                MessageType.Info);
+        }
+
+        private void OnSceneGUI()
+        {
+            _bounds = _road.GetComponent<Renderer>().bounds;
+
+            int roadRotation = ((int)_road.transform.localRotation.eulerAngles.y + 360) % 360;
 
             float simpleX = _bounds.size.x / 2;
             float simpleZ = _bounds.size.z / 2;
@@ -69,28 +67,28 @@ public class RoadAssetEditor : Editor
                     break;
                 case RoadPoints.RoadType.Right when roadRotation == 90:
                     SpawnPoints(xMinusWidthX, simpleZ, -simpleX, zPlusLengthZ,
-                        true, xMinusWidthX,zPlusLengthZ);
+                        true, xMinusWidthX, zPlusLengthZ);
                     break;
                 case RoadPoints.RoadType.Right when roadRotation == 180:
                     SpawnPoints(simpleX, zPlusLengthZ, xPlusWidthX, simpleZ,
-                        true, xPlusWidthX,zPlusLengthZ);
+                        true, xPlusWidthX, zPlusLengthZ);
                     break;
                 case RoadPoints.RoadType.Right when roadRotation == 270:
                     SpawnPoints(xPlusWidthX, -simpleZ, simpleX, zMinusLengthZ,
-                        true, xPlusWidthX,zMinusLengthZ);
+                        true, xPlusWidthX, zMinusLengthZ);
                     break;
                 //LEFT--------------------------------------------------------------------------------------------------
                 case RoadPoints.RoadType.Left when roadRotation == 0:
                     SpawnPoints(-simpleX, zPlusLengthZ, xMinusWidthX, simpleZ,
-                        true, xMinusWidthX,zPlusLengthZ);
+                        true, xMinusWidthX, zPlusLengthZ);
                     break;
                 case RoadPoints.RoadType.Left when roadRotation == 90:
                     SpawnPoints(xPlusWidthX, simpleZ, simpleX, zPlusLengthZ,
-                        true, xPlusWidthX,zPlusLengthZ);
+                        true, xPlusWidthX, zPlusLengthZ);
                     break;
                 case RoadPoints.RoadType.Left when roadRotation == 180:
                     SpawnPoints(simpleX, zMinusLengthZ, xPlusWidthX, -simpleZ,
-                        true,xPlusWidthX, zMinusLengthZ);
+                        true, xPlusWidthX, zMinusLengthZ);
                     break;
                 case RoadPoints.RoadType.Left when roadRotation == 270:
                     SpawnPoints(xMinusWidthX, -simpleZ, -simpleX, zMinusLengthZ,
@@ -114,39 +112,40 @@ public class RoadAssetEditor : Editor
                         true, -simpleX, zMinusLengthZ);
                     break;
             }
-        
+
             foreach (var curve in _road.CurvePoints)
             {
                 Handles.color = Color.cyan;
-                Handles.DrawSolidDisc(curve, Vector3.up,0.2f);
+                Handles.DrawSolidDisc(curve, Vector3.up, 0.2f);
             }
-            
+
             foreach (var curve in _road.CurvePointsCross)
             {
                 Handles.color = Color.yellow;
-                Handles.DrawSolidDisc(curve, Vector3.up,0.2f);
+                Handles.DrawSolidDisc(curve, Vector3.up, 0.2f);
             }
-    }
-
-    private void SpawnPoints(float xOffsetStart, float zOffsetStart, float xOffsetEnd, float zOffsetEnd,
-        bool isCrossroad = false, float xOffsetLeft = 0, float zOffsetLeft = 0)
-    {
-        _assetStartEditor = new Vector3(_bounds.center.x + xOffsetStart, _bounds.center.y - _bounds.size.y / 2,
-            _bounds.center.z + zOffsetStart);
-        _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, _bounds.center.y - _bounds.size.y / 2,
-            _bounds.center.z + zOffsetEnd);
-
-        if (isCrossroad)
-        {
-            _assetLeft = new Vector3(_bounds.center.x + xOffsetLeft,_bounds.center.y - _bounds.size.y / 2,
-                _bounds.center.z + zOffsetLeft);
-            Handles.color = new Color(1, 0.6f, 0);
-            Handles.DrawSolidDisc(_assetLeft, Vector3.up, 0.2f);
         }
 
-        Handles.color = Color.green;
-        Handles.DrawSolidDisc(_assetStartEditor, Vector3.up, 0.2f);
-        Handles.color = Color.red;
-        Handles.DrawSolidDisc(_assetEnd, Vector3.up, 0.2f);
+        private void SpawnPoints(float xOffsetStart, float zOffsetStart, float xOffsetEnd, float zOffsetEnd,
+            bool isCrossroad = false, float xOffsetLeft = 0, float zOffsetLeft = 0)
+        {
+            _assetStartEditor = new Vector3(_bounds.center.x + xOffsetStart, _bounds.center.y - _bounds.size.y / 2,
+                _bounds.center.z + zOffsetStart);
+            _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, _bounds.center.y - _bounds.size.y / 2,
+                _bounds.center.z + zOffsetEnd);
+
+            if (isCrossroad)
+            {
+                _assetLeft = new Vector3(_bounds.center.x + xOffsetLeft, _bounds.center.y - _bounds.size.y / 2,
+                    _bounds.center.z + zOffsetLeft);
+                Handles.color = new Color(1, 0.6f, 0);
+                Handles.DrawSolidDisc(_assetLeft, Vector3.up, 0.2f);
+            }
+
+            Handles.color = Color.green;
+            Handles.DrawSolidDisc(_assetStartEditor, Vector3.up, 0.2f);
+            Handles.color = Color.red;
+            Handles.DrawSolidDisc(_assetEnd, Vector3.up, 0.2f);
+        }
     }
 }
