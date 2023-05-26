@@ -17,6 +17,7 @@ namespace LevelGeneration
         [SerializeField] private RoadType roadType;
         [SerializeField] private int width = 8;
         [SerializeField] private int length = 8;
+        [SerializeField] private int curvePoints = 20;
 
         [SerializeField] private int curvePoints = 10;
 
@@ -72,21 +73,32 @@ namespace LevelGeneration
 
             if (_curve)
             {
-                for (int i = 0; i <= curvePoints; i++)
-                {
-                    float t = i / (float)curvePoints;
-                    CurvePoints.Add(CalculateBezierPoint(t, _assetStart, _helperVector, _assetEnd));
-                }
+                GenerateCurve(ref CurvePoints, curvePoints, _assetStart,_helperVector,_assetEnd);
+                // for (int i = 0; i <= curvePoints; i++)
+                // {
+                //     float t = i / (float)curvePoints;
+                //     CurvePoints.Add(CalculateBezierPoint(t, _assetStart, _helperVector, _assetEnd));
+                // }
                 
             }
 
             if (_doubleCurve)
             {
-                for (int i = 0; i <= curvePoints; i++)
-                {
-                    float t = i / (float)curvePoints;
-                    CurvePointsCross.Add(CalculateBezierPoint(t, _assetStart, _helperVector, _assetLeft));
-                }
+                GenerateCurve(ref CurvePointsCross, curvePoints, _assetStart, _helperVector, _assetLeft);
+                // for (int i = 0; i <= curvePoints; i++)
+                // {
+                //     float t = i / (float)curvePoints;
+                //     CurvePointsCross.Add(CalculateBezierPoint(t, _assetStart, _helperVector, _assetLeft));
+                // }
+            }
+        }
+
+        private void GenerateCurve(ref List<Vector3> curves, int numberOfPoints, Vector3 startPoint, Vector3 helperPoint, Vector3 endPoint)
+        {
+            for (int i = 0; i <= numberOfPoints; i++)
+            {
+                float t = i / (float)numberOfPoints;
+                curves.Add(CalculateBezierPoint(t, startPoint, helperPoint, endPoint));
             }
         }
 

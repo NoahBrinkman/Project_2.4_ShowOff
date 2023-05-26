@@ -19,24 +19,20 @@ namespace LevelGeneration
         private void OnEnable()
         {
             _roadRenderer = GetComponent<Renderer>();
-            // foreach (GameObject obstacle in obstaclesToAvoid)
-            // {
-            //     _objectsBoundsMap.Add(obstacle, obstacle.GetComponent<Renderer>().bounds);
-            // }
 
             for (int i = 0; i <= 4; i+=2)
             {
                 Vector3 point1 = new Vector3(transform.position.x + 1.5f + i,
-                    transform.position.y,
+                    _roadRenderer.bounds.size.y,
                     transform.position.z);
                 Vector3 point2 = new Vector3(transform.position.x + 2.5f + i,
-                    transform.position.y,
+                    _roadRenderer.bounds.size.y,
                     transform.position.z);
                 Vector3 point3 = new Vector3(transform.position.x + 2.0f + i,
-                    transform.position.y,
+                    _roadRenderer.bounds.size.y,
                     transform.position.z-_roadRenderer.bounds.size.z/2);
                 Vector3 point4 = new Vector3(transform.position.x + 2.0f + i,
-                    transform.position.y,
+                    _roadRenderer.bounds.size.y,
                     transform.position.z+_roadRenderer.bounds.size.z/2);
                 
                 _areasPoints.Add(point1);
@@ -48,7 +44,7 @@ namespace LevelGeneration
             int random = Random.Range(1, 3);
 
             // 0 1 2 3 || 4 5 6 7 || 8 9 10 11
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < random; i++)
             {
                 GameObject obstacle = Instantiate(obstaclesToAvoid[0], transform);
                 obstacle.transform.position = RandomVector3(_areasPoints[4 * i], _areasPoints[4 * i + 1], _areasPoints[4 * i + 3],
@@ -58,11 +54,7 @@ namespace LevelGeneration
 
         private Vector3 RandomVector3(Vector3 startPosition, Vector3 endPosition, Vector3 leftPosition, Vector3 rightPosition)
         {
-            // startPosition = transform.TransformPoint(startPosition);
-            // endPosition = transform.TransformPoint(endPosition);
-            // leftPosition = transform.TransformPoint(leftPosition);
-            // rightPosition = transform.TransformPoint(rightPosition);
-            float newX = Random.Range(startPosition.x, endPosition.y);
+            float newX = Random.Range(startPosition.x, endPosition.x);
             float newZ = Random.Range(leftPosition.z, rightPosition.z);
 
             Vector3 newPosition = new Vector3(newX, startPosition.y, newZ);
