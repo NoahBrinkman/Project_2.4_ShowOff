@@ -4,52 +4,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class State : MonoBehaviour
+public abstract class GameState : MonoBehaviour, IState
 {
-    protected StateMachine _stateMachine;
+    protected GameStateMachine _stateMachine;
     public bool Active { get; protected set; }
 
     [SerializeField] private UnityEvent _onStateEnteredEvent;
 
-    public virtual void OnStateEntered()
+    public virtual void Enter()
     {
         Active = true;
         _onStateEnteredEvent?.Invoke();
     }
 
-    public virtual void Update()
-    { }
+    public virtual void Run()
+    {
+       
+    }
+
 
     [SerializeField] private UnityEvent _onStateExitEvent;
 
-    public virtual void OnStateExit()
+    public virtual void Exit()
     {
         Active = false;
         _onStateExitEvent?.Invoke();
     }
-    
-    
-    public void SetStateMachine(StateMachine pStateMachine)
+
+    public bool IsActive()
     {
-        _stateMachine = pStateMachine;
+        return Active;
     }
 
-    public void AddListenerOnStateEnter(UnityAction pcall)
+    public void AddToStateEnter(UnityAction pcall)
     {
-        Debug.Log("Trying to add");
         _onStateEnteredEvent.AddListener(pcall);
+       
     }
-    public void AddListenerOnStateExit(UnityAction pcall)
+
+    public void AddToStateExit(UnityAction pcall)
     {
         _onStateExitEvent.AddListener(pcall);
     }
-    public void RemoveListenerOnStateEnter(UnityAction pcall)
+
+    public void RemoveFromStateEnter(UnityAction pcall)
     {
         _onStateEnteredEvent.RemoveListener(pcall);
     }
-    public void RemoveListenerOnStateExit(UnityAction pcall)
+
+    public void RemoveFromStateExit(UnityAction pcall)
     {
         _onStateExitEvent.RemoveListener(pcall);
     }
+
+
+    public void SetStateMachine(GameStateMachine pStateMachine)
+    {
+        _stateMachine = pStateMachine;
+    }
+    
 }
 
