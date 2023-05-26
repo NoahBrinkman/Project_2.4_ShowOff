@@ -1,27 +1,33 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using LevelGeneration;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class RoadGenerator : MonoBehaviour
 {
-    [SerializeField] private List<RoadPoints> roadPieces;
-    [SerializeField] private GameObject startRoad;
-    [SerializeField] private PlayerMovement player;
-    [Tooltip("How many pieces the generator will keep generated at once. I recommend number smaller than 4 to prevent overlapping")]
-    [SerializeField] private int piecesGeneratedAtOnce = 3;
-    [Tooltip("How many crossroads variants do we have in the generator")]
-    [SerializeField] private int howManyTVariants;
-    [Tooltip("After how many road pieces the crossroad should be generated")]
-    [SerializeField] private int whenToSpawnCross = 6;
+    [Tooltip("Pieces of roads specific to the generator / area." +
+             "Remember that the first one should always be straight start and the T variants should be at the end.")] 
+    [SerializeField] 
+    private List<RoadPoints> roadPieces;
+    
+    [Tooltip("Player needs to be added to every area that needs to be active.")] [SerializeField] 
+    private PlayerTest player;
+    
+    [Tooltip(
+        "How many pieces the generator will keep generated at once. I recommend number smaller than 4 to prevent overlapping")]
+    [SerializeField]
+    private int piecesAtOnce = 3;
 
-    [SerializeField] private int borderSize = 1000;
-    public int BorderSize => borderSize;
+    [Tooltip("How many crossroads variants do we have in the generator")] [SerializeField]
+    private int crossroadsVariants;
+
+    [Tooltip("After how many road pieces the crossroad should be generated")] [SerializeField]
+    private int whenToSpawnCross = 6;
+
+    [Tooltip("The size of the whole generator area")] [SerializeField]
+    private int borderSize = 100;
+    
+
     public bool IsActive
     {
         get => _isActive;
@@ -42,19 +48,30 @@ public class RoadGenerator : MonoBehaviour
     private GameObject _leftSpawn;
     private RoadPoints _activePoints;
     private int _generation;
+    private int _dangerZone;
     private bool _closeToEdge;
     private bool _crossRoadGenerated;
     private bool _generateNewPiece;
     private bool _isActive;
     private bool _clear;
-
+    private bool _clockwise;
     
+    //DEBUG -----------------------
+    public bool ShowBorder { get; set; }
+    public int BorderSize => borderSize;
+    public int NormalRoadBorderSpace { get; set; } = 3;
+    public int CrossRoadBorderSpace { get; set; } = 5;
+
+    [HideInInspector] public float DefaultRotationX;
+    [HideInInspector] public float DefaultRotationY;
+    [HideInInspector] public float DefaultRotationZ;
+
 
     private void Start()
     {
-        _activePiece = CreateNewActivePiece(Quaternion.Euler(-90, 0, 0), transform.position);
+        _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ), transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
-        
+
         Debug.Log($"I am {name} and my position is {transform.position}");
     }
 
@@ -68,7 +85,7 @@ public class RoadGenerator : MonoBehaviour
                 _generateNewPiece = false;
             }
 
-            if (_activePieces.Count <= piecesGeneratedAtOnce && !_crossRoadGenerated)
+            if (_activePieces.Count <= piecesAtOnce && !_crossRoadGenerated)
             {
                 GenerateRoad();
             }
@@ -94,14 +111,13 @@ public class RoadGenerator : MonoBehaviour
         {
             Destroy(piece);
         }
-        
+
         _activePieces.Clear();
-        
-        CreateNewActivePiece(Quaternion.Euler(-90, 0, 0), transform.position);
+
+        CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ), transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
-        
     }
-    
+
 
     /// <summary>
     /// Makes sure to generate roads correctly after the crossroads
@@ -111,10 +127,12 @@ public class RoadGenerator : MonoBehaviour
         if (player.CurrentRoad == _leftSpawn)
         {
             ChooseRoad(_leftSpawn, _rightSpawn);
-
-        } else if (player.CurrentRoad == _rightSpawn)
+            _clockwise = false;
+        }
+        else if (player.CurrentRoad == _rightSpawn)
         {
             ChooseRoad(_rightSpawn, _leftSpawn);
+            _clockwise = true;
         }
     }
 
@@ -137,7 +155,7 @@ public class RoadGenerator : MonoBehaviour
     /// </summary>
     private void GenerateStartRoads()
     {
-        for (int i = 0; i < piecesGeneratedAtOnce - 1; i++)
+        for (int i = 0; i < piecesAtOnce - 1; i++)
         {
             GenerateRoad();
         }
@@ -154,7 +172,7 @@ public class RoadGenerator : MonoBehaviour
             _activePieces.RemoveAt(0);
         }
     }
-    
+
     /// <summary>
     /// Generates road piece depends on the previous ones rotation.
     /// </summary>
@@ -162,75 +180,122 @@ public class RoadGenerator : MonoBehaviour
     {
         _generation++;
         _startPosition = _activePoints.AssetEnd;
-        
-        int randomRoad = Random.Range(0, roadPieces.Count-1);
-        //int randomRoad = 0;
+
+        int randomRoad = Random.Range(0, roadPieces.Count - 1);
         bool isACrossroad = false;
         float yDirection = 0;
         float pieceYRotation = _activePiece.transform.eulerAngles.y;
-        
+
         switch (_activePoints.TypeOfRoad)
         {
             case RoadPoints.RoadType.Right:
                 yDirection = 90 + pieceYRotation;
+                CheckBorders(pieceYRotation);
+
                 break;
             case RoadPoints.RoadType.Left:
                 yDirection = -90 + pieceYRotation;
+                CheckBorders(pieceYRotation);
+
                 break;
             case RoadPoints.RoadType.Crossroad:
                 isACrossroad = true;
                 break;
             case RoadPoints.RoadType.Straight:
                 yDirection = 0 + pieceYRotation;
-                int roadRotation = ((int)pieceYRotation + 360) % 360;
-                if ((_activePiece.transform.position.x * 3 >= transform.position.x + borderSize && roadRotation == 0)
-                    || (_activePiece.transform.position.z * 3 >= transform.position.z + borderSize && roadRotation == 270)
-                    || (-_activePiece.transform.position.x * 3 <= transform.position.x - borderSize && roadRotation == 180)
-                    || (-_activePiece.transform.position.z * 3 <= transform.position.z - borderSize && roadRotation == 90))
-                {
-                    Debug.Log("It will be too much");
-                    _closeToEdge = true;
-                    randomRoad = Random.Range(1, roadPieces.Count-1);
-                }
-                break;
-            default:
-                
+                CheckBorders(pieceYRotation);
                 break;
         }
 
         if (isACrossroad)
         {
-            
             GenerateCrossRoad();
-
         }
         else if (_closeToEdge)
         {
-            int roadRotation = ((int)pieceYRotation + 360) % 360;
-            Debug.Log(roadRotation);
-            if (roadRotation == 270)
+            Debug.LogWarning("Close to the edge!");
+            if (!_clockwise)
             {
-                randomRoad = 3;
+                randomRoad = 1;
             }
             else
             {
                 randomRoad = 2;
             }
-            Quaternion rotation = Quaternion.Euler(-90, 0, yDirection);
-            _activePiece = CreateNewActivePiece(rotation,_startPosition, randomRoad);
+
+            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirection, DefaultRotationZ);
+            _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
             _closeToEdge = false;
         }
         else
         {
-            if (_generation % whenToSpawnCross == 0)
+            if (_generation % whenToSpawnCross == 0 && crossroadsVariants != 0)
             {
-                randomRoad = Random.Range(roadPieces.Count-howManyTVariants, roadPieces.Count-1);
-            }
+                if (BordersCondition(((int)pieceYRotation + 360) % 360, CrossRoadBorderSpace))
+                {
+                    _generation--;
+                }
+                else
+                {
+                    randomRoad = Random.Range(roadPieces.Count-crossroadsVariants, roadPieces.Count-1);
+                }
 
-            Quaternion rotation = Quaternion.Euler(-90, 0, yDirection);
-            _activePiece = CreateNewActivePiece(rotation,_startPosition, randomRoad);
+            }
+            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirection, DefaultRotationZ);
+            Debug.Log(randomRoad);
+            _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
+        }
+    }
+
+    /// <summary>
+    /// Checks if the piece fits in the borders.
+    /// Makes it possible to specify how far it should stop generating from the border line.
+    /// </summary>
+    /// <param name="roadRotationNonNegativeInt"> Road rotation passed as a non-negative int between 0 and 359</param>
+    /// <param name="spaceFromTheBorders">  How big should be the space between the checked piece and border</param>
+    /// <returns> True if at least one condition is met, false if road is not close to the border</returns>
+    private bool BordersCondition(int roadRotationNonNegativeInt, int spaceFromTheBorders = 3)
+    {
+        //For our project I calculated that the space needs to be 3
+        Vector3 activePiecePosition = _activePiece.transform.position;
+        Vector3 generatorPosition = transform.position;
+        float pieceHeight = _activePoints.RoadHeight;
+        float pieceWidth = _activePoints.RoadWidth;
+        float borderCorrected = borderSize / 2.0f;
+        
+        return (activePiecePosition.x + pieceHeight * spaceFromTheBorders >=
+                   generatorPosition.x + borderCorrected && roadRotationNonNegativeInt == 0)
+               || (activePiecePosition.x - pieceHeight * spaceFromTheBorders <=
+                   generatorPosition.x - borderCorrected && roadRotationNonNegativeInt == 180)
+               || (activePiecePosition.z + pieceWidth * spaceFromTheBorders >=
+                   generatorPosition.z + borderCorrected && roadRotationNonNegativeInt == 270)
+               || (activePiecePosition.z - pieceWidth* spaceFromTheBorders <=
+                   generatorPosition.z - borderCorrected && roadRotationNonNegativeInt == 90);
+    }
+    
+    /// <summary>
+    /// If the piece wouldn't fit the borders, marks it as close to the edge
+    /// </summary>
+    /// <param name="pieceYRotation"> Rotation of the current piece</param>
+    private void CheckBorders(float pieceYRotation)
+    {
+        if (BordersCondition(((int)pieceYRotation + 360) % 360, NormalRoadBorderSpace))
+        {
+            _closeToEdge = true;
+            // Debug.DrawLine(_activePiece.transform.position, 
+            //     new Vector3(_activePiece.transform.position.x + _activePoints.Height * 3, _activePiece.transform.position.y, _activePiece.transform.position.z), 
+            //     Color.red, 20.0f);
+            // Debug.DrawLine(_activePiece.transform.position, 
+            //     new Vector3(_activePiece.transform.position.x - _activePoints.Height * 3, _activePiece.transform.position.y, _activePiece.transform.position.z), 
+            //     Color.red, 20.0f);
+            // Debug.DrawLine(_activePiece.transform.position, 
+            //     new Vector3(_activePiece.transform.position.x, _activePiece.transform.position.y, _activePiece.transform.position.z + _activePoints.RoadWidth * 3), 
+            //     Color.red, 20.0f);
+            // Debug.DrawLine(_activePiece.transform.position, 
+            //     new Vector3(_activePiece.transform.position.x, _activePiece.transform.position.y, _activePiece.transform.position.z - _activePoints.RoadWidth * 3), 
+            //     Color.red, 20.0f);
         }
     }
 
@@ -244,10 +309,10 @@ public class RoadGenerator : MonoBehaviour
 
         float yDirection = 90 + pieceYRotation;
         float yDirectionT = -90 + pieceYRotation;
-            
-        Quaternion rotation = Quaternion.Euler(-90, 0, yDirection);
-        Quaternion rotationT = Quaternion.Euler(-90, 0, yDirectionT);
-            
+
+        Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirection, DefaultRotationZ);
+        Quaternion rotationT = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirectionT, DefaultRotationZ);
+
         Vector3 rightPosition = _activePoints.AssetEnd;
         Vector3 leftPosition = _activePoints.AssetLeft;
 
@@ -265,6 +330,8 @@ public class RoadGenerator : MonoBehaviour
     private GameObject CreateNewActivePiece(Quaternion rotation, Vector3 startPosition, int roadPieceNumber = 0)
     {
         GameObject newPiece = Instantiate(roadPieces[roadPieceNumber].gameObject, startPosition, rotation);
+        if (roadPieceNumber == 1) _clockwise = false;
+        if (roadPieceNumber == 2) _clockwise = true;
         newPiece.transform.parent = transform;
         _activePieces.Add(newPiece);
         return newPiece;

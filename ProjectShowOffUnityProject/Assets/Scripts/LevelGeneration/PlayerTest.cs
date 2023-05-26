@@ -7,11 +7,18 @@ public class PlayerTest : MonoBehaviour
 {
     private Rigidbody rb;
     public float moveSpeed = 5f;
-    public GameObject CurrentRoad;
+
+    [SerializeField] private List<RoadGenerator> biomes;
+    [HideInInspector]
+    public GameObject CurrentRoad { get; private set; }
+
+    private RoadGenerator _activeRoad;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        _activeRoad = biomes[0];
+        _activeRoad.IsActive = true;
     }
 
     void Update()

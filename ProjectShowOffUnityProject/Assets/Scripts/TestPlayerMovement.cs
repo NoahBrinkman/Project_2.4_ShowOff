@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPlayerMovement : StateDependantObject
+public class TestPlayerMovement : StateDependantObject<GameState>
 {
     private Rigidbody _rb;
     [Header("PlayerMovement")]
@@ -29,9 +29,9 @@ public class TestPlayerMovement : StateDependantObject
     /// <summary>
     /// Update but it only calls during certain states
     /// </summary>
-    protected override void ReNew()
+    protected override void Run()
     {
-        base.ReNew();
+        base.Run();
         float ver = Input.GetAxis(_verticalAxis);
         float hor = Input.GetAxis(_horizontalAxis);
         _rb.velocity = new Vector3(hor, 0, ver) * _speed;
