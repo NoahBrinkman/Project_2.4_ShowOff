@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,30 +6,29 @@ namespace LevelGeneration
 {
     public class ObstaclesSpawn : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> obstaclesToAvoid = new List<GameObject>();
-
-        [SerializeField] private float heightOffset;
-        [SerializeField] private float widthOffset;
-        [SerializeField] private float spacing = 2.0f;
-
-        private Bounds _objectBounds;
-        private Dictionary<GameObject, Bounds> _objectsBoundsMap = new Dictionary<GameObject, Bounds>();
+        [HideInInspector]
+        public List<Vector3> AreasPoints = new List<Vector3>();
+        
+        [Tooltip("List of obstacles that have a chance to get spawned on the road")]
+        [SerializeField] private List<Obstacle> obstaclesToAvoid = new List<Obstacle>();
+        
+        [Tooltip("Offset of height - used to generate sliding obstacles")] [SerializeField] 
+        private float heightOffset;
+        [Tooltip("Offset of width - used to determine how far to the side objects can be spawned")] [SerializeField] 
+        private float widthOffset;
+        [Tooltip("Space from the start and between the areas")] [SerializeField] 
+        private float spacing = 2.0f;
+        
         private Renderer _roadRenderer;
         private Obstacle.WhichObstacle _chosenObstacle;
-
-        public List<Vector3> _areasPoints = new List<Vector3>();
+        
 
         private void OnEnable()
         {
             _roadRenderer = GetComponent<Renderer>();
-            Vector3 pointFront;
-            Vector3 pointBack;
-            Vector3 pointLeft;
-            Vector3 pointRight;
             float positionX = transform.position.x;
             float positionY = _roadRenderer.bounds.max.y;
             float positionZ = transform.position.z;
-            int modifier = 1;
 
             int roadRotation = ((int)transform.localRotation.eulerAngles.y + 360) % 360;
 
@@ -39,13 +37,13 @@ namespace LevelGeneration
                 switch (roadRotation)
                 {
                     case 0:
-                        GeneratePointsVertical(positionX, 1, i, positionY, positionZ);
+                        GeneratePointsVertical(positionX, positionY, positionZ, 1, i);
                         break;
                     case 90:
                         GeneratePointsHorizontal(positionX, positionY, positionZ, -1, i);
                         break;
                     case 180:
-                        GeneratePointsVertical(positionX, -1, i, positionY, positionZ);
+                        GeneratePointsVertical(positionX, positionY, positionZ, -1, i);
                         break;
                     case 270:
                         GeneratePointsHorizontal(positionX, positionY, positionZ, 1, i);
@@ -53,43 +51,21 @@ namespace LevelGeneration
                 }
             }
 
-            int random = Random.Range(1, 30) % 3 + 1;
+            int random = Random.Range(1, 31) % 3 + 1;
 
-            // 0 1 2 3 || 4 5 6 7 || 8 9 10 11
-            for (int i = 0; i < random; i++)
+            if (obstaclesToAvoid.Count != 0)
             {
-                GameObject obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count - 1)],
-                    transform);
-                _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
-                obstacle.transform.position = RandomPositionInTheArea(_areasPoints[4 * i], _areasPoints[4 * i + 1],
-                    _areasPoints[4 * i + 3], _areasPoints[4 * i + 2], _chosenObstacle);
+                for (int i = 0; i < random; i++)
+                {
+                    GameObject obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
+                        transform);
+                    _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
+                    obstacle.transform.position = RandomPositionInTheArea(AreasPoints[4 * i], AreasPoints[4 * i + 1],
+                        AreasPoints[4 * i + 3], AreasPoints[4 * i + 2], _chosenObstacle);
+                }
             }
         }
-
-        private void GeneratePointsHorizontal(float x, float y, float z, int modifier, int offset)
-        {
-            var pointFront = new Vector3(x, y, z + (spacing - 0.5f) * modifier + offset * modifier);
-            var pointBack = new Vector3(x, y, z + (spacing + 0.5f) * modifier + offset * modifier);
-            var pointRight = new Vector3(x - widthOffset, y, z + spacing * modifier + offset * modifier);
-            var pointLeft = new Vector3(x + widthOffset, y, z + spacing * modifier + offset * modifier);
-            _areasPoints.Add(pointFront);
-            _areasPoints.Add(pointBack);
-            _areasPoints.Add(pointRight);
-            _areasPoints.Add(pointLeft);
-        }
-
-        private void GeneratePointsVertical(float x, int modifier, int offset, float y, float z)
-        {
-            Vector3 pointFront = new Vector3(x + (spacing - 0.5f) * modifier + offset * modifier, y, z);
-            Vector3 pointBack = new Vector3(x + (spacing + 0.5f) * modifier + offset * modifier, y, z);
-            Vector3 pointRight = new Vector3(x + spacing * modifier + offset * modifier, y, z - widthOffset);
-            Vector3 pointLeft = new Vector3(x + spacing * modifier + offset * modifier, y, z + widthOffset);
-            _areasPoints.Add(pointFront);
-            _areasPoints.Add(pointBack);
-            _areasPoints.Add(pointRight);
-            _areasPoints.Add(pointLeft);
-        }
-
+        
         /// <summary>
         /// Find a random position in the area (with additional requirements like height offset)
         /// </summary>
@@ -132,6 +108,46 @@ namespace LevelGeneration
             Vector3 newPosition = new Vector3(newX, newY, newZ);
 
             return newPosition;
+        }
+        
+        /// <summary>
+        /// Generate areas for the obstacles to spawn - HORIZONTAL
+        /// </summary>
+        /// <param name="x">        Start of the area</param>
+        /// <param name="y">        Y of the road</param>
+        /// <param name="z">        End of the area</param>
+        /// <param name="modifier"> Used in the opposite roads</param>
+        /// <param name="offset">   Offset for the areas</param>
+        private void GeneratePointsHorizontal(float x, float y, float z, int modifier, int offset)
+        {
+            var pointFront = new Vector3(x, y, z + (spacing - 0.5f) * modifier + offset * modifier);
+            var pointBack = new Vector3(x, y, z + (spacing + 0.5f) * modifier + offset * modifier);
+            var pointRight = new Vector3(x - widthOffset, y, z + spacing * modifier + offset * modifier);
+            var pointLeft = new Vector3(x + widthOffset, y, z + spacing * modifier + offset * modifier);
+            AreasPoints.Add(pointFront);
+            AreasPoints.Add(pointBack);
+            AreasPoints.Add(pointRight);
+            AreasPoints.Add(pointLeft);
+        }
+
+        /// <summary>
+        /// Generate areas for the obstacles to spawn - VERTICAL
+        /// </summary>
+        /// <param name="x">        Start of the area</param>
+        /// <param name="y">        Y of the road</param>
+        /// <param name="z">        End of the area</param>
+        /// <param name="modifier"> Used in the opposite roads</param>
+        /// <param name="offset">   Offset for the areas</param>
+        private void GeneratePointsVertical(float x, float y, float z, int modifier, int offset)
+        {
+            Vector3 pointFront = new Vector3(x + (spacing - 0.5f) * modifier + offset * modifier, y, z);
+            Vector3 pointBack = new Vector3(x + (spacing + 0.5f) * modifier + offset * modifier, y, z);
+            Vector3 pointRight = new Vector3(x + spacing * modifier + offset * modifier, y, z - widthOffset);
+            Vector3 pointLeft = new Vector3(x + spacing * modifier + offset * modifier, y, z + widthOffset);
+            AreasPoints.Add(pointFront);
+            AreasPoints.Add(pointBack);
+            AreasPoints.Add(pointRight);
+            AreasPoints.Add(pointLeft);
         }
     }
 }
