@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadPieces:
-  - {fileID: 3535848454761043354, guid: 35be7e38a5ce5410296fba343beacd01, type: 3}
-  - {fileID: 3770641713296464370, guid: 6af3e5e4035454cfaa7b54b8bdb4186c, type: 3}
-  - {fileID: 5087415297942288958, guid: a7dbe712aba3b424a8ab6e1a2d8f5477, type: 3}
-  - {fileID: 1209165723970896359, guid: e4de05d9a6fb5456990ba002b3327773, type: 3}
+  - {fileID: 7273401086903641631, guid: bdf7dfa53d60a4d398278331af17ccf4, type: 3}
+  - {fileID: 7142828040334716438, guid: 4c1a5508d0d1d45b9af1b715150801b0, type: 3}
+  - {fileID: 1175090382145987579, guid: 1bc6b9736d134481dbc876bad6afd676, type: 3}
+  - {fileID: 4312175736530989013, guid: da0db1b3af06f4272b09125ceb7ae97b, type: 3}
   player: {fileID: 0}
   piecesAtOnce: 3
   crossroadsVariants: 0
