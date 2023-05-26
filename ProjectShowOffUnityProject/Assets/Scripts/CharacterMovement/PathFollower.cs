@@ -17,7 +17,7 @@ public class PathFollower : StateDependantObject<PlayerState>
     [SerializeField] private float _secondsPerRotation = 1.0f;
     private float rotationTimer;
     private Quaternion rotationTarget;
-
+    
     [SerializeField] private float _staggerDistance = 3;
     [SerializeField] private float _staggerDuration = 1;
     [SerializeField] private AnimationCurve _staggerCurveForward;
@@ -30,7 +30,7 @@ public class PathFollower : StateDependantObject<PlayerState>
          base.Start();
          path = new List<Vector3>();
          previousPoint = transform.position;
-         SetPath(points);
+         //SetPath(points);
          rotationTimer = 0;
          moveTimer = 0;
      }
@@ -46,7 +46,20 @@ public class PathFollower : StateDependantObject<PlayerState>
          moveTimer = 0;
          moving = true;
      }
-
+    
+     public void AddToPath(Vector3 pPath)
+     {
+         path.Add(pPath);
+     }
+     
+     public void AddToPath(List<Vector3> pPath)
+     {
+         for (int i = 0; i < pPath.Count; i++)
+         {
+             path.Add(pPath[i]);
+         }
+     }
+     
      public void SetMovingAndRotating(bool acive)
      {
          moving = acive;
@@ -126,7 +139,7 @@ public class PathFollower : StateDependantObject<PlayerState>
          }
          else
          {
-             transform.Translate(-transform.forward * secondsPerUnit * Time.deltaTime);
+            // transform.Translate(-transform.forward * secondsPerUnit * Time.deltaTime);
          }
      }
      

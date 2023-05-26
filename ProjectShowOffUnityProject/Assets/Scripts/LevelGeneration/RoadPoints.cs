@@ -18,6 +18,7 @@ namespace LevelGeneration
         [SerializeField] private int width = 8;
         [SerializeField] private int length = 8;
 
+        [SerializeField] private int curvePoints = 10;
 
         public int Width => width;
         public int Length => length;
@@ -71,9 +72,9 @@ namespace LevelGeneration
 
             if (_curve)
             {
-                for (int i = 0; i <= 10; i++)
+                for (int i = 0; i <= curvePoints; i++)
                 {
-                    float t = i / (float)10;
+                    float t = i / (float)curvePoints;
                     CurvePoints.Add(CalculateBezierPoint(t, _assetStart, _helperVector, _assetEnd));
                 }
                 
@@ -81,9 +82,9 @@ namespace LevelGeneration
 
             if (_doubleCurve)
             {
-                for (int i = 0; i <= 10; i++)
+                for (int i = 0; i <= curvePoints; i++)
                 {
-                    float t = i / (float)10;
+                    float t = i / (float)curvePoints;
                     CurvePointsCross.Add(CalculateBezierPoint(t, _assetStart, _helperVector, _assetLeft));
                 }
             }

@@ -11,7 +11,7 @@ public class RoadGenerator : MonoBehaviour
     private List<RoadPoints> roadPieces;
     
     [Tooltip("Player needs to be added to every area that needs to be active.")] [SerializeField] 
-    private PlayerTest player;
+    private PlayerMovement player;
     
     [Tooltip(
         "How many pieces the generator will keep generated at once. I recommend number smaller than 4 to prevent overlapping")]
@@ -71,7 +71,6 @@ public class RoadGenerator : MonoBehaviour
     {
         _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ), transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
-
         Debug.Log($"I am {name} and my position is {transform.position}");
     }
 
