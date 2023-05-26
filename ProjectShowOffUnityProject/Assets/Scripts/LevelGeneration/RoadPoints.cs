@@ -18,8 +18,7 @@ namespace LevelGeneration
         [SerializeField] private int width = 8;
         [SerializeField] private int length = 8;
         [SerializeField] private int curvePoints = 20;
-
-        [SerializeField] private int curvePoints = 10;
+        
 
         public int Width => width;
         public int Length => length;
