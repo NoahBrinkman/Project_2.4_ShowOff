@@ -126,7 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadType: 1
-  width: 8
+  width: 1
   length: 8
+  curvePoints: 20
   CurvePoints: []
   CurvePointsCross: []
