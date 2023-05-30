@@ -82,8 +82,9 @@ public class PlayerMovement : StateDependantObject<PlayerState>
         startY = transform.position.y;
         startXZ = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
         _activeRoad = biomes[0];
-              _activeRoad.IsActive = true;
-        //     Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
+        _activeRoad.IsActive = true;
+       
+  //     Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
 
         try
         {

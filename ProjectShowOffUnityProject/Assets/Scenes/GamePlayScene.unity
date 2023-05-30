@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2159.343, g: 2263.7659, b: 3287.3716, a: 1}
+  m_IndirectSpecularColor: {r: 2159.3538, g: 2264.8577, b: 3292.5981, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2011,7 +2011,9 @@ MonoBehaviour:
   _whatToDoWhenInactive: 0
   secondsPerUnit: 0.1
   points: []
-  _secondsPerRotation: 0.7
+  path: []
+  _secondsPerRotation: 0.6
+  _rotationMargin: 0.2
   _staggerDistance: 3.5
   _staggerDuration: 1
   _staggerCurveForward:
@@ -2056,6 +2058,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  staggerMargin: 0.35
 --- !u!4 &907508026
 Transform:
   m_ObjectHideFlags: 0
@@ -2142,6 +2145,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 585727994}
+    - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
+        type: 3}
+      propertyPath: crossroadsVariants
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
       propertyPath: roadPieces.Array.size
@@ -3193,10 +3201,10 @@ MonoBehaviour:
   _state: {fileID: 962108170}
   _whatToDoWhenInactive: 0
   secondsPerUnit: 0.1
-  points:
-  - {x: 30, y: 0, z: 20}
-  - {x: 30, y: 0, z: 10}
-  _secondsPerRotation: 0.7
+  points: []
+  path: []
+  _secondsPerRotation: 0.6
+  _rotationMargin: 0.2
   _staggerDistance: 3.5
   _staggerDuration: 1
   _staggerCurveForward:
@@ -3241,6 +3249,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  staggerMargin: 0.35
 --- !u!4 &2026556517
 Transform:
   m_ObjectHideFlags: 0
