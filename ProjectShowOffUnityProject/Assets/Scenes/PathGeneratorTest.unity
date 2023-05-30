@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ca7b56374011d4283bdc0987be3d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: {fileID: 494329208}
+  _state: {fileID: 0}
   _whatToDoWhenInactive: 0
   _speed: 4
   minX: -1
@@ -1488,36 +1488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d79595f5f3eeac34b92f48fd09b77274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onStateEnteredEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  _onStateExitEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1683061451
 GameObject:
   m_ObjectHideFlags: 0

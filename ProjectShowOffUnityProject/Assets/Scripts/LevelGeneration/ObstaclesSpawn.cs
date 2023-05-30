@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace LevelGeneration
@@ -22,7 +23,39 @@ namespace LevelGeneration
         
         private Renderer _roadRenderer;
         private Obstacle.WhichObstacle _chosenObstacle;
-        
+        [HideInInspector][SerializeField]
+        private bool controlledSpawn;
+        [HideInInspector][SerializeField]
+        private bool isAreaOne;
+        [HideInInspector][SerializeField]
+        private bool isAreaTwo;
+        [HideInInspector][SerializeField]
+        private bool isAreaThree;
+
+        public bool ControlledSpawn
+        {
+            get => controlledSpawn;
+            set => controlledSpawn = value;
+        }
+
+        public bool IsAreaOne
+        {
+            get => isAreaOne;
+            set => isAreaOne = value;
+        }
+
+        public bool IsAreaTwo
+        {
+            get => isAreaTwo;
+            set => isAreaTwo = value;
+        }
+
+        public bool IsAreaThree
+        {
+            get => isAreaThree;
+            set => isAreaThree = value;
+        }
+
 
         private void OnEnable()
         {
@@ -54,7 +87,7 @@ namespace LevelGeneration
 
             int random = Random.Range(1, 31) % 3 + 1;
 
-            if (obstaclesToAvoid.Count != 0)
+            if (obstaclesToAvoid.Count != 0 && !controlledSpawn)
             {
                 for (int i = 0; i < random; i++)
                 {
@@ -63,6 +96,20 @@ namespace LevelGeneration
                     _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
                     obstacle.transform.position = RandomPositionInTheArea(AreasPoints[4 * i], AreasPoints[4 * i + 1],
                         AreasPoints[4 * i + 3], AreasPoints[4 * i + 2], _chosenObstacle);
+                }
+            } else if (obstaclesToAvoid.Count != 0 && controlledSpawn)
+            {
+                if (isAreaOne)
+                {
+                    Debug.Log("Area 1 is used!");
+                }
+                if (isAreaTwo)
+                {
+                    Debug.Log("Area 2 is used!");
+                }
+                if (isAreaThree)
+                {
+                    Debug.Log("Area 3 is used!");
                 }
             }
         }
