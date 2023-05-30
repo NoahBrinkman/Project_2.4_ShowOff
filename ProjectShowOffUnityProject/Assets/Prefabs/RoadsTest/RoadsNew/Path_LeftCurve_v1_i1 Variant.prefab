@@ -128,5 +128,7 @@ MonoBehaviour:
   roadType: 3
   width: 8
   length: 8
+  curvePoints: 20
+  specialOffset: 0.15
   CurvePoints: []
   CurvePointsCross: []
