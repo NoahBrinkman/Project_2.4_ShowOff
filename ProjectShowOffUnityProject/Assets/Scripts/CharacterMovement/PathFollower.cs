@@ -3,25 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PathFollower : StateDependantObject<PlayerState>
 {
     [Header("PathFollowing")]
     [SerializeField] private float secondsPerUnit = .25f;
-    [SerializeField] private List<Vector3> points = new List<Vector3>();
-    [SerializeField]  private List<Vector3> path;
+    private List<Vector3> path;
     private float moveTimer;
     private float totalMoveTime;
     private Vector3 oldPosition;
     private bool moving;
-    private bool rotating = false;
     
     [Header("Rotation")]
-    [SerializeField] private float _secondsPerRotation = 1.0f;
+    [SerializeField] private float _secondsPerRotationUnit = 1.0f;
     [SerializeField, Tooltip("If the rotational distance is less than this: don't bother rotating")] 
     private float _rotationMargin;
     private float rotationTimer;
+    private float totalRotationTime;
     private Quaternion rotationTarget;
+    private bool rotating = false;
     
     [Header("Stagger")]
     [SerializeField] private float _staggerDistance = 3;
@@ -77,11 +78,14 @@ public class PathFollower : StateDependantObject<PlayerState>
      private void ResetRotation(Vector3 point)
      {
          Vector3 relativePos =  transform.position - point ;
-         if (relativePos.magnitude <= _rotationMargin)
-         {
-             return;
-         }
+
          rotationTarget = Quaternion.LookRotation(relativePos);
+         float a = Quaternion.Angle( rotationTarget, transform.rotation);
+         Debug.Log($"Angle: {a}");
+         
+         if (a <= _rotationMargin) return;
+         
+         totalRotationTime =  a * _secondsPerRotationUnit;
          rotating = true;
          rotationTimer = 0;
      }
@@ -115,9 +119,9 @@ public class PathFollower : StateDependantObject<PlayerState>
          if (rotating)
          {
              rotationTimer += Time.deltaTime;
-             transform.rotation = Quaternion.Slerp(transform.rotation, rotationTarget,  rotationTimer / _secondsPerRotation);
+             transform.rotation = Quaternion.Slerp(transform.rotation, rotationTarget,  rotationTimer / totalRotationTime);
      
-             if (rotationTimer >= _secondsPerRotation)
+             if (rotationTimer >= totalRotationTime)
              {
                  rotating = false;
                  rotationTimer = 0;
@@ -183,13 +187,7 @@ public class PathFollower : StateDependantObject<PlayerState>
 
      private void OnDrawGizmos()
      {
-
-         for (int i = 0; i < points.Count; i++)
-         {
-             Gizmos.color = Color.blue;
-             
-             Gizmos.DrawSphere(points[i], .5f);
-         }
+         
          if (moving)
          {
              if (path.Count > 0)

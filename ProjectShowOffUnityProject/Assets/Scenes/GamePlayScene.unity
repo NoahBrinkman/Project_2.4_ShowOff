@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2161.384, g: 2265.4006, b: 3288.5708, a: 1}
+  m_IndirectSpecularColor: {r: 2161.3801, g: 2265.4124, b: 3288.5317, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -584,7 +584,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387774131}
-  m_LocalRotation: {x: -0.00000021513816, y: 0.9762641, z: -0.21658355, w: -0.000000969749}
+  m_LocalRotation: {x: -0.0000002178863, y: 0.9762641, z: -0.21658352, w: -0.0000009821365}
   m_LocalPosition: {x: 90.000015, y: 3.5, z: 7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1170,7 +1170,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 497824024}
-  m_LocalRotation: {x: -0.00000021513816, y: 0.9762641, z: -0.21658355, w: -0.000000969749}
+  m_LocalRotation: {x: -0.0000002178863, y: 0.9762641, z: -0.21658352, w: -0.0000009821365}
   m_LocalPosition: {x: 90.000015, y: 3.5, z: 7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2010,10 +2010,8 @@ MonoBehaviour:
   _state: {fileID: 745953470}
   _whatToDoWhenInactive: 0
   secondsPerUnit: 0.1
-  points: []
-  path: []
-  _secondsPerRotation: 0.6
-  _rotationMargin: 0.2
+  _secondsPerRotationUnit: 0.075
+  _rotationMargin: 30
   _staggerDistance: 3.5
   _staggerDuration: 1
   _staggerCurveForward:
@@ -3206,10 +3204,8 @@ MonoBehaviour:
   _state: {fileID: 962108170}
   _whatToDoWhenInactive: 0
   secondsPerUnit: 0.1
-  points: []
-  path: []
-  _secondsPerRotation: 0.6
-  _rotationMargin: 0.2
+  _secondsPerRotationUnit: 0.075
+  _rotationMargin: 30
   _staggerDistance: 3.5
   _staggerDuration: 1
   _staggerCurveForward:
