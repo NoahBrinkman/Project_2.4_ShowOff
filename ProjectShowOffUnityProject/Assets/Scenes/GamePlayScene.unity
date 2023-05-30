@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2159.3538, g: 2264.8577, b: 3292.5981, a: 1}
+  m_IndirectSpecularColor: {r: 2161.384, g: 2265.4006, b: 3288.5708, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -584,8 +584,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387774131}
-  m_LocalRotation: {x: 0.1531475, y: 0.6903238, z: -0.15314788, w: 0.6903221}
-  m_LocalPosition: {x: 82.5, y: 3.5, z: 0.000019222498}
+  m_LocalRotation: {x: -0.00000021513816, y: 0.9762641, z: -0.21658355, w: -0.000000969749}
+  m_LocalPosition: {x: 90.000015, y: 3.5, z: 7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1170,8 +1170,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 497824024}
-  m_LocalRotation: {x: 0.1531475, y: 0.6903238, z: -0.15314788, w: 0.6903221}
-  m_LocalPosition: {x: 82.5, y: 3.5, z: 0.000019222498}
+  m_LocalRotation: {x: -0.00000021513816, y: 0.9762641, z: -0.21658355, w: -0.000000969749}
+  m_LocalPosition: {x: 90.000015, y: 3.5, z: 7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2066,7 +2066,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907508023}
-  m_LocalRotation: {x: -0, y: -0.7071058, z: -0, w: 0.70710784}
+  m_LocalRotation: {x: -0, y: 0.00000093877316, z: -0, w: 1}
   m_LocalPosition: {x: 90, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2076,7 +2076,7 @@ Transform:
   - {fileID: 1980172736}
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &962108168
 GameObject:
   m_ObjectHideFlags: 0
@@ -2145,6 +2145,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 585727994}
+    - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
+        type: 3}
+      propertyPath: destructionTimer
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
       propertyPath: crossroadsVariants
@@ -3286,6 +3291,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1847649605}
+    - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
+        type: 3}
+      propertyPath: destructionTimer
+      value: 0.65
+      objectReference: {fileID: 0}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
       propertyPath: crossroadsVariants

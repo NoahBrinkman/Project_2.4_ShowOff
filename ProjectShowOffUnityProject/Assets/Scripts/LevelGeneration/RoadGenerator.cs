@@ -9,6 +9,9 @@ public class RoadGenerator : MonoBehaviour
              "Remember that the first one should always be straight start and the T variants should be at the end.")] 
     [SerializeField] 
     private List<RoadPoints> roadPieces;
+
+    [Tooltip("Time before a roadPiece actually gets destroyed theb the player leaves itself, it should be high enough that the player doesn't see it but low enough that you dont get pieces colliding with eachother"), SerializeField] 
+    private float destructionTimer;
     
     [Tooltip("Player needs to be added to every area that needs to be active.")] [SerializeField] 
     private PlayerMovement player;
@@ -167,7 +170,7 @@ public class RoadGenerator : MonoBehaviour
     {
         if (player.CurrentRoad == _activePieces[1])
         {
-            Destroy(_activePieces[0]);
+            StartCoroutine(_activePieces[0].GetComponent<RoadPoints>().DestroyMe(destructionTimer));
             _activePieces.RemoveAt(0);
         }
     }

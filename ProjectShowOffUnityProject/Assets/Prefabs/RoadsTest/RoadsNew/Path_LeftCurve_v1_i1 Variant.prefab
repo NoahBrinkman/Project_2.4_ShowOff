@@ -107,12 +107,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5654776, y: 0.4, z: 1.4205847}
-  m_Center: {x: 0.7827388, y: -0.010000005, z: 0.036103368}
+  m_Size: {x: 1.5654776, y: 5, z: 4}
+  m_Center: {x: 0.7827388, y: 2.5, z: 0.036103368}
 --- !u!114 &7142828040334716438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,5 +129,7 @@ MonoBehaviour:
   width: 8
   length: 8
   curvePoints: 30
+  vfxObject: {fileID: 2517159896595412478, guid: 976a2c91a4b2dea4d94a93d5180838c8,
+    type: 3}
   CurvePoints: []
   CurvePointsCross: []

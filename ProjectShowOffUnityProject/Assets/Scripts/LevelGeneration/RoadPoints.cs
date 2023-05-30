@@ -1,4 +1,7 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace LevelGeneration
@@ -18,7 +21,7 @@ namespace LevelGeneration
         [SerializeField] private int width = 8;
         [SerializeField] private int length = 8;
         [SerializeField] private int curvePoints = 20;
-        
+        [SerializeField] private GameObject vfxObject;
 
         public int Width => width;
         public int Length => length;
@@ -92,6 +95,14 @@ namespace LevelGeneration
             }
         }
 
+        public IEnumerator DestroyMe(float t)
+        {
+            yield return new WaitForSeconds(t);
+            Destroy(gameObject);
+            Instantiate(vfxObject, _assetEnd, Quaternion.identity);
+            yield break;
+            
+        }
         private void GenerateCurve(ref List<Vector3> curves, int numberOfPoints, Vector3 startPoint, Vector3 helperPoint, Vector3 endPoint)
         {
             for (int i = 0; i <= numberOfPoints; i++)
@@ -222,7 +233,17 @@ namespace LevelGeneration
                     break;
             }
         }
-        
+
+        private void OnTriggerEnter(Collider other)
+        {
+            PlayerMovement p = other.GetComponent<PlayerMovement>();
+            if( p != null)
+            {
+               p.SetNewRoad(this);
+            }
+        }
+
+
         private Vector3 CalculateBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
         {
             float u = 1 - t;
