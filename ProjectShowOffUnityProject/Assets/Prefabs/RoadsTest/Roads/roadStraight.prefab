@@ -110,11 +110,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadType: 1
-  type: 1
   width: 1
   length: 8
-  _assetStart: {x: 0, y: 0, z: 0}
-  _assetEnd: {x: 0, y: 0, z: 0}
+  curvePoints: 20
+  CurvePoints: []
+  CurvePointsCross: []
 --- !u!65 &-2915006879682631698
 BoxCollider:
   m_ObjectHideFlags: 0

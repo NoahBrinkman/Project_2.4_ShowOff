@@ -6,22 +6,28 @@ using UnityEngine;
 
 public class PathFollower : StateDependantObject<PlayerState>
 {
+    [Header("PathFollowing")]
     [SerializeField] private float secondsPerUnit = .25f;
     [SerializeField] private List<Vector3> points = new List<Vector3>();
-     private List<Vector3> path;
-     private float moveTimer;
-     private float totalMoveTime;
-     private Vector3 oldPosition;
+    [SerializeField]  private List<Vector3> path;
+    private float moveTimer;
+    private float totalMoveTime;
+    private Vector3 oldPosition;
     private bool moving;
     private bool rotating = false;
+    
+    [Header("Rotation")]
     [SerializeField] private float _secondsPerRotation = 1.0f;
+    [SerializeField, Tooltip("If the rotational distance is less than this: don't bother rotating")] 
+    private float _rotationMargin;
     private float rotationTimer;
     private Quaternion rotationTarget;
-
+    
+    [Header("Stagger")]
     [SerializeField] private float _staggerDistance = 3;
     [SerializeField] private float _staggerDuration = 1;
     [SerializeField] private AnimationCurve _staggerCurveForward;
-
+    [SerializeField] private float staggerMargin; 
     private PlayerMovement _player;
     
     private Vector3 previousPoint;
@@ -30,7 +36,7 @@ public class PathFollower : StateDependantObject<PlayerState>
          base.Start();
          path = new List<Vector3>();
          previousPoint = transform.position;
-         SetPath(points);
+        // SetPath(points);
          rotationTimer = 0;
          moveTimer = 0;
      }
@@ -46,7 +52,22 @@ public class PathFollower : StateDependantObject<PlayerState>
          moveTimer = 0;
          moving = true;
      }
-
+    
+     public void AddToPath(Vector3 pPath)
+     {
+         if(!path.Contains(pPath))
+            path.Add(pPath);
+     }
+     
+     public void AddToPath(List<Vector3> pPath)
+     {
+         for (int i = 0; i < pPath.Count; i++)
+         {
+             if(!path.Contains(pPath[i]))
+                path.Add(pPath[i]);
+         }
+     }
+     
      public void SetMovingAndRotating(bool acive)
      {
          moving = acive;
@@ -56,6 +77,10 @@ public class PathFollower : StateDependantObject<PlayerState>
      private void ResetRotation(Vector3 point)
      {
          Vector3 relativePos =  transform.position - point ;
+         if (relativePos.magnitude <= _rotationMargin)
+         {
+             return;
+         }
          rotationTarget = Quaternion.LookRotation(relativePos);
          rotating = true;
          rotationTimer = 0;
@@ -104,12 +129,24 @@ public class PathFollower : StateDependantObject<PlayerState>
      {
          PlayerStateMachine sm = GetComponent<PlayerStateMachine>();
          Vector3 endValue = (transform.position + transform.forward * _staggerDistance);
-
+         
+         
+         
          float percentageTravlled = (endValue - previousPoint).magnitude / (path[0] - previousPoint).magnitude;
-         moveTimer = percentageTravlled;
+        Debug.Log(percentageTravlled);
          sm.SwitchState(sm.GetState<PlayerStaggerState>());
-         transform.DOMove(endValue, _staggerDuration + .1f).SetEase(_staggerCurveForward).OnComplete(
-             delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());});
+         if (percentageTravlled <= staggerMargin)
+         {
+             moveTimer = 0;
+             transform.DOMove(previousPoint, _staggerDuration + .1f).SetEase(_staggerCurveForward).OnComplete(
+                 delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());});
+         }
+         else
+         {
+             moveTimer = percentageTravlled;
+             transform.DOMove(endValue, _staggerDuration + .1f).SetEase(_staggerCurveForward).OnComplete(
+                 delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());});
+         }
      }
      
      private void MoveFollower()
@@ -126,7 +163,7 @@ public class PathFollower : StateDependantObject<PlayerState>
          }
          else
          {
-             transform.Translate(-transform.forward * secondsPerUnit * Time.deltaTime);
+            // transform.Translate(-transform.forward * secondsPerUnit * Time.deltaTime);
          }
      }
      
@@ -146,11 +183,23 @@ public class PathFollower : StateDependantObject<PlayerState>
 
      private void OnDrawGizmos()
      {
+
          for (int i = 0; i < points.Count; i++)
          {
              Gizmos.color = Color.blue;
              
              Gizmos.DrawSphere(points[i], .5f);
+         }
+         if (moving)
+         {
+             if (path.Count > 0)
+             {
+                 for (int i = 0; i < path.Count; i++)
+                 {
+                     Gizmos.color =Color.green;
+                    Gizmos.DrawSphere(path[i],.2f);
+                 }
+             }
          }
      }
 }

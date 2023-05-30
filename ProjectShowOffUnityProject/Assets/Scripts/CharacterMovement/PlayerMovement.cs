@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core.Easing;
+using LevelGeneration;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -64,7 +65,7 @@ public class PlayerMovement : StateDependantObject<PlayerState>
     public GameObject CurrentRoad { get; private set; }
 
     private RoadGenerator _activeRoad;
-    
+    private PathFollower _pathFollower;
 
     [Header("Debug")] 
     [SerializeField] private bool _showVisualAid = true;
@@ -80,9 +81,21 @@ public class PlayerMovement : StateDependantObject<PlayerState>
        // startXZ = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
         startY = transform.position.y;
         startXZ = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
-//        _activeRoad = biomes[0];
-        //      _activeRoad.IsActive = true;
-        //     Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
+        _activeRoad = biomes[0];
+        _activeRoad.IsActive = true;
+       
+  //     Debug.Log($"Road: {_activeRoad} is {_activeRoad.IsActive}");
+
+        try
+        {
+            _pathFollower = GetComponentInParent<PathFollower>();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        
     }
     /// <summary>
     /// Update but it only calls during certain states
@@ -149,7 +162,7 @@ public class PlayerMovement : StateDependantObject<PlayerState>
      private void Move()
      {
          float hor = Input.GetAxis(_horizontalAxis);
-         _rb.velocity = new Vector3(hor, 0, 0) * _speed;
+         _rb.velocity = transform.right * hor * _speed;
          Vector3 newPos = transform.position;
          newPos.x = Mathf.Clamp(transform.localPosition.x, startXZ.x + minX, startXZ.x + maxX);
          newPos.z = Mathf.Clamp(transform.localPosition.z, startXZ.z + minX, startXZ.z + maxX);
@@ -163,12 +176,24 @@ public class PlayerMovement : StateDependantObject<PlayerState>
             _onObstacleHit?.Invoke();
             Debug.Log($"{gameObject.name} hit an obstacle");
         }
-        if (collision.gameObject.CompareTag("Road") || collision.gameObject.CompareTag("RoadT"))
-        {
-            CurrentRoad = collision.gameObject;
-        }
     }
 
+     public void SetNewRoad(RoadPoints rP)
+     {
+         if(CurrentRoad == rP.gameObject) return;
+         CurrentRoad = rP.gameObject;
+         if (rP.CurvePoints.Count > 0)
+         {
+             _pathFollower.AddToPath(rP.CurvePoints);
+         }
+         else
+         {
+             _pathFollower.AddToPath(rP.AssetStart);
+             _pathFollower.AddToPath(rP.AssetEnd);
+         }
+         _pathFollower.SetPath(new List<Vector3>());
+     }
+     
     private void SwitchBiome()
     {
         if (Input.GetKeyUp(KeyCode.R))

@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 672ca8b57d32546269f84c07dc3f9a17,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 672ca8b57d32546269f84c07dc3f9a17,
         type: 3}
@@ -116,8 +116,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 8.000989, y: 0.3112558, z: 8.997073}
-  m_Center: {x: 4.0004945, y: -0.092682414, z: 0}
+  m_Size: {x: 1, y: 5, z: 4}
+  m_Center: {x: 0.5, y: 2.5, z: 0}
 --- !u!114 &4312175736530989013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,5 +133,8 @@ MonoBehaviour:
   roadType: 4
   width: 8
   length: 8
+  curvePoints: 30
+  vfxObject: {fileID: 2517159896595412478, guid: 976a2c91a4b2dea4d94a93d5180838c8,
+    type: 3}
   CurvePoints: []
   CurvePointsCross: []

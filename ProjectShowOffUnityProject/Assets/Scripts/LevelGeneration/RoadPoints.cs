@@ -1,4 +1,7 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace LevelGeneration
@@ -19,7 +22,7 @@ namespace LevelGeneration
         [SerializeField] private int length = 8;
         [SerializeField] private int curvePoints = 20;
         [SerializeField] private float specialOffset;
-
+        [SerializeField] private GameObject vfxObject;
 
         public int Width => width;
         public int Length => length;
@@ -93,6 +96,7 @@ namespace LevelGeneration
         /// <param name="startPoint">       Start point of the curve</param>
         /// <param name="helperPoint">      Helper point needed to generate the curve</param>
         /// <param name="endPoint">         End point of the curve</param>
+ 
         private void GenerateCurve(ref List<Vector3> curves, int numberOfPoints, Vector3 startPoint, Vector3 helperPoint, Vector3 endPoint)
         {
             for (int i = 0; i <= numberOfPoints; i++)
@@ -101,7 +105,17 @@ namespace LevelGeneration
                 curves.Add(CalculateBezierPoint(t, startPoint, helperPoint, endPoint));
             }
         }
-
+        ///<summary>
+        ///Destroy after t has passed and then spawn a visual effect
+        ///</summary>
+       public IEnumerator DestroyMe(float t)
+        {
+            yield return new WaitForSeconds(t);
+            Destroy(gameObject);
+            Instantiate(vfxObject, _assetEnd, Quaternion.identity);
+            yield break;
+            
+        }
         /// <summary>
         /// Method used to generate points on correct positions
         /// </summary>
@@ -223,7 +237,17 @@ namespace LevelGeneration
                     break;
             }
         }
-        
+
+        private void OnTriggerEnter(Collider other)
+        {
+            PlayerMovement p = other.GetComponent<PlayerMovement>();
+            if( p != null)
+            {
+               p.SetNewRoad(this);
+            }
+        }
+
+
         private Vector3 CalculateBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
         {
             float u = 1 - t;
