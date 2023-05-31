@@ -24,7 +24,9 @@ public class PathFollower : StateDependantObject<PlayerState>
     private Quaternion rotationTarget;
     private bool rotating = false;
     
-    [Header("Stagger")]
+    [field:Header("Stagger")]
+    
+    public bool Staggered { get; private set; }
     [SerializeField] private float _staggerDistance = 3;
     [SerializeField] private float _staggerDuration = 1;
     [SerializeField] private AnimationCurve _staggerCurveForward;
@@ -40,6 +42,7 @@ public class PathFollower : StateDependantObject<PlayerState>
         // SetPath(points);
          rotationTimer = 0;
          moveTimer = 0;
+         Staggered = false;
      }
 
      public void SetPath(List<Vector3> pPath)
@@ -81,7 +84,7 @@ public class PathFollower : StateDependantObject<PlayerState>
 
          rotationTarget = Quaternion.LookRotation(relativePos);
          float a = Quaternion.Angle( rotationTarget, transform.rotation);
-         Debug.Log($"Angle: {a}");
+//         Debug.Log($"Angle: {a}");
          
          if (a <= _rotationMargin) return;
          
@@ -143,13 +146,17 @@ public class PathFollower : StateDependantObject<PlayerState>
          {
              moveTimer = 0;
              transform.DOMove(previousPoint, _staggerDuration + .1f).SetEase(_staggerCurveForward).OnComplete(
-                 delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());});
+                 delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());
+                     Staggered = true;
+                 });
          }
          else
          {
              moveTimer = percentageTravlled;
              transform.DOMove(endValue, _staggerDuration + .1f).SetEase(_staggerCurveForward).OnComplete(
-                 delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());});
+                 delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());
+                     Staggered = false;
+                 });
          }
      }
      

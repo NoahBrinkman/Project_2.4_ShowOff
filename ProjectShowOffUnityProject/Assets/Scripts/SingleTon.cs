@@ -6,7 +6,8 @@ public class SingleTon<T> : MonoBehaviour where T : SingleTon<T>
 {
     private static T _instance;
     public static T Instance => _instance;
-
+    protected bool destroyOnLoad = false;
+    
     /// <summary>
     /// Overridable Awake method, in children make sure to call base still.
     /// </summary>
@@ -19,6 +20,7 @@ public class SingleTon<T> : MonoBehaviour where T : SingleTon<T>
         else
         {
             _instance = (T)this;
+           if(!destroyOnLoad)DontDestroyOnLoad(gameObject);
         }
     }
 }

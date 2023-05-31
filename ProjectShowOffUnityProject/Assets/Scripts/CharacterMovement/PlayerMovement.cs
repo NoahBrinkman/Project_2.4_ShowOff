@@ -67,6 +67,9 @@ public class PlayerMovement : StateDependantObject<PlayerState>
     private RoadGenerator _activeRoad;
     private PathFollower _pathFollower;
 
+    [Header("Score")] 
+    [SerializeField] private float _baseScoreAddition;
+    
     [Header("Debug")] 
     [SerializeField] private bool _showVisualAid = true;
     [SerializeField, Tooltip("In case the player has no model. Use this")] private Transform _debugCube;
@@ -95,6 +98,8 @@ public class PlayerMovement : StateDependantObject<PlayerState>
             Console.WriteLine(e);
             throw;
         }
+        
+        ScoreManager.Instance.AddPlayer(this);
         
     }
     /// <summary>
@@ -238,4 +243,15 @@ public class PlayerMovement : StateDependantObject<PlayerState>
         Gizmos.DrawWireCube(transform.position + _slideLowestPointCentre, _slideLowestPointSize);
     }
 
+    public float GetScore()
+    {
+        float score = 0;
+        if (!_pathFollower.Staggered)
+        {
+
+            score += _baseScoreAddition;
+        }
+        //score * 1 + (combo/100);
+        return score;
+    }
 }
