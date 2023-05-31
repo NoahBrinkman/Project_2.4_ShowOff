@@ -24,13 +24,12 @@ public class PathFollower : StateDependantObject<PlayerState>
     private Quaternion rotationTarget;
     private bool rotating = false;
     
-    [field:Header("Stagger")]
-    
-    public bool Staggered { get; private set; }
+    [Header("Stagger")]
     [SerializeField] private float _staggerDistance = 3;
     [SerializeField] private float _staggerDuration = 1;
     [SerializeField] private AnimationCurve _staggerCurveForward;
-    [SerializeField] private float staggerMargin; 
+    [SerializeField] private float staggerMargin;
+    public bool Staggered { get; private set; }
     private PlayerMovement _player;
     
     private Vector3 previousPoint;
@@ -144,14 +143,16 @@ public class PathFollower : StateDependantObject<PlayerState>
          sm.SwitchState(sm.GetState<PlayerStaggerState>());
          if (percentageTravlled <= staggerMargin)
          {
+            Staggered = true;
              moveTimer = 0;
              transform.DOMove(previousPoint, _staggerDuration + .1f).SetEase(_staggerCurveForward).OnComplete(
                  delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());
-                     Staggered = true;
+                     Staggered = false;
                  });
          }
          else
          {
+             Staggered = true;
              moveTimer = percentageTravlled;
              transform.DOMove(endValue, _staggerDuration + .1f).SetEase(_staggerCurveForward).OnComplete(
                  delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());

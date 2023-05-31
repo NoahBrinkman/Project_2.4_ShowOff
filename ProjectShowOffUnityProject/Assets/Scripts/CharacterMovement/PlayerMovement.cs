@@ -108,9 +108,9 @@ public class PlayerMovement : StateDependantObject<PlayerState>
     protected override void Run()
     {
         base.Run();
-        Vector3 loopPos = _lookAtPoint.position;
-        loopPos.z = transform.position.z;
-        _lookAtPoint.position = loopPos;
+       // Vector3 loopPos = _lookAtPoint.position;
+       // loopPos.z = transform.position.z;
+       // _lookAtPoint.position = loopPos;
         float ver = Input.GetAxisRaw(_verticalAxis);
         
         SwitchBiome();
@@ -232,14 +232,14 @@ public class PlayerMovement : StateDependantObject<PlayerState>
         if (!_showVisualAid) return;
         
         
-        /*
+        
         Gizmos.color = _debugCubeColor;
         Vector3 minPos = transform.position - (transform.right * minX);
         
         Vector3 maxPos = transform.position - (transform.right * maxX);
        
         Gizmos.DrawCube(minPos, Vector3.one);
-        Gizmos.DrawCube(maxPos, Vector3.one);*/
+        Gizmos.DrawCube(maxPos, Vector3.one);
         Gizmos.DrawWireCube(transform.position + _slideLowestPointCentre, _slideLowestPointSize);
     }
 
