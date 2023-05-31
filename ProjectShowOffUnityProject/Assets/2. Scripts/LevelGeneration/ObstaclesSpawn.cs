@@ -127,6 +127,7 @@ public class ObstaclesSpawn : MonoBehaviour
         {
             for (int i = 0; i < random; i++)
             {
+                Debug.Log(transform);
                 GameObject obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
                     transform);
                 _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;

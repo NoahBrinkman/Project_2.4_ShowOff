@@ -13,8 +13,7 @@ public class Obstacle : MonoBehaviour
         Slide
     }
 
-   [SerializeField]
-    private WhichObstacle obstacleType;
+    [SerializeField] private WhichObstacle obstacleType;
 
     public WhichObstacle ObstacleType
     {

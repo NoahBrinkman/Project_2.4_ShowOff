@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8321840492997764412}
   - component: {fileID: 8175421157312929202}
   - component: {fileID: 871027808346099784}
-  - component: {fileID: 7792043018350435256}
   m_Layer: 0
   m_Name: Path_Big_Straight_NoObs
   m_TagString: Untagged
@@ -128,33 +127,3 @@ MonoBehaviour:
     type: 3}
   CurvePoints: []
   CurvePointsCross: []
---- !u!114 &7792043018350435256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7817237640928561172}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c189cc70b580c43e4bde5b12e648fdc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AreasPoints: []
-  obstaclesToAvoid:
-  - {fileID: 5946847603767030472, guid: aa076717783bd484f933eb2fd8142dcf, type: 3}
-  - {fileID: 5236634061064579679, guid: 6b5b4df538e5640b8a23141d552aeb97, type: 3}
-  - {fileID: 8272580120741486990, guid: 3a63273f46d9f40a8be9497e65bd468b, type: 3}
-  heightOffset: 0.5
-  widthOffset: 0.5
-  spacing: 2
-  controlledSpawn: 1
-  isAreaOne: 1
-  isAreaTwo: 1
-  isAreaThree: 1
-  controlAreaOne: 0
-  controlAreaTwo: 0
-  controlAreaThree: 0
-  area1Object: {fileID: 0}
-  area2Object: {fileID: 0}
-  area3Object: {fileID: 0}
