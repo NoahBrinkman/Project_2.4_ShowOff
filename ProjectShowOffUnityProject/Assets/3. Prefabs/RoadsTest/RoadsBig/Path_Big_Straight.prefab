@@ -105,8 +105,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2, z: 5}
-  m_Center: {x: 0.5, y: 1, z: 0}
+  m_Size: {x: 1, y: 5.1426525, z: 5}
+  m_Center: {x: 0.5, y: 2.5713263, z: -4.0609944e-15}
 --- !u!114 &871027808346099784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7817237640928561172}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c189cc70b580c43e4bde5b12e648fdc2, type: 3}
   m_Name: 
@@ -152,3 +152,9 @@ MonoBehaviour:
   isAreaOne: 0
   isAreaTwo: 0
   isAreaThree: 0
+  controlAreaOne: 0
+  controlAreaTwo: 0
+  controlAreaThree: 0
+  area1Object: {fileID: 0}
+  area2Object: {fileID: 0}
+  area3Object: {fileID: 0}

@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4ac7d355cdc844ab3a0ec8d1d40015fa,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ac7d355cdc844ab3a0ec8d1d40015fa,
         type: 3}
@@ -68,6 +68,12 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6fb601e1a85e9fb4ea76d285f3b779eb, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 4ac7d355cdc844ab3a0ec8d1d40015fa,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 6384930178412862347, guid: baa24daa59a397f4cbe4c0b0f26af4bc,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: 4ac7d355cdc844ab3a0ec8d1d40015fa,
         type: 3}
       propertyPath: m_Name
@@ -129,5 +135,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.666666, y: 0.666666, z: 0.66666603}
-  m_Center: {x: 0.00000047683716, y: 0.333333, z: 0.000000029802322}
+  m_Size: {x: 1.635592, y: 0.920531, z: 1.2414929}
+  m_Center: {x: -0.00000008940697, y: 0.46140167, z: 0}
