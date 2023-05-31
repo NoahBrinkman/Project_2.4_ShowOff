@@ -31,11 +31,42 @@ namespace LevelGeneration
         private bool isAreaTwo;
         [HideInInspector][SerializeField]
         private bool isAreaThree;
+        [HideInInspector][SerializeField]
+        private bool controlAreaOne;
+        [HideInInspector][SerializeField]
+        private bool controlAreaTwo;
+        [HideInInspector][SerializeField]
+        private bool controlAreaThree;
+
+        [HideInInspector] [SerializeField] 
+        private GameObject area1Object;
+        [HideInInspector] [SerializeField] 
+        private GameObject area2Object;
+        [HideInInspector] [SerializeField] 
+        private GameObject area3Object;
 
         public bool ControlledSpawn
         {
             get => controlledSpawn;
             set => controlledSpawn = value;
+        }
+
+        public bool ControlAreaOne
+        {
+            get => controlAreaOne;
+            set => controlAreaOne = value;
+        }
+
+        public bool ControlAreaTwo
+        {
+            get => controlAreaTwo;
+            set => controlAreaTwo = value;
+        }
+
+        public bool ControlAreaThree
+        {
+            get => controlAreaThree;
+            set => controlAreaThree = value;
         }
 
         public bool IsAreaOne
@@ -56,6 +87,23 @@ namespace LevelGeneration
             set => isAreaThree = value;
         }
 
+        public GameObject Area1Object
+        {
+            get => area1Object;
+            set => area1Object = value;
+        }
+
+        public GameObject Area2Object
+        {
+            get => area2Object;
+            set => area2Object = value;
+        }
+
+        public GameObject Area3Object
+        {
+            get => area3Object;
+            set => area3Object = value;
+        }
 
         private void OnEnable()
         {
@@ -102,14 +150,55 @@ namespace LevelGeneration
                 if (isAreaOne)
                 {
                     Debug.Log("Area 1 is used!");
+                    GameObject obstacle;
+                    if (controlAreaOne && area1Object != null)
+                    {
+                        obstacle = Instantiate(area1Object, transform);
+                    }
+                    else
+                    {
+                        obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
+                            transform);
+                    }
+                    
+                    _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
+                    obstacle.transform.position = RandomPositionInTheArea(AreasPoints[0], AreasPoints[1],
+                        AreasPoints[3], AreasPoints[2], _chosenObstacle);
                 }
                 if (isAreaTwo)
                 {
                     Debug.Log("Area 2 is used!");
+                    GameObject obstacle;
+                    if (controlAreaTwo && area2Object != null)
+                    {
+                        obstacle = Instantiate(area2Object, transform);
+                    }
+                    else
+                    {
+                        obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
+                            transform);
+                    }
+                    
+                    _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
+                    obstacle.transform.position = RandomPositionInTheArea(AreasPoints[4], AreasPoints[4 + 1],
+                        AreasPoints[4 + 3], AreasPoints[4 + 2], _chosenObstacle);
                 }
                 if (isAreaThree)
                 {
                     Debug.Log("Area 3 is used!");
+                    GameObject obstacle;
+                    if (controlAreaThree && area3Object != null)
+                    {
+                        obstacle = Instantiate(area3Object, transform);
+                    }
+                    else
+                    {
+                        obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
+                            transform);
+                    }
+                    _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
+                    obstacle.transform.position = RandomPositionInTheArea(AreasPoints[8], AreasPoints[8 + 1],
+                        AreasPoints[8 + 3], AreasPoints[8 + 2], _chosenObstacle);
                 }
             }
         }
