@@ -139,7 +139,6 @@ public class PathFollower : StateDependantObject<PlayerState>
          
          
          float percentageTravlled = (endValue - previousPoint).magnitude / (path[0] - previousPoint).magnitude;
-        Debug.Log(percentageTravlled);
          sm.SwitchState(sm.GetState<PlayerStaggerState>());
          if (percentageTravlled <= staggerMargin)
          {
