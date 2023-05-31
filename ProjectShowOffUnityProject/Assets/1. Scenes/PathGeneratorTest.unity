@@ -306,6 +306,18 @@ MonoBehaviour:
   heightOffset: 0.5
   widthOffset: 0.5
   spacing: 2
+  controlledSpawn: 0
+  isAreaOne: 0
+  isAreaTwo: 0
+  isAreaThree: 0
+  controlAreaOne: 0
+  controlAreaTwo: 0
+  controlAreaThree: 0
+  area1Object: {fileID: 6079542509708864830, guid: 6b5b4df538e5640b8a23141d552aeb97,
+    type: 3}
+  area2Object: {fileID: 0}
+  area3Object: {fileID: 6079542509708864830, guid: 6b5b4df538e5640b8a23141d552aeb97,
+    type: 3}
 --- !u!1 &558548334
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,6 +504,16 @@ MonoBehaviour:
   heightOffset: 0.5
   widthOffset: 0.5
   spacing: 2
+  controlledSpawn: 0
+  isAreaOne: 0
+  isAreaTwo: 0
+  isAreaThree: 0
+  controlAreaOne: 0
+  controlAreaTwo: 0
+  controlAreaThree: 0
+  area1Object: {fileID: 0}
+  area2Object: {fileID: 0}
+  area3Object: {fileID: 0}
 --- !u!1 &658137624
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,6 +960,16 @@ MonoBehaviour:
   heightOffset: 0.5
   widthOffset: 0.5
   spacing: 2
+  controlledSpawn: 1
+  isAreaOne: 1
+  isAreaTwo: 0
+  isAreaThree: 1
+  controlAreaOne: 1
+  controlAreaTwo: 0
+  controlAreaThree: 0
+  area1Object: {fileID: 0}
+  area2Object: {fileID: 0}
+  area3Object: {fileID: 0}
 --- !u!1 &991783268
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,6 +1464,16 @@ MonoBehaviour:
   heightOffset: 0.5
   widthOffset: 0.5
   spacing: 2
+  controlledSpawn: 0
+  isAreaOne: 0
+  isAreaTwo: 0
+  isAreaThree: 0
+  controlAreaOne: 0
+  controlAreaTwo: 0
+  controlAreaThree: 0
+  area1Object: {fileID: 0}
+  area2Object: {fileID: 0}
+  area3Object: {fileID: 0}
 --- !u!114 &1575810340 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
@@ -1532,7 +1574,7 @@ Transform:
   - {fileID: 494329207}
   - {fileID: 1634427522}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1910269638
 PrefabInstance:
@@ -1550,12 +1592,12 @@ PrefabInstance:
     - target: {fileID: 3190055120644822237, guid: bdf7dfa53d60a4d398278331af17ccf4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3190055120644822237, guid: bdf7dfa53d60a4d398278331af17ccf4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.09
+      value: -25.85
       objectReference: {fileID: 0}
     - target: {fileID: 3190055120644822237, guid: bdf7dfa53d60a4d398278331af17ccf4,
         type: 3}
