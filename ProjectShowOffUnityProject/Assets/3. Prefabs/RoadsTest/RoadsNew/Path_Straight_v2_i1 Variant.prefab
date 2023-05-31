@@ -99,7 +99,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 11fdb19e5d215406fa7e65c57d76831e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7273401086903641631}
+      addedObject: {fileID: 7788999604656235041}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 11fdb19e5d215406fa7e65c57d76831e,
         type: 3}
       insertIndex: -1
@@ -132,7 +132,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2044812, y: 5, z: 4}
   m_Center: {x: 0.5989805, y: 2.5, z: -5.894602e-16}
---- !u!114 &7273401086903641631
+--- !u!114 &7788999604656235041
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadType: 1
-  width: 1
+  width: 8
   length: 8
   curvePoints: 20
   specialOffset: 0
@@ -177,3 +177,9 @@ MonoBehaviour:
   isAreaOne: 0
   isAreaTwo: 0
   isAreaThree: 0
+  controlAreaOne: 0
+  controlAreaTwo: 0
+  controlAreaThree: 0
+  area1Object: {fileID: 0}
+  area2Object: {fileID: 0}
+  area3Object: {fileID: 0}
