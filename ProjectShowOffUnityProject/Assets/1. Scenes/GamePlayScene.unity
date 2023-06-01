@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 4
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2161.3254, g: 2265.424, b: 3288.4966, a: 1}
+  m_IndirectSpecularColor: {r: 2184.8557, g: 2330.7817, b: 3502.067, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -584,7 +584,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387774131}
-  m_LocalRotation: {x: 0.15314731, y: 0.6903247, z: -0.1531481, w: 0.6903212}
+  m_LocalRotation: {x: 0.1531473, y: 0.6903247, z: -0.15314808, w: 0.6903212}
   m_LocalPosition: {x: 1842.5, y: 3.5, z: 0.00003799796}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1170,7 +1170,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 497824024}
-  m_LocalRotation: {x: 0.15314731, y: 0.6903247, z: -0.1531481, w: 0.6903212}
+  m_LocalRotation: {x: 0.1531473, y: 0.6903247, z: -0.15314808, w: 0.6903212}
   m_LocalPosition: {x: 1842.5, y: 3.5, z: 0.00003799796}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4221,7 +4221,7 @@ PrefabInstance:
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
       propertyPath: destructionTimer
-      value: 0.65
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
@@ -4243,7 +4243,7 @@ PrefabInstance:
         type: 3}
       propertyPath: roadPieces.Array.data[1]
       value: 
-      objectReference: {fileID: 871027808346099784, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
+      objectReference: {fileID: 871027808346099784, guid: 07ffa18e4a5dec540a80672ad4c278e0,
         type: 3}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}

@@ -215,10 +215,11 @@ public class RoadGenerator : MonoBehaviour
         }
         else if (_closeToEdge)
         {
+            //TODO: Make it a nice variable that changes depending on the pieces of roads!!
             Debug.LogWarning("Close to the edge!");
             if (!_clockwise)
             {
-                randomRoad = 1;
+                randomRoad = 3;
             }
             else
             {

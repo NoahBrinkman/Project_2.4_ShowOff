@@ -26,6 +26,7 @@ public class LeaderboardName : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
+            _usedAlphabetLetter = 0;
             if (_activeLetter == letters.Count - 1)
             {
                 _activeLetter = 0;
