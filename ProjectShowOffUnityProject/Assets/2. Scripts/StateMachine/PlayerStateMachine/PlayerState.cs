@@ -3,10 +3,12 @@ using UnityEngine.Events;
 
 public class PlayerState : MonoBehaviour, IState
     {   
+        [Header("State")]
+        [SerializeField] private UnityEvent _onStateEnteredEvent;
+        [SerializeField] private UnityEvent _onStateExitEvent;
         protected GameStateMachine _stateMachine;
         public bool Active { get; protected set; }
 
-        [SerializeField] private UnityEvent _onStateEnteredEvent;
 
         public virtual void Enter()
         {
@@ -16,11 +18,10 @@ public class PlayerState : MonoBehaviour, IState
 
         public virtual void Run()
         {
-       
+            
         }
 
 
-        [SerializeField] private UnityEvent _onStateExitEvent;
 
         public virtual void Exit()
         {
