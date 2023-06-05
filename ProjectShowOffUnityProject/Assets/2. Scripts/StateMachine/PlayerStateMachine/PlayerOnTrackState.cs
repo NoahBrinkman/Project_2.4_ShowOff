@@ -6,8 +6,8 @@
  {
      [Header("Base")]
      [SerializeField] protected Transform _moveTarget;
-     
-     
+
+     [SerializeField, Range(0, 1)] private float _inertia;
      protected bool _moving = false;
      protected bool _rotating = false;
 
@@ -66,8 +66,9 @@
          if (_rotating)
          {
              StateMachine.PathTracker.RotationTimer += Time.deltaTime;
-             _moveTarget.rotation = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  StateMachine.PathTracker.RotationTimer / totalRotationTime);
-     
+             Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  StateMachine.PathTracker.RotationTimer / totalRotationTime);
+             Quaternion rot = Quaternion.Euler(newRot.eulerAngles * _inertia + _moveTarget.rotation.eulerAngles *( 1.0f-_inertia));
+             _moveTarget.rotation = rot;
              if (StateMachine.PathTracker.RotationTimer >= totalRotationTime)
              {
                  _rotating = false;
