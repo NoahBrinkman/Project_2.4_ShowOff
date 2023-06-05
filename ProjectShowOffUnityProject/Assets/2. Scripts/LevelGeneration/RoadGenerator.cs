@@ -13,7 +13,7 @@ public class RoadGenerator : MonoBehaviour
     private float destructionTimer;
     
     [Tooltip("Player needs to be added to every area that needs to be active.")] [SerializeField] 
-    private PlayerMovement player;
+    private PlayerStateMachine player;
     
     [Tooltip(
         "How many pieces the generator will keep generated at once. I recommend number smaller than 4 to prevent overlapping")]

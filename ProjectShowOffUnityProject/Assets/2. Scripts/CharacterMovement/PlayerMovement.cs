@@ -110,9 +110,9 @@ public class PlayerMovement : StateDependantObject<PlayerState>
        // Vector3 loopPos = _lookAtPoint.position;
        // loopPos.z = transform.position.z;
        // _lookAtPoint.position = loopPos;
-        float ver = Input.GetAxisRaw(_verticalAxis);
         
         SwitchBiome();
+        float ver = Input.GetAxisRaw(_verticalAxis);
         
         if (ver > 0 && !_jumping)
         {

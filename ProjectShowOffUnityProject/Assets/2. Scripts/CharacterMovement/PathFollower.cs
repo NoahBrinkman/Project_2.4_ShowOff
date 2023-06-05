@@ -145,7 +145,7 @@ public class PathFollower : StateDependantObject<PlayerState>
             Staggered = true;
              moveTimer = 0;
              transform.DOMove(previousPoint, _staggerDuration + .1f).SetEase(_staggerCurveForward).OnComplete(
-                 delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());
+                 delegate (){  sm.SwitchState(sm.GetState<PlayerMoveRunningState>());
                      Staggered = false;
                  });
          }
@@ -154,7 +154,7 @@ public class PathFollower : StateDependantObject<PlayerState>
              Staggered = true;
              moveTimer = percentageTravlled;
              transform.DOMove(endValue, _staggerDuration + .1f).SetEase(_staggerCurveForward).OnComplete(
-                 delegate (){  sm.SwitchState(sm.GetState<PlayerMoveState>());
+                 delegate (){  sm.SwitchState(sm.GetState<PlayerMoveRunningState>());
                      Staggered = false;
                  });
          }
