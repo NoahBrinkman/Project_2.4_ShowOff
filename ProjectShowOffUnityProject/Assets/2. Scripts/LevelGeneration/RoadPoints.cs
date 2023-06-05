@@ -22,7 +22,7 @@ public class RoadPoints : MonoBehaviour
     [SerializeField] private int curvePoints = 20;
     [SerializeField] private float specialOffset;
     [SerializeField] private GameObject vfxObject;
-
+    [SerializeField] private LayerMask _playerLayer;
     public int Width => width;
     public int Length => length;
     public RoadType TypeOfRoad => roadType;
@@ -238,6 +238,13 @@ public class RoadPoints : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+        if (_playerLayer == (_playerLayer | (1 << other.gameObject.layer)))
+        {
+            PlayerOnTrackState pT = other.GetComponentInSiblings<PlayerOnTrackState>(true);
+            pT.AddNewRoad(this);
+        }
+
         PlayerMovement p = other.GetComponent<PlayerMovement>();
         if (p != null)
         {

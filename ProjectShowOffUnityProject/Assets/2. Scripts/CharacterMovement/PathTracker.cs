@@ -19,4 +19,6 @@ public class PathTracker : MonoBehaviour
         TargetPoints = new List<Vector3>();
         PassedPoints = new List<Vector3>();
     }
+
+
 }

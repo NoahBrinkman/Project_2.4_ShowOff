@@ -8,6 +8,7 @@ public class PlayerState : MonoBehaviour, IState
         [SerializeField] private UnityEvent _onStateExitEvent;
         protected GameStateMachine _stateMachine;
         public bool Active { get; protected set; }
+        public PlayerStateMachine StateMachine { get; set; }
 
 
         public virtual void Enter()

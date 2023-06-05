@@ -122,10 +122,13 @@ MonoBehaviour:
   roadType: 1
   width: 8
   length: 8
-  curvePoints: 40
+  curvePoints: 60
   specialOffset: 0.6
   vfxObject: {fileID: 2517159896595412478, guid: 976a2c91a4b2dea4d94a93d5180838c8,
     type: 3}
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
   CurvePoints: []
   CurvePointsCross: []
 --- !u!114 &7792043018350435256
