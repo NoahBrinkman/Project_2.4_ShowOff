@@ -1682,6 +1682,7 @@ MonoBehaviour:
   shakePower: 5
   shakeTime: 0.5
   scale: 1.5
+  timeOfColourChange: 0.2
   letters:
   - {fileID: 437774811}
   - {fileID: 250425213}
@@ -1696,6 +1697,7 @@ MonoBehaviour:
   - {fileID: 838451250}
   - {fileID: 1206431131}
   - {fileID: 664278393}
+  horizontal: 1
 --- !u!1 &1561808682
 GameObject:
   m_ObjectHideFlags: 0
