@@ -20,6 +20,7 @@ public class EventCollider : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+
        OnCollisionEnterEvent?.Invoke(collision);
     }
 

@@ -5,13 +5,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerMoveRunningState : PlayerOnTrackState
 {
     
     [Header("References")]
     [SerializeField] private EventCollider _col;
-    private Rigidbody _rb;
+    [SerializeField] private Rigidbody _rb;
     
     
     [Header("PlayerMovement")] [SerializeField]
@@ -61,10 +60,13 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     private void Start()
     {
         _col.OnCollisionEnterEvent.AddListener(OnCollision);
-        _rb = GetComponent<Rigidbody>();
         startY = transform.position.y;
         startXZ = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
+        slideTweens = new List<Tween>();
     }
+    
+    
+
     
     
     
@@ -72,8 +74,8 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     {
         base.Run();
         float ver = Input.GetAxisRaw(_verticalAxis);
-        
-        if (ver > 0 && !_jumping)
+
+          if (ver > 0 && !_jumping)
         {
             if (_sliding)
             {
@@ -85,14 +87,13 @@ public class PlayerMoveRunningState : PlayerOnTrackState
             }
             //Jump
             _jumping = true;
-            jumpTween = transform.DOMoveY(_jumpHeight, _jumpDuration)
+            jumpTween = _col.transform.DOMoveY(_jumpHeight, _jumpDuration)
                 .SetEase(_jumpCurve).OnComplete(delegate() { _jumping = false;
                     jumpTween.timeScale = 1;
                 });
 
         }else if (ver < 0 && !_sliding)
         {
-            
             if (_jumping)
             {
                 jumpTween.timeScale = _jumpCancelSpeedMultiplier;
@@ -124,11 +125,12 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     private void MoveHorizontal()
     {
         float hor = Input.GetAxis(_horizontalAxis);
-        _rb.velocity = transform.right * hor * _speed;
-        Vector3 newPos = transform.position;
-        newPos.x = Mathf.Clamp(transform.localPosition.x, startXZ.x + minX, startXZ.x + maxX);
-        newPos.z = Mathf.Clamp(transform.localPosition.z, startXZ.z + minX, startXZ.z + maxX);
-        transform.localPosition = newPos;
+        Vector3 vel = _rb.transform.right * -hor * _speed;
+        _rb.velocity = vel;
+        Vector3 newPos = _rb.transform.localPosition;
+        newPos.x = Mathf.Clamp(_rb.transform.localPosition.x, startXZ.x + minX, startXZ.x + maxX);
+        newPos.z = Mathf.Clamp(_rb.transform.localPosition.z, startXZ.z + minX, startXZ.z + maxX);
+        _rb.transform.localPosition = newPos;
     }
     
     private void OnCollision(Collision info)
