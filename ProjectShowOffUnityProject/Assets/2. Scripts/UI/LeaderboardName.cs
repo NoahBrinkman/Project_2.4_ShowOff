@@ -19,7 +19,8 @@ public class LeaderboardName : MonoBehaviour
     [SerializeField] private List<TMP_Text> letters;
     [SerializeField] private List<Image> arrows;
     [SerializeField] private bool horizontal;
-    private string _verticalAxis = "Horizontal";
+    private string _verticalAxisPlayer1 = "Horizontal";
+    private string _verticalAxisPlayer2 = "Horizontal2";
     private int _usedAlphabetLetter;
     private int _activeLetter;
     [SerializeField] private int _score;
@@ -160,13 +161,13 @@ public class LeaderboardName : MonoBehaviour
     }
 
     /// <summary>
-    /// Change letters on the active letter with two buttons (Q and E)
+    /// Change letters on the active letter with two buttons
     /// </summary>
     /// <param name="activeLetter"> Which letter in the list is active</param>
     private void ChangeLetters(int activeLetter)
     {
         _usedAlphabetLetter = _lettersAndPosition[_activeLetter];
-        float ver = Input.GetAxisRaw(_verticalAxis);
+        float ver = Input.GetAxisRaw(_verticalAxisPlayer1);
         if (ver > 0 && !hasSwitched)
         {
             hasSwitched = true;
