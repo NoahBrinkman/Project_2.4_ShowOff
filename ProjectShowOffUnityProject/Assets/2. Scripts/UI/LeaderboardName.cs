@@ -19,6 +19,7 @@ public class LeaderboardName : MonoBehaviour
     [SerializeField] private List<TMP_Text> letters;
     [SerializeField] private List<Image> arrows;
     [SerializeField] private bool horizontal;
+    private string _verticalAxis = "Horizontal";
     private int _usedAlphabetLetter;
     private int _activeLetter;
     [SerializeField] private int _score;
@@ -27,6 +28,7 @@ public class LeaderboardName : MonoBehaviour
     private string _fileName = "Leaderboard.txt";
     private string _folderPath;
     private string _filePath;
+    bool hasSwitched = false;
     private List<HighScoreSave> sd = new List<HighScoreSave>();
 
     private readonly List<char> _alphabet = new List<char>()
@@ -164,9 +166,11 @@ public class LeaderboardName : MonoBehaviour
     private void ChangeLetters(int activeLetter)
     {
         _usedAlphabetLetter = _lettersAndPosition[_activeLetter];
-        if (Input.GetKeyUp(KeyCode.E))
+        float ver = Input.GetAxisRaw(_verticalAxis);
+        if (ver > 0 && !hasSwitched)
         {
-            StartColorChange(arrows[activeLetter * 2 + 1]);
+            hasSwitched = true;
+            StartColorChange(arrows[activeLetter * 2]);
             if (_usedAlphabetLetter == _alphabet.Count - 1)
             {
                 _usedAlphabetLetter = 0;
@@ -178,9 +182,10 @@ public class LeaderboardName : MonoBehaviour
 
             LetterShake(_alphabet[_usedAlphabetLetter], activeLetter);
         }
-        else if (Input.GetKeyUp(KeyCode.Q))
+        else if (ver < 0 && !hasSwitched)
         {
-            StartColorChange(arrows[activeLetter * 2]);
+            hasSwitched = true;
+            StartColorChange(arrows[activeLetter * 2 + 1]);
             if (_usedAlphabetLetter == 0)
             {
                 _usedAlphabetLetter = _alphabet.Count - 1;
@@ -191,6 +196,9 @@ public class LeaderboardName : MonoBehaviour
             }
 
             LetterShake(_alphabet[_usedAlphabetLetter], activeLetter);
+        } else if (ver == 0)
+        {
+            hasSwitched = false;
         }
 
         _lettersAndPosition[_activeLetter] = _usedAlphabetLetter;
