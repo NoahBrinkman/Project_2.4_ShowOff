@@ -67,8 +67,7 @@
          {
              StateMachine.PathTracker.RotationTimer += Time.deltaTime;
              Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  StateMachine.PathTracker.RotationTimer / totalRotationTime);
-             Quaternion rot = Quaternion.Euler(newRot.eulerAngles * _inertia + _moveTarget.rotation.eulerAngles *( 1.0f-_inertia));
-             _moveTarget.rotation = rot;
+             _moveTarget.rotation =   Quaternion.Euler(newRot.eulerAngles * _inertia + _moveTarget.rotation.eulerAngles *( 1.0f-_inertia));
              if (StateMachine.PathTracker.RotationTimer >= totalRotationTime)
              {
                  _rotating = false;
@@ -105,10 +104,10 @@
      private void NextRotatePoint()
      {
          Vector3 relativePos =   _moveTarget.position -StateMachine.PathTracker.TargetPoints[0];
-
+        
          _rotationTarget = Quaternion.LookRotation(relativePos);
          float a = Quaternion.Angle( _rotationTarget, transform.rotation);
-//         Debug.Log($"Angle: {a}");
+         Debug.Log($"Angle: {a}");
          
          if (a <= StateMachine.PathTracker.RotationMargin) return;
          
@@ -132,8 +131,10 @@
     
      public void AddToPath(Vector3 pPath)
      {
-         if(!StateMachine.PathTracker.TargetPoints.Contains(pPath))
+         if (!StateMachine.PathTracker.TargetPoints.Contains(pPath))
+         {
              StateMachine.PathTracker.TargetPoints.Add(pPath);
+         }
      }
      
      public void AddToPath(List<Vector3> pPath)
@@ -142,6 +143,7 @@
          {
              if(!StateMachine.PathTracker.TargetPoints.Contains(pPath[i]))
                  StateMachine.PathTracker.TargetPoints.Add(pPath[i]);
+             
          }
      }
 

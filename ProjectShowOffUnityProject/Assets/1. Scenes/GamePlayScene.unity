@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2187.6204, g: 2342.0784, b: 3543.899, a: 1}
+  m_IndirectSpecularColor: {r: 2160.9758, g: 2265.139, b: 3288.2153, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -505,7 +505,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 220964652}
-  m_LocalRotation: {x: 9.228144e-10, y: 0.9762641, z: -0.21658354, w: 0.000000004159644}
+  m_LocalRotation: {x: 0.000000002433873, y: 0.9762641, z: -0.21658352, w: 0.000000010970838}
   m_LocalPosition: {x: -1850, y: 3.25, z: 7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -584,7 +584,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387774131}
-  m_LocalRotation: {x: 0.0000000018633093, y: 0.9762641, z: -0.21658354, w: 0.000000008398985}
+  m_LocalRotation: {x: -0.0000000018633097, y: 0.9762641, z: -0.21658354, w: -0.000000008398987}
   m_LocalPosition: {x: 1850, y: 3.25, z: 7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -913,7 +913,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 460957259}
-  m_LocalRotation: {x: 9.228144e-10, y: 0.9762641, z: -0.21658354, w: 0.000000004159644}
+  m_LocalRotation: {x: 0.000000002433873, y: 0.9762641, z: -0.21658352, w: 0.000000010970838}
   m_LocalPosition: {x: -1850, y: 3.25, z: 7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1170,7 +1170,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 497824024}
-  m_LocalRotation: {x: 0.0000000018633093, y: 0.9762641, z: -0.21658354, w: 0.000000008398985}
+  m_LocalRotation: {x: -0.0000000018633097, y: 0.9762641, z: -0.21658354, w: -0.000000008398987}
   m_LocalPosition: {x: 1850, y: 3.25, z: 7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2915,7 +2915,7 @@ PrefabInstance:
     - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: RotationMargin
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
@@ -2930,7 +2930,7 @@ PrefabInstance:
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _inertia
-      value: 0.8
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
@@ -3174,7 +3174,7 @@ PrefabInstance:
     - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: RotationMargin
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}

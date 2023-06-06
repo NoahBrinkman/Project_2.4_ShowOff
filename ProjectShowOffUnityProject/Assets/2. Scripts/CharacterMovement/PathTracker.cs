@@ -13,12 +13,13 @@ public class PathTracker : MonoBehaviour
    
     public List<Vector3> TargetPoints { get; private set; }
     public List<Vector3> PassedPoints { get; private set; }
+    public List<Quaternion> RotationTargets { get; private set; }
 
     private void Awake()
     {
         TargetPoints = new List<Vector3>();
         PassedPoints = new List<Vector3>();
+        RotationTargets = new List<Quaternion>();
     }
-
 
 }
