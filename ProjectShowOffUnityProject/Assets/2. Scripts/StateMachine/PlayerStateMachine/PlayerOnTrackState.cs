@@ -53,7 +53,7 @@
          if (_moving)
          {
              StateMachine.PathTracker.MoveTimer += Time.deltaTime;
-             Vector3 newPos = Vector3.LerpUnclamped(StateMachine.PathTracker.PassedPoints[StateMachine.PathTracker.PassedPoints.Count-1], StateMachine.PathTracker.TargetPoints[0], StateMachine.PathTracker.MoveTimer / totalMoveTime);
+             Vector3 newPos = Vector3.SlerpUnclamped(StateMachine.PathTracker.PassedPoints[StateMachine.PathTracker.PassedPoints.Count-1], StateMachine.PathTracker.TargetPoints[0], StateMachine.PathTracker.MoveTimer / totalMoveTime);
              _moveTarget.transform.position = newPos;
              if (StateMachine.PathTracker.MoveTimer >= totalMoveTime)
              {
@@ -66,7 +66,7 @@
          if (_rotating)
          {
              StateMachine.PathTracker.RotationTimer += Time.deltaTime;
-             Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  StateMachine.PathTracker.RotationTimer / totalRotationTime);
+             Quaternion newRot = Quaternion.Lerp(_moveTarget.rotation, _rotationTarget,  StateMachine.PathTracker.RotationTimer / totalRotationTime);
              _moveTarget.rotation =   Quaternion.Euler(newRot.eulerAngles * _inertia + _moveTarget.rotation.eulerAngles *( 1.0f-_inertia));
              if (StateMachine.PathTracker.RotationTimer >= totalRotationTime)
              {
@@ -103,12 +103,10 @@
 
      private void NextRotatePoint()
      {
-         Vector3 relativePos =   _moveTarget.position -StateMachine.PathTracker.TargetPoints[0];
-        
+         Vector3 relativePos = _moveTarget.position - StateMachine.PathTracker.TargetPoints[0];
          _rotationTarget = Quaternion.LookRotation(relativePos);
-         float a = Quaternion.Angle( _rotationTarget, transform.rotation);
-         Debug.Log($"Angle: {a}");
          
+         float a = Quaternion.Angle(_moveTarget.rotation, _rotationTarget);
          if (a <= StateMachine.PathTracker.RotationMargin) return;
          
          totalRotationTime =  a * StateMachine.PathTracker.SecondsPerDegree;
@@ -134,6 +132,7 @@
          if (!StateMachine.PathTracker.TargetPoints.Contains(pPath))
          {
              StateMachine.PathTracker.TargetPoints.Add(pPath);
+             
          }
      }
      
@@ -141,12 +140,16 @@
      {
          for (int i = 0; i < pPath.Count; i++)
          {
-             if(!StateMachine.PathTracker.TargetPoints.Contains(pPath[i]))
+             if (!StateMachine.PathTracker.TargetPoints.Contains(pPath[i]))
+             {
                  StateMachine.PathTracker.TargetPoints.Add(pPath[i]);
+
+             }
              
          }
      }
 
+     
      public void AddNewRoad(RoadPoints roadPoints)
      {
          if (roadPoints.gameObject == StateMachine.CurrentRoad)
