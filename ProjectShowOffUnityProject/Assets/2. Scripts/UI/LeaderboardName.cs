@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
@@ -12,12 +15,19 @@ public class LeaderboardName : MonoBehaviour
     [SerializeField] private float shakeTime = 0.5f;
     [SerializeField] private float scale = 1.5f;
     [SerializeField] private float timeOfColourChange = 0.2f;
+    [SerializeField] private TMP_Text highScore;
     [SerializeField] private List<TMP_Text> letters;
     [SerializeField] private List<Image> arrows;
     [SerializeField] private bool horizontal;
     private int _usedAlphabetLetter;
     private int _activeLetter;
+    [SerializeField] private int _score;
     private readonly Dictionary<int, int> _lettersAndPosition = new Dictionary<int, int>();
+
+    private string _fileName = "Leaderboard.txt";
+    private string _folderPath;
+    private string _filePath;
+    private List<HighScoreSave> sd = new List<HighScoreSave>();
 
     private readonly List<char> _alphabet = new List<char>()
     {
@@ -31,13 +41,78 @@ public class LeaderboardName : MonoBehaviour
         {
             _lettersAndPosition.Add(i, 0);
         }
+
+        _folderPath = Path.Combine(Application.dataPath, "9. Data");
+
+        if (!Directory.Exists(_folderPath))
+            Directory.CreateDirectory(_folderPath);
+
+        _filePath = Path.Combine(_folderPath, _fileName);
+
+
+        ReadData();
     }
 
     private void Update()
     {
+        highScore.text = "Your score: " + _score;
         SwitchLetters();
 
         ChangeLetters(_activeLetter);
+    }
+
+    public void SaveData()
+    {
+        string newName = "";
+        foreach (var letter in letters)
+        {
+            newName += letter.text;
+        }
+
+        sd.Add(new HighScoreSave(_score, newName));
+
+        List<HighScoreSave> sortedList = new List<HighScoreSave>();
+        sortedList = sd.OrderByDescending(o => o.HighScore).ToList();
+
+        foreach (var sorted in sortedList)
+        {
+            Debug.Log(sorted);
+        }
+
+        List<string> textList = new List<string>();
+
+        foreach (var score in sortedList)
+        {
+            textList.Add(score.ToString());
+        }
+
+        File.WriteAllLines(_filePath, textList);
+    }
+
+    private void ReadData()
+    {
+        sd.Clear();
+        string[] scores = File.ReadAllLines(_filePath);
+
+        for (int i = 0; i < 10; i++)
+        {
+            int newNumber = 0;
+            string newName = "";
+            string[] numbers = scores[i].Split(";");
+            for (int j = 0; j < numbers.Length; j++)
+            {
+                if (j % 2 == 0)
+                {
+                    newNumber = int.Parse(numbers[j]);
+                }
+                else
+                {
+                    newName = numbers[j];
+                }
+            }
+
+            sd.Add(new HighScoreSave(newNumber,newName));
+        }
     }
 
     /// <summary>
@@ -155,5 +230,34 @@ public class LeaderboardName : MonoBehaviour
         yield return new WaitForSeconds(timeOfColourChange);
 
         image.color = Color.white;
+    }
+
+    [Serializable]
+    private class HighScoreSave
+    {
+        public int HighScore;
+        public string Name;
+
+        public override string ToString()
+        {
+            return String.Format("{0};{1}", HighScore, Name);
+        }
+
+        public HighScoreSave(int score, string name)
+        {
+            HighScore = score;
+            Name = name;
+        }
+    }
+
+    [Serializable]
+    private class HighScoreData
+    {
+        public List<HighScoreSave> scores;
+
+        public HighScoreData()
+        {
+            scores = new List<HighScoreSave>();
+        }
     }
 }

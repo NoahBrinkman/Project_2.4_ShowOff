@@ -3,7 +3,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [CustomEditor(typeof(ObstaclesSpawn))]
-public class ObstaclesSpawnEditor : UnityEditor.Editor
+public class ObstaclesSpawnEditor : Editor
 {
     private ObstaclesSpawn _obstacles;
 
