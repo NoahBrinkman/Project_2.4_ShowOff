@@ -97,9 +97,7 @@ public class PlayerMovement : StateDependantObject<PlayerState>
             Console.WriteLine(e);
             throw;
         }
-        
-        ScoreManager.Instance.AddPlayer(this);
-        
+
     }
     /// <summary>
     /// Update but it only calls during certain states

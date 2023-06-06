@@ -51,7 +51,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     [Header("Obstacles")] 
     [SerializeField] private LayerMask _obstacleLayer = 8;
     [SerializeField] private UnityEvent _onObstacleHit;
-    
+    private bool _staggered = false;
     [Header("Debug")] 
     [SerializeField] private bool _showVisualAid = true;
     [SerializeField, Tooltip("In case the player has no model. Use this")] private Transform _debugCube;
@@ -64,12 +64,15 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         startXZ = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
         slideTweens = new List<Tween>();
     }
-    
-    
 
-    
-    
-    
+
+    public override void Enter()
+    {
+        base.Enter();
+        _staggered = false;
+    }
+
+
     public override void Run()
     {
         base.Run();
@@ -125,7 +128,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     private void MoveHorizontal()
     {
         float hor = Input.GetAxis(_horizontalAxis);
-        Vector3 vel = _rb.transform.right * -hor * _speed;
+        Vector3 vel = _rb.transform.right * hor * _speed;
         _rb.velocity = vel;
         Vector3 newPos = _rb.transform.localPosition;
         newPos.x = Mathf.Clamp(_rb.transform.localPosition.x, startXZ.x + minX, startXZ.x + maxX);
@@ -133,12 +136,13 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         _rb.transform.localPosition = newPos;
     }
     
-    private void OnCollision(Collision info)
+    private void OnCollision(Collider info)
     {
-        if (!Active) return;
+        if (!Active || _staggered) return;
         if (_obstacleLayer == (_obstacleLayer | (1 << info.gameObject.layer)))
         {
             _onObstacleHit?.Invoke();
+            _staggered = true;
         }
     }
     

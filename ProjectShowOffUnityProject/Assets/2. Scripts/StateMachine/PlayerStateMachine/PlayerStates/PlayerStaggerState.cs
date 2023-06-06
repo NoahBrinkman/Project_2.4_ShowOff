@@ -11,7 +11,7 @@ public class PlayerStaggerState : PlayerOnTrackState
     [SerializeField] private UnityEvent OnComplete;
     public override void Enter()
     {
-        Debug.Log("Hi");
+
         //base.Enter();
         if (Vector3.Distance(StateMachine.PathTracker.PassedPoints[^1], _moveTarget.transform.position) <
             _distance)
@@ -28,6 +28,7 @@ public class PlayerStaggerState : PlayerOnTrackState
             Vector3 endValue = (direction * _distance) - _moveTarget.transform.position;
             _moveTarget.transform.DOMove(endValue, _duration).SetEase(_curve)
                 .OnComplete(delegate() { OnComplete?.Invoke(); });
+           // StateMachine.PathTracker.MoveTimer = (endValue - StateMachine.PathTracker.PassedPoints[^1]).magnitude / (StateMachine.PathTracker.TargetPoints[0] - StateMachine.PathTracker.PassedPoints[^1]).magnitude;
         }
         //If not then just move back along the point
 
