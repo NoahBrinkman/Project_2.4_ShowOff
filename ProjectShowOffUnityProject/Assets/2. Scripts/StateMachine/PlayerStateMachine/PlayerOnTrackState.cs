@@ -38,6 +38,7 @@
              }
              else
              {
+                 StateMachine.PathTracker.PassedPoints.Add(_moveTarget.transform.position);
                  totalMoveTime = Vector3.Distance(_moveTarget.transform.position, StateMachine.PathTracker.TargetPoints[0]) * StateMachine.PathTracker.SecondsPerUnit;
                  if (StateMachine.PathTracker.MoveTimer > 0)
                  {
