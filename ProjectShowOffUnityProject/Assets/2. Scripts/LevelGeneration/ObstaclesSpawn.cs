@@ -120,77 +120,77 @@ public class ObstaclesSpawn : MonoBehaviour
 
         int random = Random.Range(1, 31) % 3 + 1;
 
-        // if (obstaclesToAvoid.Count != 0 && !controlledSpawn)
-        // {
-        //     for (int i = 0; i < random; i++)
-        //     {
-        //         Debug.Log(transform);
-        //         GameObject obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
-        //             transform);
-        //         _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
-        //         obstacle.transform.position = RandomPositionInTheArea(AreasPoints[4 * i], AreasPoints[4 * i + 1],
-        //             AreasPoints[4 * i + 3], AreasPoints[4 * i + 2], _chosenObstacle);
-        //     }
-        // }
-        // else if (obstaclesToAvoid.Count != 0 && controlledSpawn)
-        // {
-        //     if (isAreaOne)
-        //     {
-        //         Debug.Log("Area 1 is used!");
-        //         GameObject obstacle;
-        //         if (controlAreaOne && area1Object != null)
-        //         {
-        //             obstacle = Instantiate(area1Object, transform);
-        //         }
-        //         else
-        //         {
-        //             obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
-        //                 transform);
-        //         }
-        //
-        //         _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
-        //         obstacle.transform.position = RandomPositionInTheArea(AreasPoints[0], AreasPoints[1],
-        //             AreasPoints[3], AreasPoints[2], _chosenObstacle);
-        //     }
-        //
-        //     if (isAreaTwo)
-        //     {
-        //         Debug.Log("Area 2 is used!");
-        //         GameObject obstacle;
-        //         if (controlAreaTwo && area2Object != null)
-        //         {
-        //             obstacle = Instantiate(area2Object, transform);
-        //         }
-        //         else
-        //         {
-        //             obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
-        //                 transform);
-        //         }
-        //
-        //         _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
-        //         obstacle.transform.position = RandomPositionInTheArea(AreasPoints[4], AreasPoints[4 + 1],
-        //             AreasPoints[4 + 3], AreasPoints[4 + 2], _chosenObstacle);
-        //     }
-        //
-        //     if (isAreaThree)
-        //     {
-        //         Debug.Log("Area 3 is used!");
-        //         GameObject obstacle;
-        //         if (controlAreaThree && area3Object != null)
-        //         {
-        //             obstacle = Instantiate(area3Object, transform);
-        //         }
-        //         else
-        //         {
-        //             obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
-        //                 transform);
-        //         }
-        //
-        //         _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
-        //         obstacle.transform.position = RandomPositionInTheArea(AreasPoints[8], AreasPoints[8 + 1],
-        //             AreasPoints[8 + 3], AreasPoints[8 + 2], _chosenObstacle);
-        //     }
-        // }
+        if (obstaclesToAvoid.Count != 0 && !controlledSpawn)
+        {
+            for (int i = 0; i < random; i++)
+            {
+                Debug.Log(transform);
+                GameObject obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
+                    transform);
+                _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
+                obstacle.transform.position = RandomPositionInTheArea(AreasPoints[4 * i], AreasPoints[4 * i + 1],
+                    AreasPoints[4 * i + 3], AreasPoints[4 * i + 2], _chosenObstacle);
+            }
+        }
+        else if (obstaclesToAvoid.Count != 0 && controlledSpawn)
+        {
+            if (isAreaOne)
+            {
+                Debug.Log("Area 1 is used!");
+                GameObject obstacle;
+                if (controlAreaOne && area1Object != null)
+                {
+                    obstacle = Instantiate(area1Object, transform);
+                }
+                else
+                {
+                    obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
+                        transform);
+                }
+        
+                _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
+                obstacle.transform.position = RandomPositionInTheArea(AreasPoints[0], AreasPoints[1],
+                    AreasPoints[3], AreasPoints[2], _chosenObstacle);
+            }
+        
+            if (isAreaTwo)
+            {
+                Debug.Log("Area 2 is used!");
+                GameObject obstacle;
+                if (controlAreaTwo && area2Object != null)
+                {
+                    obstacle = Instantiate(area2Object, transform);
+                }
+                else
+                {
+                    obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
+                        transform);
+                }
+        
+                _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
+                obstacle.transform.position = RandomPositionInTheArea(AreasPoints[4], AreasPoints[4 + 1],
+                    AreasPoints[4 + 3], AreasPoints[4 + 2], _chosenObstacle);
+            }
+        
+            if (isAreaThree)
+            {
+                Debug.Log("Area 3 is used!");
+                GameObject obstacle;
+                if (controlAreaThree && area3Object != null)
+                {
+                    obstacle = Instantiate(area3Object, transform);
+                }
+                else
+                {
+                    obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
+                        transform);
+                }
+        
+                _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
+                obstacle.transform.position = RandomPositionInTheArea(AreasPoints[8], AreasPoints[8 + 1],
+                    AreasPoints[8 + 3], AreasPoints[8 + 2], _chosenObstacle);
+            }
+        }
     }
 
     /// <summary>
@@ -248,21 +248,13 @@ public class ObstaclesSpawn : MonoBehaviour
     private void GeneratePointsHorizontal(float x, float y, float z, float modifier)
     {
         Vector3 pointFront =
-            new Vector3(x,
-                y,
-                _roadRenderer.bounds.center.z - modifier - _roadRenderer.bounds.size.x / 4);
+            new Vector3(x, y, _roadRenderer.bounds.center.z - modifier - _roadRenderer.bounds.size.x / 4);
         Vector3 pointBack =
-            new Vector3(x,
-                y,
-                _roadRenderer.bounds.center.x - modifier + _roadRenderer.bounds.size.x / 4);
+            new Vector3(x, y, _roadRenderer.bounds.center.z - modifier + _roadRenderer.bounds.size.x / 4);
         Vector3 pointRight =
-            new Vector3(x - _roadRenderer.bounds.size.x / 4,
-                y,
-                _roadRenderer.bounds.center.z - modifier);
+            new Vector3(x - _roadRenderer.bounds.size.x / 4, y, _roadRenderer.bounds.center.z - modifier);
         Vector3 pointLeft =
-            new Vector3(x + _roadRenderer.bounds.size.x / 4,
-                y,
-                _roadRenderer.bounds.center.z - modifier);
+            new Vector3(x + _roadRenderer.bounds.size.x / 4, y, _roadRenderer.bounds.center.z - modifier);
         AreasPoints.Add(pointFront);
         AreasPoints.Add(pointBack);
         AreasPoints.Add(pointRight);
