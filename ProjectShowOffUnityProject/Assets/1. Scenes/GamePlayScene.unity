@@ -3730,7 +3730,7 @@ PrefabInstance:
         type: 3}
       propertyPath: roadPieces.Array.data[1]
       value: 
-      objectReference: {fileID: 871027808346099784, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
+      objectReference: {fileID: 871027808346099784, guid: 07ffa18e4a5dec540a80672ad4c278e0,
         type: 3}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
