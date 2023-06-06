@@ -24,11 +24,11 @@ public class PlayerStaggerState : PlayerOnTrackState
         }
         else
         {
-            Vector3 direction = (StateMachine.PathTracker.PassedPoints[^1]- StateMachine.PathTracker.TargetPoints[0]).normalized;
-            Vector3 endValue = (direction * _distance) - _moveTarget.transform.position;
+            Vector3 direction = (StateMachine.PathTracker.TargetPoints[0] - StateMachine.PathTracker.PassedPoints[^1]).normalized;
+            Vector3 endValue =  _moveTarget.transform.position-(direction * _distance) ;
             _moveTarget.transform.DOMove(endValue, _duration).SetEase(_curve)
                 .OnComplete(delegate() { OnComplete?.Invoke(); });
-           // StateMachine.PathTracker.MoveTimer = (endValue - StateMachine.PathTracker.PassedPoints[^1]).magnitude / (StateMachine.PathTracker.TargetPoints[0] - StateMachine.PathTracker.PassedPoints[^1]).magnitude;
+            StateMachine.PathTracker.MoveTimer = (endValue - StateMachine.PathTracker.PassedPoints[^1]).magnitude / (StateMachine.PathTracker.TargetPoints[0] - StateMachine.PathTracker.PassedPoints[^1]).magnitude;
         }
         //If not then just move back along the point
 
