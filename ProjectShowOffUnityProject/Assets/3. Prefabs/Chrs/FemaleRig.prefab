@@ -900,7 +900,7 @@ GameObject:
   - component: {fileID: 4258223921301589507}
   - component: {fileID: 7924203171784512633}
   m_Layer: 0
-  m_Name: UnityRig
+  m_Name: FemaleRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
