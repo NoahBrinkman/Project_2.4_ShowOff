@@ -150,7 +150,8 @@ MonoBehaviour:
   - {fileID: 8272580120741486990, guid: 3a63273f46d9f40a8be9497e65bd468b, type: 3}
   heightOffset: 0.5
   widthOffset: 0.5
-  spacing: 2
+  spacing: 5
+  modifier: 5
   controlledSpawn: 0
   isAreaOne: 0
   isAreaTwo: 0
