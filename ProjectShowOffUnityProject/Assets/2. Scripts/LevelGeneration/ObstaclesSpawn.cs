@@ -13,13 +13,8 @@ public class ObstaclesSpawn : MonoBehaviour
     [Tooltip("Offset of height - used to generate sliding obstacles")] [SerializeField]
     private float heightOffset;
 
-    [Tooltip("Offset of width - used to determine how far to the side objects can be spawned")] [SerializeField]
-    private float widthOffset;
-
     [Tooltip("Space from the start and between the areas")] [SerializeField]
     private float spacing = 2.0f;
-
-    [SerializeField] private int modifier = 5;
 
     private Renderer _roadRenderer;
     private Obstacle.WhichObstacle _chosenObstacle;
@@ -124,12 +119,13 @@ public class ObstaclesSpawn : MonoBehaviour
         {
             for (int i = 0; i < random; i++)
             {
-                Debug.Log(transform);
                 GameObject obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
                     transform);
                 _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
-                obstacle.transform.position = RandomPositionInTheArea(AreasPoints[4 * i], AreasPoints[4 * i + 1],
-                    AreasPoints[4 * i + 3], AreasPoints[4 * i + 2], _chosenObstacle);
+
+                obstacle.transform.position = CalculateRandomPosition(roadRotation,
+                    AreasPoints[4 * i], AreasPoints[4 * i + 1],
+                    AreasPoints[4 * i + 2], AreasPoints[4 * i + 3]);
             }
         }
         else if (obstaclesToAvoid.Count != 0 && controlledSpawn)
@@ -147,12 +143,12 @@ public class ObstaclesSpawn : MonoBehaviour
                     obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
                         transform);
                 }
-        
+
                 _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
-                obstacle.transform.position = RandomPositionInTheArea(AreasPoints[0], AreasPoints[1],
-                    AreasPoints[3], AreasPoints[2], _chosenObstacle);
+                obstacle.transform.position = CalculateRandomPosition(roadRotation, AreasPoints[0], AreasPoints[1],
+                    AreasPoints[2], AreasPoints[3]);
             }
-        
+
             if (isAreaTwo)
             {
                 Debug.Log("Area 2 is used!");
@@ -166,12 +162,12 @@ public class ObstaclesSpawn : MonoBehaviour
                     obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
                         transform);
                 }
-        
+
                 _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
-                obstacle.transform.position = RandomPositionInTheArea(AreasPoints[4], AreasPoints[4 + 1],
-                    AreasPoints[4 + 3], AreasPoints[4 + 2], _chosenObstacle);
+                obstacle.transform.position = CalculateRandomPosition(roadRotation, AreasPoints[4], AreasPoints[4 + 1],
+                    AreasPoints[4 + 2], AreasPoints[4 + 3]);
             }
-        
+
             if (isAreaThree)
             {
                 Debug.Log("Area 3 is used!");
@@ -185,12 +181,40 @@ public class ObstaclesSpawn : MonoBehaviour
                     obstacle = Instantiate(obstaclesToAvoid[Random.Range(0, obstaclesToAvoid.Count)].gameObject,
                         transform);
                 }
-        
+
                 _chosenObstacle = obstacle.GetComponent<Obstacle>().ObstacleType;
-                obstacle.transform.position = RandomPositionInTheArea(AreasPoints[8], AreasPoints[8 + 1],
-                    AreasPoints[8 + 3], AreasPoints[8 + 2], _chosenObstacle);
+                obstacle.transform.position = CalculateRandomPosition(roadRotation, AreasPoints[8], AreasPoints[8 + 1],
+                    AreasPoints[8 + 2], AreasPoints[8 + 3]);
             }
         }
+    }
+
+    private Vector3 CalculateRandomPosition(int roadRotation, Vector3 frontPoint, Vector3 backPoint, Vector3 leftPoint,
+        Vector3 rightPoint)
+    {
+        float positionFront = 0;
+        float positionBack = 0;
+        float positionRight = 0;
+        float positionLeft = 0;
+        switch (roadRotation)
+        {
+            case 0 or 180:
+                positionFront = frontPoint.x;
+                positionBack = backPoint.x;
+                positionRight = rightPoint.z;
+                positionLeft = leftPoint.z;
+                break;
+            case 90 or 270:
+                positionFront = frontPoint.z;
+                positionBack = backPoint.z;
+                positionRight = rightPoint.x;
+                positionLeft = leftPoint.x;
+                break;
+        }
+
+        Vector3 randomPosition = GetRandomVector3Position(roadRotation, positionFront,
+            positionBack, positionRight, positionLeft, _chosenObstacle, AreasPoints[0].y);
+        return randomPosition;
     }
 
     /// <summary>
@@ -233,6 +257,47 @@ public class ObstaclesSpawn : MonoBehaviour
         }
 
         Vector3 newPosition = new Vector3(newX, newY, newZ);
+
+        return newPosition;
+    }
+
+    private Vector3 GetRandomVector3Position(int rotation,
+        float firstPosition, float lastPosition, float rightPosition, float leftPosition,
+        Obstacle.WhichObstacle obstacleType, float y)
+    {
+        float newLengthPosition = 0;
+        float newWidthPosition = 0;
+        float newY = 0;
+        Vector3 newPosition = Vector3.zero;
+
+        switch (obstacleType)
+        {
+            case Obstacle.WhichObstacle.RunAround:
+                newLengthPosition = Random.Range(firstPosition, lastPosition);
+                newWidthPosition = Random.Range(rightPosition, leftPosition);
+                newY = y;
+                break;
+            case Obstacle.WhichObstacle.Jump:
+                newLengthPosition = Random.Range(firstPosition, lastPosition);
+                newWidthPosition = (rightPosition + leftPosition) / 2;
+                newY = y;
+                break;
+            case Obstacle.WhichObstacle.Slide:
+                newLengthPosition = Random.Range(firstPosition, lastPosition);
+                newWidthPosition = (rightPosition + leftPosition) / 2;
+                newY = y + heightOffset;
+                break;
+        }
+
+        switch (rotation)
+        {
+            case 0 or 180:
+                newPosition = new Vector3(newLengthPosition, newY, newWidthPosition);
+                break;
+            case 90 or 270:
+                newPosition = new Vector3(newWidthPosition, newY, newLengthPosition);
+                break;
+        }
 
         return newPosition;
     }
