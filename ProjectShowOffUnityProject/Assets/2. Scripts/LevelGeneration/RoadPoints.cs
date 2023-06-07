@@ -121,13 +121,13 @@ public class RoadPoints : MonoBehaviour
     /// <param name="xOffsetEnd">   Offset of X position of the end point</param>
     /// <param name="zOffsetEnd">   Offset of Z position of the end point</param>
     /// <param name="isCrossroad">  Bool to check if the road is a crossroad</param>
-    /// <param name="xOffsetLeft">  Offset of X position of the left point</param>
-    /// <param name="zOffsetLeft">  Offset of Z position of the left point</param>
+    /// <param name="curveOffsetX">  Offset of X position of the left point</param>
+    /// <param name="curveOffsetZ">  Offset of Z position of the left point</param>
     /// <param name="spawnOneCurve"></param>
     /// <param name="spawnTwoCurves"></param>
     private void SpawnPoints(float xOffsetStart, float zOffsetStart, float xOffsetEnd, float zOffsetEnd,
-        bool isCrossroad = false, float xOffsetLeft = 0, float zOffsetLeft = 0, bool spawnOneCurve = false,
-        bool spawnTwoCurves = false)
+        bool isCrossroad = false, float curveOffsetX = 0, float curveOffsetZ = 0, bool spawnOneCurve = false,
+        bool spawnTwoCurves = false, float xOffsetLeft = 0, float zOffsetLeft = 0)
     {
         float height = transform.position.y;
         _assetStart = new Vector3(_bounds.center.x + xOffsetStart, height,
@@ -137,15 +137,15 @@ public class RoadPoints : MonoBehaviour
 
         if (spawnOneCurve)
         {
-            _helperVector = new Vector3(_bounds.center.x + xOffsetLeft, height,
-                _bounds.center.z + zOffsetLeft);
+            _helperVector = new Vector3(_bounds.center.x + curveOffsetX, height,
+                _bounds.center.z + curveOffsetZ);
             _curve = true;
         }
 
-        if (isCrossroad && spawnTwoCurves)
+        if (spawnTwoCurves)
         {
-            _helperVector = new Vector3(_bounds.center.x + 3.5f, height,
-                _bounds.center.z);
+            _helperVector = new Vector3(_bounds.center.x + curveOffsetX, height,
+                _bounds.center.z + curveOffsetZ);
             _assetLeft = new Vector3(_bounds.center.x + xOffsetLeft, height,
                 _bounds.center.z + zOffsetLeft);
             _doubleCurve = true;
@@ -218,20 +218,26 @@ public class RoadPoints : MonoBehaviour
                 break;
             //CROSSROAD---------------------------------------------------------------------------------------------
             case RoadType.Crossroad when roadRotation == 0:
+                // SpawnPoints(-simpleX, 0, xMinusWidthX, -simpleZ,
+                //     true, xMinusWidthX, simpleZ, false, true);
                 SpawnPoints(-simpleX, 0, xMinusWidthX, -simpleZ,
-                    true, xMinusWidthX, simpleZ, false, true);
+                    true, xMinusWidthX, 0, false, true,
+                    xMinusWidthX,simpleZ);
                 break;
             case RoadType.Crossroad when roadRotation == 90:
                 SpawnPoints(0, simpleZ, -simpleX, zPlusLengthZ,
-                    true, simpleX, zPlusLengthZ, false, true);
+                    true, 0, zPlusLengthZ, false, true,
+                    simpleX, zPlusLengthZ);
                 break;
             case RoadType.Crossroad when roadRotation == 180:
                 SpawnPoints(simpleX, 0, xPlusWidthX, simpleZ,
-                    true, xPlusWidthX, -simpleZ, false, true);
+                    true, xPlusWidthX, 0, false, true,
+                    xPlusWidthX,-simpleX);
                 break;
             case RoadType.Crossroad when roadRotation == 270:
                 SpawnPoints(0, -simpleZ, simpleX, zMinusLengthZ,
-                    true, -simpleX, zMinusLengthZ, false, true);
+                    true, 0, zMinusLengthZ, false, true,
+                    -simpleX, zMinusLengthZ);
                 break;
         }
     }
