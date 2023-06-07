@@ -15,7 +15,8 @@ public class ObstaclesSpawnEditor : Editor
     public override void OnInspectorGUI()
     {
         EditorGUILayout.HelpBox("Obstacle spawner.\n" +
-                                "Remember to check if all the measurements are correct and that your obstacles have assigned type!",
+                                "Remember to check if all the measurements are correct and that your obstacles have assigned type!\n" +
+                                "Areas are spawning from the middle. Take it into the account while modifying the spacing.",
             MessageType.Info);
         base.OnInspectorGUI();
 

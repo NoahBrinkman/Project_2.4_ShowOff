@@ -228,7 +228,7 @@ PrefabInstance:
     - target: {fileID: 1190973579872593666, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1190973579872593666, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
         type: 3}
@@ -238,7 +238,7 @@ PrefabInstance:
     - target: {fileID: 1190973579872593666, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1190973579872593666, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
         type: 3}
@@ -253,7 +253,7 @@ PrefabInstance:
     - target: {fileID: 1190973579872593666, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 1190973579872593666, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
         type: 3}
@@ -268,12 +268,12 @@ PrefabInstance:
     - target: {fileID: 7792043018350435256, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
         type: 3}
       propertyPath: isAreaOne
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7792043018350435256, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
         type: 3}
       propertyPath: isAreaTwo
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7792043018350435256, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
         type: 3}
@@ -284,6 +284,11 @@ PrefabInstance:
         type: 3}
       propertyPath: widthOffset
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7792043018350435256, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
+        type: 3}
+      propertyPath: heightOffset
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7792043018350435256, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
         type: 3}
@@ -299,7 +304,7 @@ PrefabInstance:
         type: 3}
       propertyPath: obstaclesToAvoid.Array.data[0]
       value: 
-      objectReference: {fileID: 5236634061064579679, guid: 6b5b4df538e5640b8a23141d552aeb97,
+      objectReference: {fileID: 8272580120741486990, guid: 3a63273f46d9f40a8be9497e65bd468b,
         type: 3}
     - target: {fileID: 7792043018350435256, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
         type: 3}
