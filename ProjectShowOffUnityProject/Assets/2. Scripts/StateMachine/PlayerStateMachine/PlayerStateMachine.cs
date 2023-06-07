@@ -5,6 +5,7 @@ using UnityEngine;
     public class PlayerStateMachine : StateMachine<PlayerState>
     {
         [SerializeField] private List<PlayerState> _playerStates;
+        [SerializeField] private float _scoreModifier = 1.2f;
         public GameObject CurrentRoad;
         
         [field: Header("Roads")]
@@ -27,6 +28,7 @@ using UnityEngine;
 
         private void Start()
         {
+            ScoreManager.Instance.AddPlayer(this);
             if (biomes.Count > 0)
             {
                 ActiveRoad = biomes[0];
@@ -40,6 +42,17 @@ using UnityEngine;
         {
             CurrentState.Run();
         }
-        
 
+
+        public float GetScore() 
+        {
+            if (CurrentState.GetType() != typeof(PlayerStaggerState))
+            {
+                return 1 * _scoreModifier;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }

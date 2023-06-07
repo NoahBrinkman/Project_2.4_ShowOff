@@ -88,7 +88,7 @@ public class ObstaclesSpawnEditor : UnityEditor.Editor
 
     private void OnSceneGUI()
     {
-        Handles.color = Color.cyan;
+        Handles.color = Color.red;
         foreach (Vector3 point in _obstacles.AreasPoints)
         {
             Handles.DrawSolidDisc(point, Vector3.up, 0.05f);

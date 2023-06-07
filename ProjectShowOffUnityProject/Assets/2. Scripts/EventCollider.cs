@@ -8,9 +8,9 @@ using UnityEngine.Events;
 public class EventCollider : MonoBehaviour
 {
     public BoxCollider Collider { get; private set; }
-    public UnityEvent<Collision> OnCollisionEnterEvent;
-    public UnityEvent<Collision> OnCollisionExitEvent;
-    public UnityEvent<Collision> OnCollisionStayEvent;
+    public UnityEvent<Collider> OnCollisionEnterEvent;
+    public UnityEvent<Collider> OnCollisionExitEvent;
+    public UnityEvent<Collider> OnCollisionStayEvent;
 
 
     private void Awake()
@@ -18,18 +18,17 @@ public class EventCollider : MonoBehaviour
         Collider = GetComponent<BoxCollider>();
     }
 
-    public void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-
-       OnCollisionEnterEvent?.Invoke(collision);
+        
+       OnCollisionEnterEvent?.Invoke(other);
     }
-
-    private void OnCollisionExit(Collision other)
+    private void OnTriggerExit(Collider other)
     {
        OnCollisionExitEvent?.Invoke(other);
     }
 
-    private void OnCollisionStay(Collision collisionInfo)
+    private void OnTriggerStay(Collider collisionInfo)
     {
         OnCollisionStayEvent?.Invoke(collisionInfo);
     }
