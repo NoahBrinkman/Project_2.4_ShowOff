@@ -1,20 +1,23 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class RoadGenerator : MonoBehaviour
 {
     [Tooltip("Pieces of roads specific to the generator / area." +
-             "Remember that the first one should always be straight start and the T variants should be at the end.")] 
-    [SerializeField] 
+             "Remember that the first one should always be straight start and the T variants should be at the end.")]
+    [SerializeField]
     private List<RoadPoints> roadPieces;
 
-    [Tooltip("Time before a roadPiece actually gets destroyed theb the player leaves itself, it should be high enough that the player doesn't see it but low enough that you dont get pieces colliding with eachother"), SerializeField] 
+    [Tooltip(
+         "Time before a roadPiece actually gets destroyed theb the player leaves itself, it should be high enough that the player doesn't see it but low enough that you dont get pieces colliding with eachother"),
+     SerializeField]
     private float destructionTimer;
-    
-    [Tooltip("Player needs to be added to every area that needs to be active.")] [SerializeField] 
+
+    [Tooltip("Player needs to be added to every area that needs to be active.")] [SerializeField]
     private PlayerStateMachine player;
-    
+
     [Tooltip(
         "How many pieces the generator will keep generated at once. I recommend number smaller than 4 to prevent overlapping")]
     [SerializeField]
@@ -28,7 +31,10 @@ public class RoadGenerator : MonoBehaviour
 
     [Tooltip("The size of the whole generator area")] [SerializeField]
     private int borderSize = 100;
-    
+
+
+    private double _accumulatedWeights;
+
 
     public bool IsActive
     {
@@ -57,7 +63,7 @@ public class RoadGenerator : MonoBehaviour
     private bool _isActive;
     private bool _clear;
     private bool _clockwise;
-    
+
     //DEBUG -----------------------
     public bool ShowBorder { get; set; }
     public int BorderSize => borderSize;
@@ -71,7 +77,8 @@ public class RoadGenerator : MonoBehaviour
 
     private void Start()
     {
-        _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ), transform.position);
+        _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ),
+            transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
         Debug.Log($"I am {name} and my position is {transform.position}");
     }
@@ -115,7 +122,8 @@ public class RoadGenerator : MonoBehaviour
 
         _activePieces.Clear();
 
-        CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ), transform.position);
+        CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ),
+            transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
     }
 
@@ -181,8 +189,8 @@ public class RoadGenerator : MonoBehaviour
     {
         _generation++;
         _startPosition = _activePoints.AssetEnd;
-
-        int randomRoad = Random.Range(1, roadPieces.Count-crossroadsVariants);
+        
+        int randomRoad = Random.Range(1, roadPieces.Count - crossroadsVariants);
         Debug.Log(randomRoad);
         bool isACrossroad = false;
         float yDirection = 0;
@@ -226,7 +234,7 @@ public class RoadGenerator : MonoBehaviour
                 randomRoad = 2;
             }
 
-            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirection, DefaultRotationZ);
+            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
             _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
             _closeToEdge = false;
@@ -241,11 +249,11 @@ public class RoadGenerator : MonoBehaviour
                 }
                 else
                 {
-                    randomRoad = Random.Range(roadPieces.Count-crossroadsVariants, roadPieces.Count);
+                    randomRoad = Random.Range(roadPieces.Count - crossroadsVariants, roadPieces.Count);
                 }
-
             }
-            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirection, DefaultRotationZ);
+
+            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
             _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
         }
@@ -266,17 +274,17 @@ public class RoadGenerator : MonoBehaviour
         float pieceHeight = _activePoints.RoadHeight;
         float pieceWidth = _activePoints.RoadWidth;
         float borderCorrected = borderSize / 2.0f;
-        
+
         return (activePiecePosition.x + pieceHeight * spaceFromTheBorders >=
                    generatorPosition.x + borderCorrected && roadRotationNonNegativeInt == 0)
                || (activePiecePosition.x - pieceHeight * spaceFromTheBorders <=
                    generatorPosition.x - borderCorrected && roadRotationNonNegativeInt == 180)
                || (activePiecePosition.z + pieceWidth * spaceFromTheBorders >=
                    generatorPosition.z + borderCorrected && roadRotationNonNegativeInt == 270)
-               || (activePiecePosition.z - pieceWidth* spaceFromTheBorders <=
+               || (activePiecePosition.z - pieceWidth * spaceFromTheBorders <=
                    generatorPosition.z - borderCorrected && roadRotationNonNegativeInt == 90);
     }
-    
+
     /// <summary>
     /// If the piece wouldn't fit the borders, marks it as close to the edge
     /// </summary>
@@ -312,8 +320,8 @@ public class RoadGenerator : MonoBehaviour
         float yDirection = 90 + pieceYRotation;
         float yDirectionT = -90 + pieceYRotation;
 
-        Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirection, DefaultRotationZ);
-        Quaternion rotationT = Quaternion.Euler(DefaultRotationX, DefaultRotationY+yDirectionT, DefaultRotationZ);
+        Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
+        Quaternion rotationT = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirectionT, DefaultRotationZ);
 
         Vector3 rightPosition = _activePoints.AssetEnd;
         Vector3 leftPosition = _activePoints.AssetLeft;

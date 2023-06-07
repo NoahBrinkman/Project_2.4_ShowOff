@@ -23,6 +23,10 @@ public class RoadPoints : MonoBehaviour
     [SerializeField] private float specialOffset;
     [SerializeField] private GameObject vfxObject;
     [SerializeField] private LayerMask _playerLayer;
+    
+    [Range(0, 100)] [SerializeField] public float chance;
+    public double _weight;
+    
     public int Width => width;
     public int Length => length;
     public RoadType TypeOfRoad => roadType;
@@ -125,8 +129,10 @@ public class RoadPoints : MonoBehaviour
     /// <param name="curveOffsetZ">  Offset of Z position of the left point</param>
     /// <param name="spawnOneCurve"></param>
     /// <param name="spawnTwoCurves"></param>
+    /// <param name="xOffsetLeft"></param>
+    /// <param name="zOffsetLeft"></param>
     private void SpawnPoints(float xOffsetStart, float zOffsetStart, float xOffsetEnd, float zOffsetEnd,
-        bool isCrossroad = false, float curveOffsetX = 0, float curveOffsetZ = 0, bool spawnOneCurve = false,
+        float curveOffsetX = 0, float curveOffsetZ = 0, bool spawnOneCurve = false,
         bool spawnTwoCurves = false, float xOffsetLeft = 0, float zOffsetLeft = 0)
     {
         float height = transform.position.y;
@@ -185,58 +191,56 @@ public class RoadPoints : MonoBehaviour
             //RIGHT-------------------------------------------------------------------------------------------------
             case RoadType.Right when roadRotation == 0:
                 SpawnPoints(-simpleX, zMinusLengthZ - specialOffset, xMinusWidthX - specialOffset, -simpleZ,
-                    true, xMinusWidthX - specialOffset, zMinusLengthZ - specialOffset, true);
+                     xMinusWidthX - specialOffset, zMinusLengthZ - specialOffset, true);
                 break;
             case RoadType.Right when roadRotation == 90:
                 SpawnPoints(xMinusWidthX - specialOffset, simpleZ, -simpleX, zPlusLengthZ + specialOffset,
-                    true, xMinusWidthX - specialOffset, zPlusLengthZ + specialOffset, true);
+                     xMinusWidthX - specialOffset, zPlusLengthZ + specialOffset, true);
                 break;
             case RoadType.Right when roadRotation == 180:
                 SpawnPoints(simpleX, zPlusLengthZ + specialOffset, xPlusWidthX + specialOffset, simpleZ,
-                    true, xPlusWidthX + specialOffset, zPlusLengthZ + specialOffset, true);
+                     xPlusWidthX + specialOffset, zPlusLengthZ + specialOffset, true);
                 break;
             case RoadType.Right when roadRotation == 270:
                 SpawnPoints(xPlusWidthX + specialOffset, -simpleZ, simpleX, zMinusLengthZ - specialOffset,
-                    true, xPlusWidthX + specialOffset, zMinusLengthZ - specialOffset, true);
+                     xPlusWidthX + specialOffset, zMinusLengthZ - specialOffset, true);
                 break;
             //LEFT--------------------------------------------------------------------------------------------------
             case RoadType.Left when roadRotation == 0:
                 SpawnPoints(-simpleX, zPlusLengthZ + specialOffset, xMinusWidthX - specialOffset, simpleZ,
-                    true, xMinusWidthX - specialOffset, zPlusLengthZ + specialOffset, true);
+                     xMinusWidthX - specialOffset, zPlusLengthZ + specialOffset, true);
                 break;
             case RoadType.Left when roadRotation == 90:
                 SpawnPoints(xPlusWidthX + specialOffset, simpleZ, simpleX, zPlusLengthZ + specialOffset,
-                    true, xPlusWidthX + specialOffset, zPlusLengthZ + specialOffset, true);
+                     xPlusWidthX + specialOffset, zPlusLengthZ + specialOffset, true);
                 break;
             case RoadType.Left when roadRotation == 180:
                 SpawnPoints(simpleX, zMinusLengthZ - specialOffset, xPlusWidthX + specialOffset, -simpleZ,
-                    true, xPlusWidthX + specialOffset, zMinusLengthZ - specialOffset, true);
+                     xPlusWidthX + specialOffset, zMinusLengthZ - specialOffset, true);
                 break;
             case RoadType.Left when roadRotation == 270:
                 SpawnPoints(xMinusWidthX - specialOffset, -simpleZ, -simpleX, zMinusLengthZ - specialOffset,
-                    true, xMinusWidthX - specialOffset, zMinusLengthZ - specialOffset, true);
+                     xMinusWidthX - specialOffset, zMinusLengthZ - specialOffset, true);
                 break;
             //CROSSROAD---------------------------------------------------------------------------------------------
             case RoadType.Crossroad when roadRotation == 0:
-                // SpawnPoints(-simpleX, 0, xMinusWidthX, -simpleZ,
-                //     true, xMinusWidthX, simpleZ, false, true);
                 SpawnPoints(-simpleX, 0, xMinusWidthX, -simpleZ,
-                    true, xMinusWidthX, 0, false, true,
+                     xMinusWidthX, 0, false, true,
                     xMinusWidthX,simpleZ);
                 break;
             case RoadType.Crossroad when roadRotation == 90:
                 SpawnPoints(0, simpleZ, -simpleX, zPlusLengthZ,
-                    true, 0, zPlusLengthZ, false, true,
+                     0, zPlusLengthZ, false, true,
                     simpleX, zPlusLengthZ);
                 break;
             case RoadType.Crossroad when roadRotation == 180:
                 SpawnPoints(simpleX, 0, xPlusWidthX, simpleZ,
-                    true, xPlusWidthX, 0, false, true,
+                     xPlusWidthX, 0, false, true,
                     xPlusWidthX,-simpleX);
                 break;
             case RoadType.Crossroad when roadRotation == 270:
                 SpawnPoints(0, -simpleZ, simpleX, zMinusLengthZ,
-                    true, 0, zMinusLengthZ, false, true,
+                     0, zMinusLengthZ, false, true,
                     -simpleX, zMinusLengthZ);
                 break;
         }
