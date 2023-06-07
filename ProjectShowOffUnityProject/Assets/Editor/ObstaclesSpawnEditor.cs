@@ -15,7 +15,8 @@ public class ObstaclesSpawnEditor : Editor
     public override void OnInspectorGUI()
     {
         EditorGUILayout.HelpBox("Obstacle spawner.\n" +
-                                "Remember to check if all the measurements are correct and that your obstacles have assigned type!",
+                                "Remember to check if all the measurements are correct and that your obstacles have assigned type!\n" +
+                                "Areas are spawning from the middle. Take it into the account while modifying the spacing.",
             MessageType.Info);
         base.OnInspectorGUI();
 
@@ -35,30 +36,8 @@ public class ObstaclesSpawnEditor : Editor
                 MessageType.Info);
             EditorGUI.indentLevel++;
             EditorGUILayout.BeginHorizontal();
-            _obstacles.IsAreaOne = EditorGUILayout.Toggle("Use Area1", _obstacles.IsAreaOne);
+            _obstacles.IsAreaThree = EditorGUILayout.Toggle("Use Area1", _obstacles.IsAreaThree);
             if (GUILayout.Button("Area 1 object")) ChooseAreaObjects(1);
-            EditorGUILayout.EndHorizontal();
-            if (_obstacles.ControlAreaOne && _obstacles.IsAreaOne)
-            {
-                _obstacles.Area1Object =
-                    (GameObject)EditorGUILayout.ObjectField("Obstacle", _obstacles.Area1Object, typeof(GameObject),
-                        true);
-            }
-
-            EditorGUILayout.BeginHorizontal();
-            _obstacles.IsAreaTwo = EditorGUILayout.Toggle("Use Area2", _obstacles.IsAreaTwo);
-            if (GUILayout.Button("Area 2 object")) ChooseAreaObjects(2);
-            EditorGUILayout.EndHorizontal();
-            if (_obstacles.ControlAreaTwo && _obstacles.IsAreaTwo)
-            {
-                _obstacles.Area2Object =
-                    (GameObject)EditorGUILayout.ObjectField("Obstacle", _obstacles.Area2Object, typeof(GameObject),
-                        true);
-            }
-
-            EditorGUILayout.BeginHorizontal();
-            _obstacles.IsAreaThree = EditorGUILayout.Toggle("Use Area3", _obstacles.IsAreaThree);
-            if (GUILayout.Button("Area 3 object")) ChooseAreaObjects(3);
             EditorGUILayout.EndHorizontal();
             if (_obstacles.ControlAreaThree && _obstacles.IsAreaThree)
             {
@@ -66,7 +45,26 @@ public class ObstaclesSpawnEditor : Editor
                     (GameObject)EditorGUILayout.ObjectField("Obstacle", _obstacles.Area3Object, typeof(GameObject),
                         true);
             }
-
+            EditorGUILayout.BeginHorizontal();
+            _obstacles.IsAreaOne = EditorGUILayout.Toggle("Use Area2", _obstacles.IsAreaOne);
+            if (GUILayout.Button("Area 2 object")) ChooseAreaObjects(3);
+            EditorGUILayout.EndHorizontal();
+            if (_obstacles.ControlAreaOne && _obstacles.IsAreaOne)
+            {
+                _obstacles.Area1Object =
+                    (GameObject)EditorGUILayout.ObjectField("Obstacle", _obstacles.Area1Object, typeof(GameObject),
+                        true);
+            }
+            EditorGUILayout.BeginHorizontal();
+            _obstacles.IsAreaTwo = EditorGUILayout.Toggle("Use Area3", _obstacles.IsAreaTwo);
+            if (GUILayout.Button("Area 3 object")) ChooseAreaObjects(2);
+            EditorGUILayout.EndHorizontal();
+            if (_obstacles.ControlAreaTwo && _obstacles.IsAreaTwo)
+            {
+                _obstacles.Area2Object =
+                    (GameObject)EditorGUILayout.ObjectField("Obstacle", _obstacles.Area2Object, typeof(GameObject),
+                        true);
+            }
             EditorGUI.indentLevel--;
         }
         else
