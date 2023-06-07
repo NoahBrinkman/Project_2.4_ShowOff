@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
-    public class PlayerStateMachine : StateMachine<PlayerState>
+public class PlayerStateMachine : StateMachine<PlayerState>
     {
         [SerializeField] private List<PlayerState> _playerStates;
         [SerializeField] private float _scoreModifier = 1.2f;
         public GameObject CurrentRoad;
+        
+        [Header("Live & Death")]
+        [SerializeField] private int _maxLives;
+
+        [SerializeField, FormerlySerializedAs("OnDiePeasantDie")] private UnityEvent _onPlayerDeath;
+        private int _lives;
         
         [field: Header("Roads")]
         [SerializeField] private List<RoadGenerator> biomes;
@@ -23,7 +31,8 @@ using UnityEngine;
                 _states[i].StateMachine = this;
             }
 
-            
+            _lives = _maxLives;
+
         }
 
         private void Start()
@@ -43,7 +52,16 @@ using UnityEngine;
             CurrentState.Run();
         }
 
-
+        public void SubtractLife(int amount)
+        {
+            _lives -= amount;
+            if (_lives <= 0)
+            {
+                _onPlayerDeath?.Invoke();
+            }
+        }
+        
+        
         public float GetScore() 
         {
             if (CurrentState.GetType() != typeof(PlayerStaggerState))

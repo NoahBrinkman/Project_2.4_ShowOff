@@ -121,7 +121,7 @@ MonoBehaviour:
   roadType: 2
   width: 8
   length: 8
-  curvePoints: 30
+  curvePoints: 60
   specialOffset: 0.6
   vfxObject: {fileID: 2517159896595412478, guid: 976a2c91a4b2dea4d94a93d5180838c8,
     type: 3}
