@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2158.2424, g: 2263.3088, b: 3288.7036, a: 1}
+  m_IndirectSpecularColor: {r: 2160.9368, g: 2265.0334, b: 3288.231, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3335,6 +3335,21 @@ PrefabInstance:
       propertyPath: _onPlayerDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: RotationMargin
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: SecondsPerUnit
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: SecondsPerDegree
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _speed
@@ -3348,12 +3363,12 @@ PrefabInstance:
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _jumpHeight
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _jumpDuration
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
@@ -3940,6 +3955,21 @@ PrefabInstance:
       propertyPath: _onPlayerDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: RotationMargin
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: SecondsPerUnit
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: SecondsPerDegree
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _speed
@@ -3953,12 +3983,12 @@ PrefabInstance:
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _jumpHeight
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _jumpDuration
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
