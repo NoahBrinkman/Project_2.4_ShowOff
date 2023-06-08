@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2183.844, g: 2325.6584, b: 3481.4612, a: 1}
+  m_IndirectSpecularColor: {r: 2169.847, g: 2282.8577, b: 3339.0317, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4191,7 +4191,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
+      propertyPath: leftVariants
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
+        type: 3}
+      propertyPath: rightVariants
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
+        type: 3}
+      propertyPath: portalVariants
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
+        type: 3}
       propertyPath: destructionTimer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
+        type: 3}
+      propertyPath: straightVariants
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,

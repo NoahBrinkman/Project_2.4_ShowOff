@@ -24,13 +24,17 @@ public class RoadGenerator : MonoBehaviour
     [SerializeField]
     private int piecesAtOnce = 3;
 
+
+    [Tooltip("How many portal roads variants do we have in the generator")] [SerializeField]
+    private int portalVariants;
+    [Tooltip("How many straight roads variants do we have in the generator")] [SerializeField]
+    private int straightVariants;
+    [Tooltip("How many left turns variants do we have in the generator")] [SerializeField]
+    private int leftVariants;
+    [Tooltip("How many right turns variants do we have in the generator")] [SerializeField]
+    private int rightVariants;
     [Tooltip("How many crossroads variants do we have in the generator")] [SerializeField]
     private int crossroadsVariants;
-
-    [SerializeField] private int straightVariants;
-    [SerializeField] private int leftVariants;
-    [SerializeField] private int rightVariants;
-    [SerializeField] private int portalVariants;
 
     [Tooltip("After how many road pieces the crossroad should be generated")] [SerializeField]
     private int whenToSpawnCross = 6;
@@ -91,30 +95,10 @@ public class RoadGenerator : MonoBehaviour
             transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
         Debug.Log($"I am {name} and my position is {transform.position}");
-        
-        Debug.Log("The starting road: " + roadPieces[0]);
-        // for (int i = 1; i <= portalVariants; i++)
-        // {
-        //     Debug.Log("The portal variations: " + roadPieces[i]);
-        // }
         _straightMark = portalVariants + straightVariants;
         _leftMark = portalVariants + straightVariants + leftVariants;
         _rightMark = portalVariants + straightVariants + leftVariants + rightVariants;
-        //
-        // for (int i = portalVariants+1; i <= _straightMark; i++)
-        // {
-        //     Debug.Log("The straight variations: " + roadPieces[i]);
-        // }
-        //
-        // for (int i = _straightMark+1; i <= _leftMark; i++)
-        // {
-        //     Debug.Log("The left variations: " + roadPieces[i]);
-        // }
-        //
-        // for (int i =_leftMark+1; i <= _rightMark; i++)
-        // {
-        //     Debug.Log("The right variations: " + roadPieces[i]);
-        // }
+        
     }
 
     private void Update()

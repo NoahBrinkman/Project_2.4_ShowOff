@@ -18,8 +18,14 @@ public class RoadGeneratorEditor : UnityEditor.Editor
     {
         EditorGUILayout.HelpBox("Generator for the infinite road. Remember to add the road pieces to the list.",
             MessageType.Info);
-        EditorGUILayout.HelpBox("Always put the crossroads at the end and specify how many of them are there!\n" +
-                                "Always put the straight road first!", MessageType.Warning);
+        EditorGUILayout.HelpBox("It is important to set up generator!\n" +
+                                "1. Empty straight road - starting piece\n" +
+                                "2. Portals \n" +
+                                "3. Straights \n" +
+                                "4. Lefts \n" +
+                                "5. Rights \n" +
+                                "6.CrossRoads \n" +
+                                "ALWAYS SPECIFY HOW MANY PIECES", MessageType.Warning);
         base.OnInspectorGUI();
 
         if (GUILayout.Button("Show Debug"))
