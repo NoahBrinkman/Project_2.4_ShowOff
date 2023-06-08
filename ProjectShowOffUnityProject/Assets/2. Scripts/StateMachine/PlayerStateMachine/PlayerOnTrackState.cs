@@ -53,7 +53,7 @@
                      StateMachine.PathTracker.MoveTimer = Mathf.Lerp(0, totalMoveTime, StateMachine.PathTracker.MoveTimer);
                  }
              }
-             NextRotatePoint();
+             //NextRotatePoint();
          }
      }
      
@@ -67,6 +67,10 @@
              StateMachine.PathTracker.MoveTimer += Time.deltaTime;
              Vector3 newPos = Vector3.LerpUnclamped(StateMachine.PathTracker.PassedPoints[StateMachine.PathTracker.PassedPoints.Count-1], StateMachine.PathTracker.TargetPoints[0], StateMachine.PathTracker.MoveTimer / totalMoveTime);
              _moveTarget.transform.position = newPos;
+             if ((StateMachine.PathTracker.TargetPoints[0] - _moveTarget.transform.position).magnitude < .008f)
+             {
+                 //NextMovePoint();
+             }
              if (StateMachine.PathTracker.MoveTimer >= totalMoveTime)
              {
                  NextMovePoint();
@@ -82,15 +86,17 @@
          if (_rotating)
          {
              StateMachine.PathTracker.RotationTimer += Time.deltaTime;
-             Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  StateMachine.PathTracker.RotationTimer / totalRotationTime);
-             _moveTarget.rotation = newRot;
+             //Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  StateMachine.PathTracker.RotationTimer / totalRotationTime);
+             
+             
+             _moveTarget.rotation = _rotationTarget;
              //_moveTarget.rotation = Quaternion.Euler(newRot.eulerAngles * _inertia + _moveTarget.rotation.eulerAngles *( 1.0f-_inertia));
              if (StateMachine.PathTracker.RotationTimer >= totalRotationTime)
              {
                 NextRotatePoint();
              }
          }
-    }
+     }
      /// <summary>
      /// Update()
      /// </summary>
@@ -98,6 +104,7 @@
      { 
          base.Run();
          MoveAlongPath();
+         //Debug.Log(StateMachine.PathTracker.TargetPoints.Count);
          RotateAlongPath();
      }
     
@@ -112,11 +119,12 @@
          StateMachine.PathTracker.TargetPoints.RemoveAt(0);
          if (StateMachine.PathTracker.TargetPoints.Count > 0)
          {
-            // ResetRotation(path[0]);
+             // ResetRotation(path[0]);
              totalMoveTime = Vector3.Distance(_moveTarget.position, StateMachine.PathTracker.TargetPoints[0]) * StateMachine.PathTracker.SecondsPerUnit;
              StateMachine.PathTracker.MoveTimer = 0;
+
              NextRotatePoint();
-             
+
          }
          else
          {
@@ -133,11 +141,13 @@
      private void NextRotatePoint()
      {
 
-         Vector3 relativePos =  _moveTarget.position -StateMachine.PathTracker.TargetPoints[0] ;
+         Debug.Log("TARGET POINT: " + StateMachine.PathTracker.TargetPoints[0]);
+         Vector3 relativePos =  _moveTarget.position - StateMachine.PathTracker.TargetPoints[0];
          _rotationTarget = Quaternion.LookRotation(relativePos);
          
          float a = Quaternion.Angle( _rotationTarget, _moveTarget.rotation);
-         if (a <= StateMachine.PathTracker.RotationMargin) return;
+         Debug.LogError(a);
+         //if (a <= StateMachine.PathTracker.RotationMargin) return;
          
          totalRotationTime =  a * StateMachine.PathTracker.SecondsPerDegree;
          _rotating = true;
@@ -163,7 +173,7 @@
          if (!StateMachine.PathTracker.TargetPoints.Contains(pPath))
          {
              StateMachine.PathTracker.TargetPoints.Add(pPath);
-           //  AddRotations(pPath, _moveTarget.position);
+             //  AddRotations(pPath, _moveTarget.position);
          }
      }
      
@@ -182,72 +192,72 @@
      }
 
 
-    /*
-    protected void AddRotations(List<Vector3> pPoints)
-     {
-         var sequence = DOTween.Sequence();
-         
-         /*Vector3 relativePos = _moveTarget.position - StateMachine.PathTracker.TargetPoints[0];
-         _rotationTarget = Quaternion.LookRotation(relativePos);
-         
-         float a = Quaternion.Angle( _rotationTarget, _moveTarget.rotation);
-         if (a <= StateMachine.PathTracker.RotationMargin) return;
-         
-         totalRotationTime =  a * StateMachine.PathTracker.SecondsPerDegree;
-         _rotating = true;
-         StateMachine.PathTracker.RotationTimer = 0;#1#
-         List<Quaternion> rotations = new List<Quaternion>(); 
-         for (int i = 1; i < pPoints.Count; i++)
-         {
-             Vector3 relativePos = pPoints[i - 1] - pPoints[i];
-             Quaternion endRotation = Quaternion.LookRotation(relativePos);
-             float a;
-             if (rotations.Count > 0)
-             {
-                 a = Quaternion.Angle(rotations[^1], endRotation);
-             }
-             else
-             {
-                 a = Quaternion.Angle(_moveTarget.rotation, endRotation);
-             }
-
-             if (a >= StateMachine.PathTracker.RotationMargin)
-             {
-                rotations.Add(endRotation);
-                sequence.Append(_moveTarget.DORotateQuaternion(endRotation,
-                    a * StateMachine.PathTracker.SecondsPerDegree).SetEase(Ease.Linear));
-             }
-         }
-
-         sequence.Play();
-     }
-     
-     protected void AddRotations(Vector3 pPoint, Vector3 currentPosition)
-     {
-         //var sequence = DOTween.Sequence();
-         
-         Vector3 relativePos =  pPoint - currentPosition;
-         Quaternion target = Quaternion.LookRotation(relativePos);
-         float a = Quaternion.Angle(_moveTarget.rotation, target);
-         Debug.Log("Angle! " + a + " relative rotation: " + target);
-         if (a >= StateMachine.PathTracker.RotationMargin)
-         {
-             Quaternion endRot = _moveTarget.rotation;
-             endRot.y -= a;
-             _moveTarget.DORotateQuaternion(endRot, a * StateMachine.PathTracker.SecondsPerDegree).SetEase(Ease.Linear);
-         }
-         /*Vector3 relativePos = _moveTarget.position - StateMachine.PathTracker.TargetPoints[0];
-         _rotationTarget = Quaternion.LookRotation(relativePos);
-         
-         float a = Quaternion.Angle( _rotationTarget, _moveTarget.rotation);
-         if (a <= StateMachine.PathTracker.RotationMargin) return;
-         
-         totalRotationTime =  a * StateMachine.PathTracker.SecondsPerDegree;
-         _rotating = true;
-         StateMachine.PathTracker.RotationTimer = 0;#1#
-   
-     } 
-     */
+     /*
+     protected void AddRotations(List<Vector3> pPoints)
+      {
+          var sequence = DOTween.Sequence();
+          
+          /*Vector3 relativePos = _moveTarget.position - StateMachine.PathTracker.TargetPoints[0];
+          _rotationTarget = Quaternion.LookRotation(relativePos);
+          
+          float a = Quaternion.Angle( _rotationTarget, _moveTarget.rotation);
+          if (a <= StateMachine.PathTracker.RotationMargin) return;
+          
+          totalRotationTime =  a * StateMachine.PathTracker.SecondsPerDegree;
+          _rotating = true;
+          StateMachine.PathTracker.RotationTimer = 0;#1#
+          List<Quaternion> rotations = new List<Quaternion>(); 
+          for (int i = 1; i < pPoints.Count; i++)
+          {
+              Vector3 relativePos = pPoints[i - 1] - pPoints[i];
+              Quaternion endRotation = Quaternion.LookRotation(relativePos);
+              float a;
+              if (rotations.Count > 0)
+              {
+                  a = Quaternion.Angle(rotations[^1], endRotation);
+              }
+              else
+              {
+                  a = Quaternion.Angle(_moveTarget.rotation, endRotation);
+              }
+ 
+              if (a >= StateMachine.PathTracker.RotationMargin)
+              {
+                 rotations.Add(endRotation);
+                 sequence.Append(_moveTarget.DORotateQuaternion(endRotation,
+                     a * StateMachine.PathTracker.SecondsPerDegree).SetEase(Ease.Linear));
+              }
+          }
+ 
+          sequence.Play();
+      }
+      
+      protected void AddRotations(Vector3 pPoint, Vector3 currentPosition)
+      {
+          //var sequence = DOTween.Sequence();
+          
+          Vector3 relativePos =  pPoint - currentPosition;
+          Quaternion target = Quaternion.LookRotation(relativePos);
+          float a = Quaternion.Angle(_moveTarget.rotation, target);
+          Debug.Log("Angle! " + a + " relative rotation: " + target);
+          if (a >= StateMachine.PathTracker.RotationMargin)
+          {
+              Quaternion endRot = _moveTarget.rotation;
+              endRot.y -= a;
+              _moveTarget.DORotateQuaternion(endRot, a * StateMachine.PathTracker.SecondsPerDegree).SetEase(Ease.Linear);
+          }
+          /*Vector3 relativePos = _moveTarget.position - StateMachine.PathTracker.TargetPoints[0];
+          _rotationTarget = Quaternion.LookRotation(relativePos);
+          
+          float a = Quaternion.Angle( _rotationTarget, _moveTarget.rotation);
+          if (a <= StateMachine.PathTracker.RotationMargin) return;
+          
+          totalRotationTime =  a * StateMachine.PathTracker.SecondsPerDegree;
+          _rotating = true;
+          StateMachine.PathTracker.RotationTimer = 0;#1#
+    
+      } 
+      */
      
      public void AddNewRoad(RoadPoints roadPoints)
      {

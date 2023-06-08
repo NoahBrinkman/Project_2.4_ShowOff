@@ -40,13 +40,13 @@ public class PlayerStateMachine : StateMachine<PlayerState>
 
         private void Start()
         {
-            ScoreManager.Instance.AddPlayer(this);
+            //ScoreManager.Instance.AddPlayer(this);
             if (biomes.Count > 0)
             {
                 ActiveRoad = biomes[0];
                 ActiveRoad.IsActive = true;
             }
-            CurrentState = _playerStates[0];
+            CurrentState = _states[0];
             CurrentState.Enter();
         }
 
@@ -60,7 +60,7 @@ public class PlayerStateMachine : StateMachine<PlayerState>
             _lives -= amount;
             if (_lives <= 0)
             {
-                _onPlayerDeath?.Invoke();
+                //_onPlayerDeath?.Invoke();
             }
         }
         
