@@ -133,7 +133,7 @@
      private void NextRotatePoint()
      {
 
-         Vector3 relativePos =  StateMachine.PathTracker.TargetPoints[0] -_moveTarget.position ;
+         Vector3 relativePos =  _moveTarget.position -StateMachine.PathTracker.TargetPoints[0] ;
          _rotationTarget = Quaternion.LookRotation(relativePos);
          
          float a = Quaternion.Angle( _rotationTarget, _moveTarget.rotation);
