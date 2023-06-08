@@ -330,6 +330,9 @@ public class RoadGenerator : MonoBehaviour
                 {
                     randomRoad = Random.Range(roadPieces.Count - crossroadsVariants, roadPieces.Count);
                 }
+            } else if (_generation % 2 == 0)
+            {
+                randomRoad = Random.Range(portalVariants + 1, _straightMark + 1);
             }
 
             Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
