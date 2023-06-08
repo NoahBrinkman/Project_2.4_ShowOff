@@ -253,7 +253,7 @@ public class RoadPoints : MonoBehaviour
         if (_playerLayer == (_playerLayer | (1 << other.gameObject.layer)))
         {
             PlayerOnTrackState pT = other.GetComponentInSiblings<PlayerOnTrackState>(true);
-            pT.AddNewRoad(this);
+            if(pT != null) pT.AddNewRoad(this);
         }
 
         PlayerMovement p = other.GetComponent<PlayerMovement>();
