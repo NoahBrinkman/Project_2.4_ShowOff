@@ -1446,6 +1446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5500359901517757517}
   - component: {fileID: 1924471786384746039}
+  - component: {fileID: 3723497240960257879}
   m_Layer: 0
   m_Name: ManRigged
   m_TagString: Untagged
@@ -1483,7 +1484,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: d6ee4941fcf7d944191df3747fd4dc84, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1491,6 +1492,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3723497240960257879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5124784787486467831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6077f75bbc8106049a7326245d193237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5227778871777131201
 GameObject:
   m_ObjectHideFlags: 0
