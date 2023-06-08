@@ -15,6 +15,9 @@ public class PlayerStateMachine : StateMachine<PlayerState>
 
         [SerializeField, FormerlySerializedAs("OnDiePeasantDie")] private UnityEvent _onPlayerDeath;
         private int _lives;
+
+        [HideInInspector] public int Lives => _lives;
+        [HideInInspector] public int MaxLives => _maxLives;
         
         [field: Header("Roads")]
         [SerializeField] private List<RoadGenerator> biomes;
