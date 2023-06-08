@@ -128,5 +128,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  chance: 10
+  _weight: 0
   CurvePoints: []
   CurvePointsCross: []
