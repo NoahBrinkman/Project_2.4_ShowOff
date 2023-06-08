@@ -13,7 +13,8 @@ public class RoadPoints : MonoBehaviour
         Straight = 1,
         Right = 2,
         Left = 3,
-        Crossroad = 4
+        Crossroad = 4,
+        StraightEmpty = 5
     };
 
     [SerializeField] private RoadType roadType;
@@ -24,7 +25,7 @@ public class RoadPoints : MonoBehaviour
     [SerializeField] private GameObject vfxObject;
     [SerializeField] private LayerMask _playerLayer;
     
-    [Range(0, 100)] [SerializeField] public float chance;
+    [Range(0, 100)] [SerializeField] public float chance = 50;
     public double _weight;
     
     public int Width => width;

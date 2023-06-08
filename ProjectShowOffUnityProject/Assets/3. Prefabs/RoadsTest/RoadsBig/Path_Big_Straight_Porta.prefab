@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8175421157312929202}
   - component: {fileID: 871027808346099784}
   m_Layer: 0
-  m_Name: Path_Big_Straight_NoObs
+  m_Name: Path_Big_Straight_Porta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,5 +128,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  chance: 2
+  _weight: 0
   CurvePoints: []
   CurvePointsCross: []
