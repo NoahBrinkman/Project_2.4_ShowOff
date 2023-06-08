@@ -8,6 +8,8 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
-  _instancesCopy: []
-  _fileAsset: {instanceID: 0}
+  _instancesCopy:
+  - {fileID: 11400000, guid: e8b763595ecca9c4d841f28830a02e7c, type: 2}
+  _fileAsset: {fileID: 6013892654665635331, guid: 0164c3ddc1d76f645b39bfd44f31fb23,
+    type: 3}
   _assetPath: Assets/5. Materials/Substances/lily.sbsar
