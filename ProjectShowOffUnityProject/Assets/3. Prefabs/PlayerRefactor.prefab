@@ -50,8 +50,8 @@ MonoBehaviour:
   _onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  _tracker: {fileID: 2763318291307230848}
   _moveTarget: {fileID: 2377237834697110539}
+  _inertia: 0
   _distance: 3
   _duration: 1
   _curve:
@@ -265,8 +265,8 @@ MonoBehaviour:
   _onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  _tracker: {fileID: 2763318291307230848}
   _moveTarget: {fileID: 2377237834697110539}
+  _inertia: 0
   _col: {fileID: 888028318884084080}
   _rb: {fileID: 8968092494053183701}
   _speed: 3
@@ -474,7 +474,7 @@ Transform:
   - {fileID: 2211082122438323159}
   - {fileID: 3952888879460810029}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2432507528982704445
 MonoBehaviour:
@@ -491,6 +491,13 @@ MonoBehaviour:
   _playerStates:
   - {fileID: 5015109449586282171}
   - {fileID: 1033194779717946610}
+  _scoreModifier: 1.2
+  CurrentRoad: {fileID: 0}
+  _maxLives: 0
+  _onPlayerDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  biomes: []
 --- !u!1 &7342418356307718211
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,7 +515,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3475666259096167953
 Transform:
   m_ObjectHideFlags: 0
