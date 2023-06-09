@@ -3221,11 +3221,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4322104160627143939, guid: 78c056152cc30b64e9cd421695df4552,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2ec73d40970319a449d13bb295f3842e, type: 2}
+    - target: {fileID: -2861452670211180732, guid: 78c056152cc30b64e9cd421695df4552,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 892c26e492da54f429da1a6eea91c81f, type: 2}
+    - target: {fileID: -453627554004739487, guid: 78c056152cc30b64e9cd421695df4552,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 368ecadd5f6b18a44914ea2e4c572a7a, type: 2}
+    - target: {fileID: -453627554004739487, guid: 78c056152cc30b64e9cd421695df4552,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 368ecadd5f6b18a44914ea2e4c572a7a, type: 2}
+    - target: {fileID: -453627554004739487, guid: 78c056152cc30b64e9cd421695df4552,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 368ecadd5f6b18a44914ea2e4c572a7a, type: 2}
     - target: {fileID: 919132149155446097, guid: 78c056152cc30b64e9cd421695df4552,
         type: 3}
       propertyPath: m_Name
       value: Female_Clothed_Rigged
       objectReference: {fileID: 0}
+    - target: {fileID: 3181090237314474929, guid: 78c056152cc30b64e9cd421695df4552,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b7c30acabf464ae4991c44f21b80543d, type: 2}
     - target: {fileID: 5866666021909216657, guid: 78c056152cc30b64e9cd421695df4552,
         type: 3}
       propertyPath: m_Controller
