@@ -2,6 +2,7 @@
  using System.Collections.Generic;
  using DG.Tweening;
  using Unity.Mathematics;
+ using Unity.VisualScripting;
  using UnityEngine;
 
  public class PlayerOnTrackState : PlayerState
@@ -65,7 +66,7 @@
          if (_moving)
          {
              StateMachine.PathTracker.MoveTimer += Time.deltaTime;
-             Vector3 newPos = Vector3.LerpUnclamped(StateMachine.PathTracker.PassedPoints[StateMachine.PathTracker.PassedPoints.Count-1], StateMachine.PathTracker.TargetPoints[0].position, StateMachine.PathTracker.MoveTimer / totalMoveTime);
+             Vector3 newPos = Vector3.Lerp(StateMachine.PathTracker.PassedPoints[StateMachine.PathTracker.PassedPoints.Count-1], StateMachine.PathTracker.TargetPoints[0].position, StateMachine.PathTracker.MoveTimer / totalMoveTime);
              _moveTarget.transform.position = newPos;
              if ((StateMachine.PathTracker.TargetPoints[0].position - _moveTarget.transform.position).magnitude < .008f)
              {
@@ -87,20 +88,24 @@
          {
             
              StateMachine.PathTracker.RotationTimer += Time.deltaTime;
-             //Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  StateMachine.PathTracker.RotationTimer / totalRotationTime);
+             Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  _inertia * Time.deltaTime);
              
              
-            // _moveTarget.rotation = _rotationTarget;
+             _moveTarget.rotation = newRot;
 
-            Vector3 newRot = new Vector3();
+            /*Vector3 newRot = new Vector3();
             newRot.x = _rotationTarget.eulerAngles.x;
             newRot.y = _rotationTarget.eulerAngles.y;
-            newRot.z = _rotationTarget.eulerAngles.z;
-            _moveTarget.eulerAngles = newRot;
+            newRot.z = _rotationTarget.eulerAngles.z;*/
+           // _moveTarget.eulerAngles = newRot;
              //_moveTarget.rotation = Quaternion.Euler(newRot.eulerAngles * _inertia + _moveTarget.rotation.eulerAngles *( 1.0f-_inertia));
-             if (StateMachine.PathTracker.RotationTimer >= totalRotationTime)
+             if (Quaternion.Angle(newRot, _rotationTarget) < 0.08f)
              {
-                NextRotatePoint();
+                 Quaternion newRota = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  1);
+             
+             
+                 _moveTarget.rotation = newRota;
+                 NextRotatePoint();
              }
          }
      }
@@ -122,15 +127,19 @@
      /// </summary>
      private void NextMovePoint()
      {
+         if (totalMoveTime > StateMachine.PathTracker.MoveTimer)
+         {
+             Debug.LogError("The fuck is happening here");
+         }
          StateMachine.PathTracker.PassedPoints.Add(StateMachine.PathTracker.TargetPoints[0].position);
          StateMachine.PathTracker.TargetPoints.RemoveAt(0);
+         
          if (StateMachine.PathTracker.TargetPoints.Count > 0)
          {
-             // ResetRotation(path[0]);
              totalMoveTime = Vector3.Distance(_moveTarget.position, StateMachine.PathTracker.TargetPoints[0].position) * StateMachine.PathTracker.SecondsPerUnit;
              StateMachine.PathTracker.MoveTimer = 0;
-
              NextRotatePoint();
+             // ResetRotation(path[0]);
 
          }
          else
@@ -147,11 +156,13 @@
      /// ADDITIONAL NOTE: Probably the cause of madness
      private void NextRotatePoint()
      {
-        if(!StateMachine.PathTracker.TargetPoints[0].includeInRotation) return;
+          if(!StateMachine.PathTracker.TargetPoints[0].includeInRotation) return;
         
          Vector3 relativePos =  _moveTarget.position - StateMachine.PathTracker.TargetPoints[0].position;
+         relativePos.y = 0;
+         if(Vector3.Dot(relativePos, _moveTarget.forward) < 0f) return;
          Debug.Log("CURRENT POINT: " + StateMachine.PathTracker.PassedPoints[^1] +"TARGET POINT: " + StateMachine.PathTracker.TargetPoints[0] + "Relative Pos: " + relativePos);
-         _rotationTarget = Quaternion.LookRotation(relativePos);
+         _rotationTarget = Quaternion.LookRotation(relativePos.normalized);
          
          float a = Quaternion.Angle( _rotationTarget, _moveTarget.rotation);
          Debug.LogError(a);
@@ -289,12 +300,20 @@
              }
 
              targets[0].includeInRotation = false;
+             targets[^1].includeInRotation = false;
              AddToPath(targets);
            
          }
          else
          {
-             AddToPath(new TargetPoint(roadPoints.AssetStart, false));
+             if (StateMachine.PathTracker.TargetPoints.Count > 0)
+             {
+                 AddToPath(new TargetPoint((roadPoints.AssetStart + ( StateMachine.PathTracker.TargetPoints[0].position - roadPoints.AssetStart )), false));
+             }
+             else
+             {
+                 AddToPath(new TargetPoint(roadPoints.AssetStart, false));
+             }
              AddToPath(new TargetPoint(roadPoints.AssetEnd));
          }
          SetPath(new List<TargetPoint>());

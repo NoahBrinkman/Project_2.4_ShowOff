@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2160.718, g: 2264.76, b: 3288.1685, a: 1}
+  m_IndirectSpecularColor: {r: 2160.2473, g: 2264.508, b: 3287.9614, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -789,7 +789,6 @@ GameObject:
   - component: {fileID: 460957263}
   - component: {fileID: 460957262}
   - component: {fileID: 460957261}
-  - component: {fileID: 460957264}
   - component: {fileID: 460957260}
   m_Layer: 0
   m_Name: Camera player 2
@@ -1027,20 +1026,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
---- !u!114 &460957264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460957259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e6acabd5ee916d4985a736bc49c9dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1318123336}
-  offSet: {x: 0, y: 3.5, z: -7.5}
 --- !u!1 &497824024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1678,7 +1663,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623984062}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79053e81f85104a7185053979955e749, type: 3}
   m_Name: 
@@ -3620,7 +3605,7 @@ PrefabInstance:
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _inertia
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
