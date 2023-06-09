@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(BoxCollider))]
 public class Obstacle : MonoBehaviour
 {
     public enum WhichObstacle

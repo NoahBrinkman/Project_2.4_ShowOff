@@ -11,7 +11,7 @@ public class QuickPathSupplier : MonoBehaviour
 
     private void Start()
     {
-        _runner.SetPath(_path);
+        //_runner.SetPath(_path);
     }
 
     private void OnDrawGizmos()

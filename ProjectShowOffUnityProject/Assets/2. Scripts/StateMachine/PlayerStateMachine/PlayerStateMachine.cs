@@ -46,7 +46,7 @@ public class PlayerStateMachine : StateMachine<PlayerState>
                 ActiveRoad = biomes[0];
                 ActiveRoad.IsActive = true;
             }
-            CurrentState = _playerStates[0];
+            CurrentState = _states[0];
             CurrentState.Enter();
         }
 

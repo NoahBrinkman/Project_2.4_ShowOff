@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/1. Scenes/LeaderboardTestVertical.unity
     guid: 4d6075f50905f49be8d72485c8a4fbda
+  - enabled: 0
+    path: Assets/1. Scenes/LeaderboardTestHorizontal.unity
+    guid: 735a2837d352141ff83b8a3c48670037
+  - enabled: 0
+    path: Assets/1. Scenes/CurveFix.unity
+    guid: 3152cf61694b6480fa82cf0ed8e368a6
   m_configObjects: {}
