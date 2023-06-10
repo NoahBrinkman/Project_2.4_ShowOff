@@ -18,8 +18,9 @@ public class MaleAnimationController : MonoBehaviour
         bool isSliding = Input.GetKey("s");
         bool isRunningRight = Input.GetKey("d");
         bool isRunningLeft = Input.GetKey("a");
-        bool isStumbelingBackwards = Input.GetKey("f");
-        
+        bool isStumbelingBackwards;
+
+
         //JUMPING ANIMATION 
         if (isJumping)
         {
@@ -61,14 +62,20 @@ public class MaleAnimationController : MonoBehaviour
             animator.SetBool("isRunningLeft", false);
         }
         //Stumbelingbackwards
-        if (isStumbelingBackwards)
+         void OnTriggerEnter(Collider other)
         {
-            animator.SetBool("isStumbelingBackwards", true);
+            if (other.CompareTag("YourColliderTag"))
+            {
+                isStumbelingBackwards = true;
+            }
         }
 
-        if (!isStumbelingBackwards)
+         void OnTriggerExit(Collider other)
         {
-            animator.SetBool("isStumbelingBackwards", false);
+            if (other.CompareTag("YourColliderTag"))
+            {
+                isStumbelingBackwards = false;
+            }
         }
 
     }
