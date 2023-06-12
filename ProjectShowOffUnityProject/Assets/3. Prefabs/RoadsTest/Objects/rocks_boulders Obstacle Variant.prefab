@@ -8,6 +8,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 754061084398044007, guid: add10fe12b5642c4b9e58bbbd1c73954,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6081972098321076210, guid: add10fe12b5642c4b9e58bbbd1c73954,
         type: 3}
       propertyPath: m_RootOrder
@@ -82,6 +87,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: rocks_boulders Obstacle Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6857946264042181960, guid: add10fe12b5642c4b9e58bbbd1c73954,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
