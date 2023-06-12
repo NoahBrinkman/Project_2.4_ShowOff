@@ -10,7 +10,7 @@
      [Header("Base")]
      [SerializeField] protected Transform _moveTarget;
 
-     [SerializeField, Range(0, 1)] private float _inertia;
+     [SerializeField, Range(0, 5)] private float _smoothing;
      protected bool _moving = false;
      protected bool _rotating = false;
 
@@ -88,7 +88,7 @@
          {
             
              StateMachine.PathTracker.RotationTimer += Time.deltaTime;
-             Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  _inertia * Time.deltaTime);
+             Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  _smoothing * Time.deltaTime);
              
              
              _moveTarget.rotation = newRot;
@@ -115,6 +115,13 @@
      public override void Run()
      { 
          base.Run();
+         if (Input.GetKeyDown(KeyCode.J))
+         {
+             _smoothing -= .1f;
+         }else if (Input.GetKeyDown(KeyCode.K))
+         {
+             _smoothing += .1f;
+         }
          MoveAlongPath();
          //Debug.Log(StateMachine.PathTracker.TargetPoints.Count);
          RotateAlongPath();
