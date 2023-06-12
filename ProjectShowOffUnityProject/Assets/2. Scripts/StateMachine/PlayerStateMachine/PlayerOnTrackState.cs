@@ -292,7 +292,7 @@
          {
              return;
          }
-         StateMachine.PathTracker.UpdateSpeed();
+         //StateMachine.PathTracker.UpdateSpeed();
          StateMachine.CurrentRoad = roadPoints.gameObject;
          if (roadPoints.CurvePoints.Count > 0)
          {
