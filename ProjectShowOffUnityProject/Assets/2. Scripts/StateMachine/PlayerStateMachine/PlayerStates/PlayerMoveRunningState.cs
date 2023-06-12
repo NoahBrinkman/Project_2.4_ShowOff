@@ -145,8 +145,12 @@ public class PlayerMoveRunningState : PlayerOnTrackState
             _staggered = true;
         }
     }
-    
-    
+
+    protected override bool ShouldGoRight()
+    {
+        return _rb.transform.localPosition.x < 0;
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (!_showVisualAid) return;
