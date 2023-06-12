@@ -437,7 +437,6 @@ MonoBehaviour:
   AreasPoints: []
   obstaclesToAvoid:
   - {fileID: 7771938409285033827, guid: f4258c7144a841143a15edb8369e240a, type: 3}
-  - {fileID: -616001822414819470, guid: 7de09ad6e33eaf445b9c3e22d396573c, type: 3}
   - {fileID: -8675862962056301524, guid: 01384029311f6e648be8b99a59b7a7ba, type: 3}
   heightOffset: 0.5
   spacing: 5
