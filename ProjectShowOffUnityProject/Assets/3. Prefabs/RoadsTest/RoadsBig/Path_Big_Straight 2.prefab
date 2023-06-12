@@ -1536,7 +1536,8 @@ PrefabInstance:
       value: rocks_boulders_MOSS Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8581502834448663392, guid: 60a093f451e91314983c26ee12f947ff, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8636800985054329462, guid: 60a093f451e91314983c26ee12f947ff,
         type: 3}

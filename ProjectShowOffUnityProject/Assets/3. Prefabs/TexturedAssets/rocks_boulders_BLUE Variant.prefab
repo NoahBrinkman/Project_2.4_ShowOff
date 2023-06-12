@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b71570b58e772a94b8bda5b0e6b38692,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b71570b58e772a94b8bda5b0e6b38692,
         type: 3}
@@ -81,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b71570b58e772a94b8bda5b0e6b38692,
         type: 3}
       propertyPath: m_Name
-      value: rocks_boulders Variant
+      value: rocks_boulders_BLUE Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1223495858631678018, guid: b71570b58e772a94b8bda5b0e6b38692,
         type: 3}
@@ -94,7 +94,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: c30834f37033269488836307655c2c77, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 65702495048144492, guid: b71570b58e772a94b8bda5b0e6b38692, type: 3}
+    - {fileID: -8700617353114198275, guid: b71570b58e772a94b8bda5b0e6b38692, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b71570b58e772a94b8bda5b0e6b38692, type: 3}
