@@ -21,7 +21,7 @@ MonoBehaviour:
     m_Value: 0
   exposure:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 0
   multiplier:
     m_OverrideState: 1
     m_Value: 1
@@ -292,7 +292,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0
   skyAmbientMode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   windOrientation:
     m_OverrideState: 1
@@ -326,7 +326,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   color:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   tint:
     m_OverrideState: 1
@@ -345,13 +345,13 @@ MonoBehaviour:
     m_Value: 1000
   baseHeight:
     m_OverrideState: 1
-    m_Value: 27.15
+    m_Value: 50
   maximumHeight:
     m_OverrideState: 1
-    m_Value: 50
+    m_Value: 186.4
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 25
+    m_Value: 36.54
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1

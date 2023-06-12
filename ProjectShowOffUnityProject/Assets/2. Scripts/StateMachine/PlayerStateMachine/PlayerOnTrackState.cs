@@ -168,16 +168,12 @@
          Vector3 relativePos =  _moveTarget.position - StateMachine.PathTracker.TargetPoints[0].position;
          relativePos.y = 0;
          if(Vector3.Dot(relativePos, _moveTarget.forward) < 0f) return;
-         Debug.Log("CURRENT POINT: " + StateMachine.PathTracker.PassedPoints[^1] +"TARGET POINT: " + StateMachine.PathTracker.TargetPoints[0] + "Relative Pos: " + relativePos);
+//         Debug.Log("CURRENT POINT: " + StateMachine.PathTracker.PassedPoints[^1] +"TARGET POINT: " + StateMachine.PathTracker.TargetPoints[0] + "Relative Pos: " + relativePos);
          _rotationTarget = Quaternion.LookRotation(relativePos.normalized);
          
          float a = Quaternion.Angle( _rotationTarget, _moveTarget.rotation);
-         Debug.LogError(a);
-         if (a >= 150)
-         {
-             Debug.LogError( _moveTarget.name + "relativePos " + relativePos);
-             
-         }
+//         Debug.LogError(a);
+  
         // if (a <= StateMachine.PathTracker.RotationMargin) return;
          
          totalRotationTime =  a * StateMachine.PathTracker.SecondsPerDegree;
