@@ -32,8 +32,8 @@ public class RoadPoints : MonoBehaviour
     public int Length => length;
     public RoadType TypeOfRoad => roadType;
 
-    [HideInInspector] public List<Vector3> CurvePoints = new List<Vector3>();
-    [HideInInspector] public List<Vector3> CurvePointsCross = new List<Vector3>();
+   /* [HideInInspector]*/ public List<Vector3> CurvePoints = new List<Vector3>();
+    /*[HideInInspector]*/ public List<Vector3> CurvePointsCross = new List<Vector3>();
 
     private Vector3 _assetStart;
     private Vector3 _assetEnd;

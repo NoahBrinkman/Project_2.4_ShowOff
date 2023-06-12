@@ -300,15 +300,31 @@
          StateMachine.CurrentRoad = roadPoints.gameObject;
          if (roadPoints.CurvePoints.Count > 0)
          {
-             List<TargetPoint> targets = new List<TargetPoint>();
-             for (int i = 0; i < roadPoints.CurvePoints.Count; i++)
+             //In a curve, check if its a right or left curve
+             if (roadPoints.CurvePointsCross.Count > 0 && !ShouldGoRight())
              {
-                 targets.Add(new TargetPoint(roadPoints.CurvePoints[i]));
-             }
+                 List<TargetPoint> targets = new List<TargetPoint>();
+                 for (int i = 0; i < roadPoints.CurvePointsCross.Count; i++)
+                 {
+                     targets.Add(new TargetPoint(roadPoints.CurvePointsCross[i]));
+                 }
 
-             targets[0].includeInRotation = false;
-             targets[^1].includeInRotation = false;
-             AddToPath(targets);
+                 targets[0].includeInRotation = false;
+                 targets[^1].includeInRotation = false;
+                 AddToPath(targets);
+             }
+             else
+             {
+                 List<TargetPoint> targets = new List<TargetPoint>();
+                 for (int i = 0; i < roadPoints.CurvePoints.Count; i++)
+                 {
+                     targets.Add(new TargetPoint(roadPoints.CurvePoints[i]));
+                 }
+
+                 targets[0].includeInRotation = false;
+                 targets[^1].includeInRotation = false;
+                 AddToPath(targets);
+             }
            
          }
          else
@@ -325,5 +341,11 @@
          }
          SetPath(new List<TargetPoint>());
      }
+
+     protected virtual bool ShouldGoRight()
+     {
+         return true;
+     }
+     
  }            
 
