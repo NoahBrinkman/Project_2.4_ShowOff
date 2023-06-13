@@ -61,22 +61,7 @@ public class MaleAnimationController : MonoBehaviour
         {
             animator.SetBool("isRunningLeft", false);
         }
-        //Stumbelingbackwards
-         void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("YourColliderTag"))
-            {
-                isStumbelingBackwards = true;
-            }
-        }
-
-         void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("YourColliderTag"))
-            {
-                isStumbelingBackwards = false;
-            }
-        }
+        
 
     }
 }
