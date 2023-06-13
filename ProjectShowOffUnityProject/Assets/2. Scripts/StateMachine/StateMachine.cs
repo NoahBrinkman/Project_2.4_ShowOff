@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
     public class StateMachine<StateType> : MonoBehaviour where StateType : IState
@@ -7,6 +8,7 @@ using UnityEngine;
         public StateType CurrentState { get; protected set; }
    
         protected List<StateType> _states = new List<StateType>();
+        
         
         /// <summary>
         /// Fint

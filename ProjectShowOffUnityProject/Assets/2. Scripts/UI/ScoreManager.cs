@@ -6,11 +6,11 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : SingleTon<ScoreManager>
 {
-    private List<PlayerMovement> _players;
+    private List<PlayerStateMachine> _players;
     public float Score { get; private set; }
     [SerializeField] private float _baseScoreModifier = 1.15f;
     
-    public void AddPlayer(PlayerMovement p)
+    public void AddPlayer(PlayerStateMachine p)
     {
         if(_players.Contains(p)) return;
         _players.Add(p);
@@ -21,7 +21,7 @@ public class ScoreManager : SingleTon<ScoreManager>
         destroyOnLoad = false;
         base.Awake();
         Score = 0;
-        _players = new List<PlayerMovement>();
+        _players = new List<PlayerStateMachine>();
     }
 
 
