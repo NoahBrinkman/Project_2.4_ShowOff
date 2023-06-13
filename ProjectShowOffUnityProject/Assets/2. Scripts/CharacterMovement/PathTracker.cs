@@ -5,6 +5,7 @@ using UnityEngine;
 public class PathTracker : MonoBehaviour
 {
     public float SecondsPerUnit;
+    [SerializeField, Tooltip("if you want the character to slow down make this below 0 speed up? above 0")] private float speedMultiplier;
    [HideInInspector] public float MoveTimer;
 
    [HideInInspector] public float RotationTimer;
@@ -21,6 +22,10 @@ public class PathTracker : MonoBehaviour
         RotationTargets = new List<Quaternion>();
     }
 
+    public void UpdateSpeed()
+    {
+        SecondsPerUnit *= speedMultiplier;
+    }
 }
 
 [Serializable]
