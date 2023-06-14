@@ -14,7 +14,8 @@ public class RoadPoints : MonoBehaviour
         Right = 2,
         Left = 3,
         Crossroad = 4,
-        StraightEmpty = 5
+        StraightEmpty = 5,
+        Portal = 6
     };
 
     [SerializeField] private RoadType roadType;

@@ -12,6 +12,7 @@ public class SwirlingPortal : MonoBehaviour
     [FormerlySerializedAs("_teleportPosition")] public Vector3 TeleportPosition;
 
     [SerializeField] private bool _showVisualAids;
+    public RoadGenerator targetBiome;
     private void OnTriggerEnter(Collider other)
     {
         //If we can get the component store it for now in temporary variable P
@@ -25,7 +26,11 @@ public class SwirlingPortal : MonoBehaviour
         }
     }
 
-
+    public void Initialize(RoadGenerator towards)
+    {
+        
+    }
+    
     private void OnDrawGizmos()
     {
         if (_showVisualAids)

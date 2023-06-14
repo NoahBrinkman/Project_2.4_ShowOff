@@ -144,8 +144,33 @@ public class PlayerMoveRunningState : PlayerOnTrackState
             _onObstacleHit?.Invoke();
             _staggered = true;
         }
+
+        if (info.GetComponent<SwirlingPortal>() is SwirlingPortal p)
+        {
+            Teleport(p.TeleportPosition, p.OutwardDirection, p.targetBiome);
+        }
     }
 
+    private void Teleport(Vector3 pos, Vector3 dir, RoadGenerator rG)
+    {
+        StateMachine.PathTracker.PassedPoints.Clear();
+        StateMachine.PathTracker.TargetPoints.Clear();
+        StateMachine.PathTracker.PassedPoints.Add(pos);
+        
+        transform.position = pos;
+        transform.rotation = Quaternion.LookRotation(dir);
+        
+        StateMachine.ActiveRoad.IsActive = false;
+        StateMachine.ActiveRoad.Clear = true;
+        
+        StateMachine.ActiveRoad = rG;
+        
+        StateMachine.ActiveRoad.IsActive = true;
+        StateMachine.ActiveRoad.Clear = false;
+        
+        
+    }
+    
     protected override bool ShouldGoRight()
     {
         return _rb.transform.localPosition.x < 0;

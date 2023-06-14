@@ -48,8 +48,8 @@ public class RoadGenerator : MonoBehaviour
 
     public bool IsActive
     {
-        get => _isActive;
-        set => _isActive = value;
+        get => _targettedByPortal;
+        set => _targettedByPortal = value;
     }
 
     public bool Clear
@@ -57,7 +57,11 @@ public class RoadGenerator : MonoBehaviour
         get => _clear;
         set => _clear = value;
     }
-
+    public bool TargettedByPortal
+    {
+        get => _clear;
+        set => _clear = value;
+    }
     private readonly List<GameObject> _activePieces = new List<GameObject>();
 
     private Vector3 _startPosition;
@@ -77,6 +81,7 @@ public class RoadGenerator : MonoBehaviour
     private bool _isActive;
     private bool _clear;
     private bool _clockwise;
+    private bool _targettedByPortal;
 
     //DEBUG -----------------------
     public bool ShowBorder { get; set; }
@@ -265,6 +270,7 @@ public class RoadGenerator : MonoBehaviour
         
         int randomRoad = Random.Range(1, roadPieces.Count - crossroadsVariants);
         bool isACrossroad = false;
+        bool isPortal = false;
         float yDirection = 0;
         float pieceYRotation = _activePiece.transform.eulerAngles.y;
 
@@ -282,6 +288,11 @@ public class RoadGenerator : MonoBehaviour
                 break;
             case RoadPoints.RoadType.Crossroad:
                 isACrossroad = true;
+                break;
+            case RoadPoints.RoadType.Portal:
+                yDirection = 0 + pieceYRotation;
+                CheckBorders(pieceYRotation);
+                isPortal = true;
                 break;
             case RoadPoints.RoadType.Straight:
                 yDirection = 0 + pieceYRotation;
@@ -336,6 +347,29 @@ public class RoadGenerator : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
             _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
+            if (isPortal)
+            {
+                SwirlingPortal p = _activePiece.GetComponentInChildren<SwirlingPortal>();
+                //TODO: find inactive road and set it.
+                List<RoadGenerator> gens = player.GetBiomes();
+                //Find all inactive generatos
+                
+                gens = gens.Where(b => !b._isActive && b.player == null && !b.TargettedByPortal).ToList();
+                try
+                {
+                    RoadGenerator target = gens[Random.Range(0, gens.Count)];
+                    p.TeleportPosition = target._startPosition;
+                    p.OutwardDirection = new Vector3();
+                    p.targetBiome = target;
+                    target.TargettedByPortal = true;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
+                //TODO: Make sure it doesnt get double set (other generator should use this as a portal place)
+
+            }
         }
     }
 
