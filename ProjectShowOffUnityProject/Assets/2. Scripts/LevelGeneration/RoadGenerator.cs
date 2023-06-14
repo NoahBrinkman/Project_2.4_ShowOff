@@ -92,11 +92,12 @@ public class RoadGenerator : MonoBehaviour
     [HideInInspector] public float DefaultRotationX;
     [HideInInspector] public float DefaultRotationY;
     [HideInInspector] public float DefaultRotationZ;
+    [HideInInspector] public float StartRotationY;
 
 
     private void Start()
     {
-        _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ),
+        _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, StartRotationY, DefaultRotationZ),
             transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
         Debug.Log($"I am {name} and my position is {transform.position}");
