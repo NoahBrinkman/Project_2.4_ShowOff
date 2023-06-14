@@ -207,60 +207,60 @@ public class RoadGenerator : MonoBehaviour
         }
     }
 
-    private int RandomWithProbability()
-    {
-        int randomRoad = 0;
-        float cumulativeStraight=0;
-        float cumulativeStraightEmpty = 0;
-        float cumulativeLeft=0;
-        float cumulativeRight=0;
-        float cumulativeCross=0;
-        foreach (var road in roadPieces)
-        {
-            //cumulative += road.chance;
-            switch (road.TypeOfRoad)
-            {
-                case RoadPoints.RoadType.Straight:
-                    cumulativeStraight += road.chance;
-                    break;
-                case RoadPoints.RoadType.Left:
-                    cumulativeLeft += road.chance;
-                    break;
-                case RoadPoints.RoadType.Right:
-                    cumulativeRight += road.chance;
-                    break;
-                case RoadPoints.RoadType.Crossroad:
-                    cumulativeCross += road.chance;
-                    break;
-                case RoadPoints.RoadType.StraightEmpty:
-                    cumulativeStraightEmpty += road.chance;
-                    break;
-            }
-        }
-
-        float cumulativeTotal = cumulativeStraight + cumulativeCross + cumulativeLeft + cumulativeRight +
-                                cumulativeStraightEmpty;
-
-        float random = Random.Range(0, cumulativeTotal);
-
-        List<float> probabilities = new List<float>
-        {
-            cumulativeStraight,
-            cumulativeStraightEmpty,
-            cumulativeLeft,
-            cumulativeRight,
-            cumulativeCross
-        };
-
-        probabilities.Sort();
-
-        if (random < probabilities[0]) return 0;
-        if (random < probabilities[1]) return 1;
-        if (random < probabilities[2]) return 2;
-        if (random < probabilities[3]) return 3;
-        if (random < probabilities[4]) return 4;
-        return 4;
-    }
+    // private int RandomWithProbability()
+    // {
+    //     int randomRoad = 0;
+    //     float cumulativeStraight=0;
+    //     float cumulativeStraightEmpty = 0;
+    //     float cumulativeLeft=0;
+    //     float cumulativeRight=0;
+    //     float cumulativeCross=0;
+    //     foreach (var road in roadPieces)
+    //     {
+    //         //cumulative += road.chance;
+    //         switch (road.TypeOfRoad)
+    //         {
+    //             case RoadPoints.RoadType.Straight:
+    //                 cumulativeStraight += road.chance;
+    //                 break;
+    //             case RoadPoints.RoadType.Left:
+    //                 cumulativeLeft += road.chance;
+    //                 break;
+    //             case RoadPoints.RoadType.Right:
+    //                 cumulativeRight += road.chance;
+    //                 break;
+    //             case RoadPoints.RoadType.Crossroad:
+    //                 cumulativeCross += road.chance;
+    //                 break;
+    //             case RoadPoints.RoadType.StraightEmpty:
+    //                 cumulativeStraightEmpty += road.chance;
+    //                 break;
+    //         }
+    //     }
+    //
+    //     float cumulativeTotal = cumulativeStraight + cumulativeCross + cumulativeLeft + cumulativeRight +
+    //                             cumulativeStraightEmpty;
+    //
+    //     float random = Random.Range(0, cumulativeTotal);
+    //
+    //     List<float> probabilities = new List<float>
+    //     {
+    //         cumulativeStraight,
+    //         cumulativeStraightEmpty,
+    //         cumulativeLeft,
+    //         cumulativeRight,
+    //         cumulativeCross
+    //     };
+    //
+    //     probabilities.Sort();
+    //
+    //     if (random < probabilities[0]) return 0;
+    //     if (random < probabilities[1]) return 1;
+    //     if (random < probabilities[2]) return 2;
+    //     if (random < probabilities[3]) return 3;
+    //     if (random < probabilities[4]) return 4;
+    //     return 4;
+    // }
 
     /// <summary>
     /// Generates road piece depends on the previous ones rotation.
@@ -291,14 +291,16 @@ public class RoadGenerator : MonoBehaviour
             case RoadPoints.RoadType.Crossroad:
                 isACrossroad = true;
                 break;
+            case RoadPoints.RoadType.Straight:
+                Debug.Log($"{_activePiece.name} I am straight");
+                yDirection = 0 + pieceYRotation;
+                CheckBorders(pieceYRotation);
+                break;
             case RoadPoints.RoadType.Portal:
+                Debug.Log($"{_activePiece.name} I am portal");
                 yDirection = 0 + pieceYRotation;
                 CheckBorders(pieceYRotation);
                 isPortal = true;
-                break;
-            case RoadPoints.RoadType.Straight:
-                yDirection = 0 + pieceYRotation;
-                CheckBorders(pieceYRotation);
                 break;
         }
 
@@ -308,19 +310,15 @@ public class RoadGenerator : MonoBehaviour
         }
         else if (_closeToEdge)
         {
-            //make brackets like for the crossroads. Make them for every type of roads. Maybe the code can count them, if not variable
-            //TODO: Make it a nice variable that changes depending on the pieces of roads!!
             Debug.LogWarning("Close to the edge!");
             if (!_clockwise)
             {
                 //Left
-                randomRoad = 3;
                 randomRoad = Random.Range(_straightMark + 1, _leftMark + 1);
             }
             else
             {
                 //Right
-                randomRoad = 2;
                 randomRoad = Random.Range(_leftMark + 1, _rightMark + 1);
             }
 
@@ -345,10 +343,6 @@ public class RoadGenerator : MonoBehaviour
             {
                 randomRoad = Random.Range(portalVariants + 1, _straightMark + 1);
             }
-
-            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
-            _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
-            _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
             if (isPortal)
             {
                 SwirlingPortal p = _activePiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
@@ -366,6 +360,12 @@ public class RoadGenerator : MonoBehaviour
            
                 //TODO: Make sure it doesnt get double set (other generator should use this as a portal place)
 
+            }
+            else
+            {
+                Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
+                _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
+                _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
             }
         }
     }
