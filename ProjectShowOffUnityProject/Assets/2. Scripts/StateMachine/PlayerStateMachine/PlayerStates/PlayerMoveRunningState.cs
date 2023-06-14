@@ -147,8 +147,8 @@ public class PlayerMoveRunningState : PlayerOnTrackState
 
         if (info.gameObject.CompareTag("Grind"))
         {
-            Debug.Log("I should start grinding now");
-            StateMachine.SwitchState(StateMachine.GetState<PlayerGrindingState>());
+            if(Active)
+                StateMachine.SwitchState(StateMachine.GetState<PlayerGrindingState>());
         }
     }
 

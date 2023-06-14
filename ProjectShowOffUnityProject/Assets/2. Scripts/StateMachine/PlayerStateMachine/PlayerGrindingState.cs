@@ -71,12 +71,14 @@ public class PlayerGrindingState : PlayerOnTrackState
         base.Enter();
         Debug.Log("I AM GRINDING YESSS");
         _staggered = false;
+        _moving = true;
     }
 
 
     public override void Run()
     {
         base.Run();
+        MoveAlongPath();
         float ver = Input.GetAxisRaw(_verticalAxis);
 
         if (ver > 0 && !_jumping)
