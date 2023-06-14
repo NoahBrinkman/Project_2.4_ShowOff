@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class PlayerGrindingState : PlayerOnTrackState
 {
@@ -56,6 +57,12 @@ public class PlayerGrindingState : PlayerOnTrackState
     [SerializeField] private bool _showVisualAid = true;
     [SerializeField, Tooltip("In case the player has no model. Use this")] private Transform _debugCube;
     [FormerlySerializedAs("debugCubeColor")] [SerializeField] private Color _debugCubeColor;
+
+
+    private RoadPoints _activeRoad;
+    private float _angle;
+    [SerializeField] private float angleOffset = 5;
+    [SerializeField] private float angleLimit = 30;
     
     private void Start()
     {
@@ -70,6 +77,7 @@ public class PlayerGrindingState : PlayerOnTrackState
     {
         base.Enter();
         Debug.Log("I AM GRINDING YESSS");
+        _activeRoad = StateMachine.CurrentRoad.GetComponent<RoadPoints>();
         _staggered = false;
         _moving = true;
     }
@@ -78,78 +86,56 @@ public class PlayerGrindingState : PlayerOnTrackState
     public override void Run()
     {
         base.Run();
-        MoveAlongPath();
-        float ver = Input.GetAxisRaw(_verticalAxis);
+        //MoveAlongPath();
+        //MoveHorizontal();
+        Balance();
+    }
 
-        if (ver > 0 && !_jumping)
+    private void Balance()
+    {
+        float hor = Input.GetAxis(_horizontalAxis);
+        //transform.RotateAround(_col.transform.position,new Vector3(1,0,0), 5*Time.deltaTime);
+        Debug.Log($"Horizontal axis is: {hor}");
+        if (Mathf.Approximately(hor,0.0f))
         {
-            if (_sliding)
+            int random = Random.Range(0, 51);
+            random %= 2;
+            if (random == 0)
             {
-                //jumpTween.timeScale *= 10;
-                for (int i = 0; i < slideTweens.Count; i++)
-                {
-                    slideTweens[i].timeScale = _slideCancelSpeedMultiplier;
-                }
+                _angle -= angleOffset;
             }
-            //Jump
-            _jumping = true;
-            jumpTween = _col.transform.DOMoveY(_jumpHeight, _jumpDuration)
-                .SetEase(_jumpCurve).OnComplete(delegate() { _jumping = false;
-                    jumpTween.timeScale = 1;
-                });
-
-        }else if (ver < 0 && !_sliding)
-        {
-            if (_jumping)
+            else
             {
-                jumpTween.timeScale = _jumpCancelSpeedMultiplier;
-            }
-            _sliding = true;
-            slideTweens.Add(
-                DOTween.To(() => _col.Collider.center, x => _col.Collider.center =  x, _slideLowestPointCentre, _slideDuraton)
-                    .SetEase(_slideCurve).OnComplete(delegate()
-                    {
-                        _sliding = false;
-                        slideTweens = new List<Tween>();
-                    }));
-            slideTweens.Add( DOTween.To(() => _col.Collider.size, x => _col.Collider.size = x, _slideLowestPointSize, _slideDuraton)
-                .SetEase(_slideCurve));
-           
-            if (_debugCube != null)
-            {
-                slideTweens.Add( _debugCube.transform.DOLocalMove(_slideLowestPointCentre, _slideDuraton).SetEase(_slideCurve));
-                slideTweens.Add( _debugCube.transform.DOScale(_slideLowestPointSize, _slideDuraton).SetEase(_slideCurve));
+                _angle += angleOffset;
             }
         }
         else
         {
-            MoveHorizontal();
+            if (hor > 0)
+            {
+                _angle += angleOffset;
+            }
+            else
+            {
+                _angle -= angleOffset;
+            }
         }
-        
+        _angle = Mathf.Clamp(_angle, -angleLimit, angleLimit);
+        _col.transform.RotateAround(_col.transform.position,new Vector3(1,0,0), _angle*Time.deltaTime);
     }
-    
-    
-    private void MoveHorizontal()
-    {
-        float hor = Input.GetAxis(_horizontalAxis);
-        Vector3 vel = _rb.transform.right * hor * _speed;
-        _rb.velocity = vel;
-        Vector3 newPos = _rb.transform.localPosition;
-        newPos.x = Mathf.Clamp(_rb.transform.localPosition.x, startXZ.x + minX, startXZ.x + maxX);
-        newPos.z = Mathf.Clamp(_rb.transform.localPosition.z, startXZ.z + minX, startXZ.z + maxX);
-        _rb.transform.localPosition = newPos;
-    }
-    
+
     private void OnCollision(Collider info)
     {
         if (!Active || _staggered) return;
-        if (_obstacleLayer == (_obstacleLayer | (1 << info.gameObject.layer)))
+
+        if (!info.gameObject.CompareTag("Grind"))
         {
-            Debug.Log("OBSTACLE");
-            _onObstacleHit?.Invoke();
-            _staggered = true;
+            _col.transform.RotateAround(_col.transform.position,new Vector3(1,0,0), 0);
+            if(Active)
+                StateMachine.SwitchState(StateMachine.GetState<PlayerMoveRunningState>());
         }
     }
+    
 
     protected override bool ShouldGoRight()
     {
