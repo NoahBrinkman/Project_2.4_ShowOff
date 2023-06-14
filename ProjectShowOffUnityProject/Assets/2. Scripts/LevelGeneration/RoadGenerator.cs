@@ -97,6 +97,7 @@ public class RoadGenerator : MonoBehaviour
 
     private void Start()
     {
+        _targettedByPortal = false;
         _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, StartRotationY, DefaultRotationZ),
             transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
@@ -350,13 +351,22 @@ public class RoadGenerator : MonoBehaviour
                 List<RoadGenerator> gens = player.GetBiomes();
                 //Find all inactive generatos
                 
-                gens = gens.Where(b => !b._isActive && b.player == null && !b.TargettedByPortal).ToList();
+                gens = gens.Where(b => !b.IsActive && b.player == null && !b.TargettedByPortal).ToList();
                 Debug.Log("Gens that fit criteria  " + gens.Count);
-                RoadGenerator target = gens[Random.Range(0, gens.Count)];
-                p.TeleportPosition = target._startPosition;
-                p.OutwardDirection = target._startPosition + (Quaternion.Euler(0,target.StartRotationY,0) * Vector3.forward);
-                p.targetBiome = target;
-                target.TargettedByPortal = true;
+                try
+                {
+                    RoadGenerator target = gens[Random.Range(0, gens.Count)];
+                    p.TeleportPosition = target._startPosition;
+                    p.OutwardDirection = target._startPosition +
+                                         (Quaternion.Euler(0, target.StartRotationY, 0) * Vector3.forward);
+                    p.targetBiome = target;
+                    target.TargettedByPortal = true;
+
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
            
                 //TODO: Make sure it doesnt get double set (other generator should use this as a portal place)
 
