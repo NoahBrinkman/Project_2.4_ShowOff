@@ -38,6 +38,16 @@ public class RoadPoints : MonoBehaviour
     private Vector3 _assetStart;
     private Vector3 _assetEnd;
     private Vector3 _assetLeft;
+    private Vector3 _creatureSpawn;
+
+    public Vector3 CreatureSpawn
+    {
+        get => _creatureSpawn;
+        set => _creatureSpawn = value;
+    }
+
+    [HideInInspector]public Vector3 RoadCenter;
+
     private Vector3 _helperVector;
     private Bounds _bounds;
     private bool _curve;
@@ -141,6 +151,10 @@ public class RoadPoints : MonoBehaviour
             _bounds.center.z + zOffsetStart);
         _assetEnd = new Vector3(_bounds.center.x + xOffsetEnd, height,
             _bounds.center.z + zOffsetEnd);
+        
+        CreatureSpawn = new Vector3(_bounds.center.x + curveOffsetX, height,
+            _bounds.center.z + curveOffsetZ);
+        RoadCenter = new Vector3(_bounds.center.x, height, _bounds.center.z);
 
         if (spawnOneCurve)
         {
