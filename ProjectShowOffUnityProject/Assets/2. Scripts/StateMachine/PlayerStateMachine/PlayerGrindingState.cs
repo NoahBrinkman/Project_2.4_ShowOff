@@ -24,8 +24,6 @@ public class PlayerGrindingState : PlayerOnTrackState
     private float _angle;
     private Vector3 startXZ;
 
-    [SerializeField] private GameObject debugBall;
-    
     private void Start()
     {
         _col.OnCollisionEnterEvent.AddListener(OnCollision);
