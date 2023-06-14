@@ -46,7 +46,7 @@ public class RoadPoints : MonoBehaviour
         set => _creatureSpawn = value;
     }
 
-    public Vector3 RoadCenter;
+    [HideInInspector]public Vector3 RoadCenter;
 
     private Vector3 _helperVector;
     private Bounds _bounds;
