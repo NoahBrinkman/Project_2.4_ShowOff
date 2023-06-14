@@ -144,6 +144,12 @@ public class PlayerMoveRunningState : PlayerOnTrackState
             _onObstacleHit?.Invoke();
             _staggered = true;
         }
+
+        if (info.gameObject.CompareTag("Grind"))
+        {
+            Debug.Log("I should start grinding now");
+            StateMachine.SwitchState(StateMachine.GetState<PlayerGrindingState>());
+        }
     }
 
     protected override bool ShouldGoRight()
