@@ -163,7 +163,8 @@
      /// ADDITIONAL NOTE: Probably the cause of madness
      private void NextRotatePoint()
      {
-          if(!StateMachine.PathTracker.TargetPoints[0].includeInRotation) return;
+         if(StateMachine.PathTracker.TargetPoints.Count <= 0) return;
+         if(!StateMachine.PathTracker.TargetPoints[0].includeInRotation) return;
         
          Vector3 relativePos =  _moveTarget.position - StateMachine.PathTracker.TargetPoints[0].position;
          relativePos.y = 0;

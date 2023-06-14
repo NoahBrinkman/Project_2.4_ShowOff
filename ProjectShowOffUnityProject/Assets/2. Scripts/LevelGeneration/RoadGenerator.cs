@@ -48,8 +48,8 @@ public class RoadGenerator : MonoBehaviour
 
     public bool IsActive
     {
-        get => _targettedByPortal;
-        set => _targettedByPortal = value;
+        get => _isActive;
+        set => _isActive = value;
     }
 
     public bool Clear
@@ -59,8 +59,8 @@ public class RoadGenerator : MonoBehaviour
     }
     public bool TargettedByPortal
     {
-        get => _clear;
-        set => _clear = value;
+        get => _targettedByPortal;
+        set => _targettedByPortal = value;
     }
     private readonly List<GameObject> _activePieces = new List<GameObject>();
 
@@ -109,6 +109,7 @@ public class RoadGenerator : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("ACTIVE " + gameObject.name + " " + _isActive);
         if (_isActive)
         {
             if (_generateNewPiece)
@@ -350,24 +351,19 @@ public class RoadGenerator : MonoBehaviour
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
             if (isPortal)
             {
-                SwirlingPortal p = _activePiece.GetComponentInChildren<SwirlingPortal>();
+                SwirlingPortal p = _activePiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
                 //TODO: find inactive road and set it.
                 List<RoadGenerator> gens = player.GetBiomes();
                 //Find all inactive generatos
                 
                 gens = gens.Where(b => !b._isActive && b.player == null && !b.TargettedByPortal).ToList();
-                try
-                {
-                    RoadGenerator target = gens[Random.Range(0, gens.Count)];
-                    p.TeleportPosition = target._startPosition;
-                    p.OutwardDirection = new Vector3();
-                    p.targetBiome = target;
-                    target.TargettedByPortal = true;
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError(e);
-                }
+                Debug.Log("Gens that fit criteria  " + gens.Count);
+                RoadGenerator target = gens[Random.Range(0, gens.Count)];
+                p.TeleportPosition = target._startPosition;
+                p.OutwardDirection = target._startPosition + (Quaternion.Euler(0,target.StartRotationY,0) * Vector3.forward);
+                p.targetBiome = target;
+                target.TargettedByPortal = true;
+           
                 //TODO: Make sure it doesnt get double set (other generator should use this as a portal place)
 
             }

@@ -101,6 +101,7 @@ MonoBehaviour:
   OutwardDirection: {x: 0, y: 0, z: 0}
   TeleportPosition: {x: 0, y: 0, z: 0}
   _showVisualAids: 0
+  targetBiome: {fileID: 0}
 --- !u!65 &4854653066886387125
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -121,7 +122,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 10, y: 1, z: 10.000001}
-  m_Center: {x: 0, y: -3.5, z: 0}
+  m_Center: {x: 0, y: -7, z: 0}
 --- !u!1 &7368175722752417968
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +240,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -364,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e206d21b829b44b65acca60782cef965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roadType: 1
+  roadType: 6
   width: 8
   length: 8
   curvePoints: 60
