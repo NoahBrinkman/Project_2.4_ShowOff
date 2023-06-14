@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1897872625395431517
+--- !u!1001 &897565773277239779
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,74 +8,73 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+    - target: {fileID: -8679921383154817045, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+    - target: {fileID: -8679921383154817045, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -75.602455
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+    - target: {fileID: -8679921383154817045, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+    - target: {fileID: -8679921383154817045, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -110.43082
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+    - target: {fileID: -8679921383154817045, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+    - target: {fileID: -8679921383154817045, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00000003774895
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2e585939ba0d0456a9bef7ddebf0c770,
-        type: 3}
-      propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+    - target: {fileID: -8679921383154817045, guid: 90cd31377031f4badb8083e3a0e4fb6f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+    - target: {fileID: -8679921383154817045, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+    - target: {fileID: -8679921383154817045, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+    - target: {fileID: -8679921383154817045, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -5754084199372789682, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+    - target: {fileID: -7511558181221131132, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
-      propertyPath: m_Mesh
+      propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1125398788956078060, guid: eca702cafb00e46ff83ec5d8a38ade99,
-        type: 3}
-    - target: {fileID: 919132149155446097, guid: 2e585939ba0d0456a9bef7ddebf0c770,
+      objectReference: {fileID: 2100000, guid: 5987cd2b99c454b16af567da6ca74038, type: 2}
+    - target: {fileID: 919132149155446097, guid: 90cd31377031f4badb8083e3a0e4fb6f,
         type: 3}
       propertyPath: m_Name
-      value: Shrooms_Left Variant
+      value: Helene_LP Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2e585939ba0d0456a9bef7ddebf0c770, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 90cd31377031f4badb8083e3a0e4fb6f, type: 3}

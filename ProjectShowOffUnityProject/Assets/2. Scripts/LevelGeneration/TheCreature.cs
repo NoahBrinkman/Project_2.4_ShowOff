@@ -29,7 +29,7 @@ public class TheCreature : MonoBehaviour
     {
         _roadRotation = ((int)transform.localRotation.eulerAngles.y + 360) % 360;
         int randomCreature = Random.Range(0, _creatures.Count);
-        GameObject theCreature = Instantiate(_creatures[randomCreature], _roadPoints.CreatureSpawn, Quaternion.Euler(0,_roadRotation-90,0));
+        GameObject theCreature = Instantiate(_creatures[3], _roadPoints.CreatureSpawn, Quaternion.Euler(0,_roadRotation-90,0));
     }
 
     private void CreateArrow()
