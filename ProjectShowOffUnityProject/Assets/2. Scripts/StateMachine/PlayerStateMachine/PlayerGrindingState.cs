@@ -20,9 +20,12 @@ public class PlayerGrindingState : PlayerOnTrackState
     [Header("Grinding")]
     [SerializeField] private float angleOffset = 5;
     [SerializeField] private float angleLimit = 30;
+    [SerializeField] private float speedOfRotation = 10;
+    [SerializeField] private int timeToSubstractLife;
     private bool _staggered = false;
     private float _angle;
     private Vector3 startXZ;
+    private int _lostBalance;
 
     private void Start()
     {
@@ -77,9 +80,20 @@ public class PlayerGrindingState : PlayerOnTrackState
                 _angle -= angleOffset;
             }
         }
-        _angle = Mathf.Clamp(_angle, -angleLimit, angleLimit);
-        Vector3 position = new Vector3(_col.gameObject.transform.position.x, _col.gameObject.transform.position.y-0.5f, _col.gameObject.transform.position.z);
+        _angle = Mathf.Clamp(_angle, -angleLimit+speedOfRotation, angleLimit-speedOfRotation);
+        Vector3 position = new Vector3(_col.gameObject.transform.position.x, _col.gameObject.transform.position.y, _col.gameObject.transform.position.z);
         _col.gameObject.transform.RotateAround(position,new Vector3(1,0,0), _angle*Time.deltaTime);
+        float playerRotation = (_col.gameObject.transform.eulerAngles.z + 360) % 360;
+        if (playerRotation > angleLimit && playerRotation < 360-angleLimit)
+        {
+            _lostBalance++;
+        }
+
+        if (_lostBalance > timeToSubstractLife)
+        {
+            _lostBalance = 0;
+            StateMachine.SubtractLife(1);
+        }
     }
 
     private void OnCollision(Collider info)
