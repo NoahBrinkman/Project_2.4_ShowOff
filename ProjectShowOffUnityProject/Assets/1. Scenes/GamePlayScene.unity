@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.48296636, g: 0.56865084, b: 0.5749251, a: 1}
+  m_IndirectSpecularColor: {r: 0.4830755, g: 0.56883794, b: 0.5750363, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4226,75 +4226,12 @@ MonoBehaviour:
   _smoothing: 2.7
   _col: {fileID: 1020062432}
   _rb: {fileID: 1020062428}
-  _speed: 8
-  minX: -1.2
-  maxX: 1.2
   _horizontalAxis: Horizontal
-  _verticalAxis: Vertical
-  _jumpCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _jumpHeight: 2
-  _jumpDuration: 1
-  _jumpCancelSpeedMultiplier: 10
-  _slideCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _slideLowestPointCentre: {x: 0, y: 0, z: 0}
-  _slideLowestPointSize: {x: 0, y: 0, z: 0}
-  _slideDuraton: 0
-  _slideCancelSpeedMultiplier: 10
-  _obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  _onObstacleHit:
-    m_PersistentCalls:
-      m_Calls: []
-  _showVisualAid: 1
-  _debugCube: {fileID: 0}
-  _debugCubeColor: {r: 0, g: 0, b: 0, a: 0}
+  angleOffset: 5
+  angleLimit: 50
+  speedOfRotation: 10
+  timeToSubstractLife: 10
+  _disBalanceSeverity: 120
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1
