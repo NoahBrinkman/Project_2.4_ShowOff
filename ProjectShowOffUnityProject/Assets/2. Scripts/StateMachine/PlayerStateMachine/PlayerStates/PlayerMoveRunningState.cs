@@ -166,6 +166,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         StateMachine.ActiveRoad.Clear = true;
         StateMachine.ActiveRoad.SetPlayer( null);
         StateMachine.ActiveRoad = rG;
+        StateMachine.ActiveRoad.TargettedByPortal = false;
         StateMachine.ActiveRoad.SetPlayer(StateMachine);
         StateMachine.ActiveRoad.IsActive = true;
         StateMachine.ActiveRoad.Clear = false;

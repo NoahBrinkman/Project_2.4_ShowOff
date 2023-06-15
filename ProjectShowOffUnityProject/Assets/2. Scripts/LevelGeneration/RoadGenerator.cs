@@ -470,6 +470,12 @@ public class RoadGenerator : MonoBehaviour
         GameObject newPiece = Instantiate(roadPieces[roadPieceNumber].gameObject, startPosition, rotation);
         if (roadPieceNumber > _straightMark && roadPieceNumber <= _leftMark) _clockwise = false;
         if (roadPieceNumber > _leftMark && roadPieceNumber <= _rightMark) _clockwise = true;
+        if (roadPieces[roadPieceNumber].TypeOfRoad == RoadPoints.RoadType.Portal)
+        {
+
+                SwirlingPortal p = newPiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
+                p.ParentGenerator = this;
+        }
         newPiece.transform.parent = transform;
         _activePieces.Add(newPiece);
         return newPiece;
