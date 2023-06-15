@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 
 public class SwirlingPortal : MonoBehaviour
 {
+    [HideInInspector] public RoadGenerator ParentGenerator;
     [SerializeField] private SwirlingPortal _linkedPortal;
     [FormerlySerializedAs("_outwardDirection")] public Vector3 OutwardDirection;
     [FormerlySerializedAs("_teleportPosition")] public Vector3 TeleportPosition;
@@ -26,9 +27,18 @@ public class SwirlingPortal : MonoBehaviour
         }
     }
 
-    public void Initialize(RoadGenerator towards)
+    public void Initialize()
     {
-        
+        Debug.Log("MY PARENT ISNT SET AAAAAAAAAAAAAAAAAAAAAAAAAH" + ParentGenerator == null);
+        try
+        {
+            ParentGenerator.DeterminePortalDestination(this);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
     
     private void OnDrawGizmos()

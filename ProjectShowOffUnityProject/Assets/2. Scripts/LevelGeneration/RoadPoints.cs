@@ -245,6 +245,19 @@ public class RoadPoints : MonoBehaviour
                      0, zMinusLengthZ, false, true,
                     -simpleX, zMinusLengthZ);
                 break;
+            //PORTAL---------------------------------------------------------------------------------------------
+            case RoadType.Portal when roadRotation == 0:
+                SpawnPoints(-simpleX, 0, simpleX, 0);
+                break;
+            case RoadType.Portal when roadRotation == 90:
+                SpawnPoints(0, simpleZ, 0, -simpleZ);
+                break;
+            case RoadType.Portal when roadRotation == 180:
+                SpawnPoints(simpleX, 0, -simpleX, 0);
+                break;
+            case RoadType.Portal when roadRotation == 270:
+                SpawnPoints(0, -simpleZ, 0, simpleZ);
+                break;
         }
     }
 

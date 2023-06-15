@@ -20,7 +20,8 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     [SerializeField]
     private float maxX = 2.0f;
     private Vector3 startXZ;
-   
+
+    
     [SerializeField] 
     private string _horizontalAxis = "Horizontal";
     [SerializeField]
@@ -147,6 +148,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
 
         if (info.GetComponent<SwirlingPortal>() is SwirlingPortal p)
         {
+            p.Initialize();
             Teleport(p.TeleportPosition, p.OutwardDirection, p.targetBiome);
         }
     }
@@ -157,18 +159,18 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         StateMachine.PathTracker.TargetPoints.Clear();
         StateMachine.PathTracker.PassedPoints.Add(pos);
         
-        transform.position = pos;
-        transform.rotation = Quaternion.LookRotation(dir);
-        
+        StateMachine.transform.position = pos; 
+        //_moveTarget.transform.rotation = Quaternion.LookRotation(dir);
+        snapNextRotation = true;
         StateMachine.ActiveRoad.IsActive = false;
         StateMachine.ActiveRoad.Clear = true;
-        
+        StateMachine.ActiveRoad.SetPlayer( null);
         StateMachine.ActiveRoad = rG;
-        
+        StateMachine.ActiveRoad.SetPlayer(StateMachine);
         StateMachine.ActiveRoad.IsActive = true;
         StateMachine.ActiveRoad.Clear = false;
-        
-        
+        _moving = false;
+
     }
     
     protected override bool ShouldGoRight()

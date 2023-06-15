@@ -101,7 +101,7 @@ public class RoadGenerator : MonoBehaviour
         _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, StartRotationY, DefaultRotationZ),
             transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
-        Debug.Log($"I am {name} and my position is {transform.position}");
+//        Debug.Log($"I am {name} and my position is {transform.position}");
         _straightMark = portalVariants + straightVariants;
         _leftMark = portalVariants + straightVariants + leftVariants;
         _rightMark = portalVariants + straightVariants + leftVariants + rightVariants;
@@ -110,7 +110,6 @@ public class RoadGenerator : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("ACTIVE " + gameObject.name + " " + _isActive);
         if (_isActive)
         {
             if (_generateNewPiece)
@@ -327,6 +326,14 @@ public class RoadGenerator : MonoBehaviour
             _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
             _closeToEdge = false;
+        }else if (isPortal)
+        {
+            SwirlingPortal p = _activePiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
+            Debug.Log("ACTIVE PIECE: "+ _activePiece.name + "IS IT A PORTAL? " + isPortal);
+            p.ParentGenerator = this;
+            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
+            _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
+            _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
         }
         else
         {
@@ -344,42 +351,38 @@ public class RoadGenerator : MonoBehaviour
             {
                 randomRoad = Random.Range(portalVariants + 1, _straightMark + 1);
             }
-            if (isPortal)
-            {
-                SwirlingPortal p = _activePiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
-                //TODO: find inactive road and set it.
-                List<RoadGenerator> gens = player.GetBiomes();
-                //Find all inactive generatos
-                
-                gens = gens.Where(b => !b.IsActive && b.player == null && !b.TargettedByPortal).ToList();
-                Debug.Log("Gens that fit criteria  " + gens.Count);
-                try
-                {
-                    RoadGenerator target = gens[Random.Range(0, gens.Count)];
-                    p.TeleportPosition = target._startPosition;
-                    p.OutwardDirection = target._startPosition +
-                                         (Quaternion.Euler(0, target.StartRotationY, 0) * Vector3.forward);
-                    p.targetBiome = target;
-                    target.TargettedByPortal = true;
-
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError(e);
-                }
-           
-                //TODO: Make sure it doesnt get double set (other generator should use this as a portal place)
-
-            }
-            else
-            {
-                Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
-                _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
-                _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
-            }
+            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
+            _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
+            _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
         }
     }
 
+    public RoadGenerator DeterminePortalDestination(SwirlingPortal p)
+    {
+        //TODO: find inactive road and set it.
+            List<RoadGenerator> gens = player.GetBiomes();
+            gens = gens.Where(b => !b.IsActive && b.player == null && !b.TargettedByPortal).ToList();
+            Debug.Log("Gens that fit criteria  " + gens.Count);
+            try
+            {
+                RoadGenerator target = gens[Random.Range(0, gens.Count)];
+                p.TeleportPosition = target.transform.position;
+                p.OutwardDirection = target.transform.position +
+                                     (Quaternion.Euler(0, target.StartRotationY, 0) * Vector3.right);
+                p.targetBiome = target;
+                target.TargettedByPortal = true;
+
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+           
+            //TODO: Make sure it doesnt get double set (other generator should use this as a portal place)
+            
+        return this;
+    }
+    
     /// <summary>
     /// Checks if the piece fits in the borders.
     /// Makes it possible to specify how far it should stop generating from the border line.
@@ -466,5 +469,13 @@ public class RoadGenerator : MonoBehaviour
         newPiece.transform.parent = transform;
         _activePieces.Add(newPiece);
         return newPiece;
+    }
+
+    public void SetPlayer(PlayerStateMachine p)
+    {
+        if (player != p)
+        {
+            player = p;
+        }
     }
 }

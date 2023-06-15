@@ -13,7 +13,7 @@
      [SerializeField, Range(0, 5)] private float _smoothing;
      protected bool _moving = false;
      protected bool _rotating = false;
-
+     protected bool snapNextRotation = false;
      protected float totalMoveTime;
      protected float totalRotationTime;
      private Quaternion _rotationTarget;
@@ -86,7 +86,12 @@
      private void RotateAlongPath(){
          if (_rotating)
          {
-            
+             if (snapNextRotation)
+             {
+                 snapNextRotation = false;
+                 _moveTarget.rotation = _rotationTarget;
+                 NextRotatePoint();
+             }
              StateMachine.PathTracker.RotationTimer += Time.deltaTime;
              Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  _smoothing * Time.deltaTime);
              
