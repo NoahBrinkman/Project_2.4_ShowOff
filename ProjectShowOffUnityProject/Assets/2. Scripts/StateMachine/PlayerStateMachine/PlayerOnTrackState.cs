@@ -35,6 +35,7 @@
      {
          base.Enter();
          
+         Debug.Log(StateMachine.PathTracker.TargetPoints.Count);
          if (StateMachine.PathTracker.TargetPoints.Count > 0)
          {
              if (StateMachine.PathTracker.PassedPoints.Count > 0)
@@ -163,6 +164,7 @@
      /// ADDITIONAL NOTE: Probably the cause of madness
      private void NextRotatePoint()
      {
+         if (StateMachine.PathTracker.TargetPoints.Count <= 0) return;
           if(!StateMachine.PathTracker.TargetPoints[0].includeInRotation) return;
         
          Vector3 relativePos =  _moveTarget.position - StateMachine.PathTracker.TargetPoints[0].position;

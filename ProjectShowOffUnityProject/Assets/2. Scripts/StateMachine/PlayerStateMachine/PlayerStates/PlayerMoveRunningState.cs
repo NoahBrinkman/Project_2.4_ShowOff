@@ -70,6 +70,10 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     {
         base.Enter();
         _staggered = false;
+        //Make player straight (🤢) after the grinding
+        Quaternion currentRotation = _col.gameObject.transform.rotation;
+        Quaternion newRotation = Quaternion.Euler(currentRotation.eulerAngles.x, currentRotation.eulerAngles.y, 0f);
+        _col.gameObject.transform.rotation = newRotation;
     }
 
 
@@ -143,6 +147,12 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         {
             _onObstacleHit?.Invoke();
             _staggered = true;
+        }
+
+        if (info.gameObject.CompareTag("Grind"))
+        {
+            if(Active)
+                StateMachine.SwitchState(StateMachine.GetState<PlayerGrindingState>());
         }
     }
 
