@@ -110,8 +110,10 @@ public class RoadGenerator : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(_isActive);
         if (_isActive)
         {
+            Debug.Log("CAN GENERATE START ROAD? " + _generateNewPiece);
             if (_generateNewPiece)
             {
                 GenerateStartRoads();
@@ -146,8 +148,9 @@ public class RoadGenerator : MonoBehaviour
         }
 
         _activePieces.Clear();
-
-        CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ),
+        _generateNewPiece = true;
+        _clear = false;
+        _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ),
             transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
     }
@@ -274,6 +277,7 @@ public class RoadGenerator : MonoBehaviour
         bool isACrossroad = false;
         bool isPortal = false;
         float yDirection = 0;
+        Debug.Log(_activePiece);
         float pieceYRotation = _activePiece.transform.eulerAngles.y;
 
         switch (_activePoints.TypeOfRoad)
