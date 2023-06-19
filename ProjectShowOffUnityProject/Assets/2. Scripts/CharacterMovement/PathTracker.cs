@@ -17,14 +17,19 @@ public class PathTracker : MonoBehaviour
 
     private void Awake()
     {
-        TargetPoints = new List<TargetPoint>();
-        PassedPoints = new List<Vector3>();
-        RotationTargets = new List<Quaternion>();
+         ClearPoints();
     }
 
     public void UpdateSpeed()
     {
         SecondsPerUnit *= speedMultiplier;
+    }
+
+    public void ClearPoints()
+    {
+        TargetPoints = new List<TargetPoint>();
+        PassedPoints = new List<Vector3>();
+        RotationTargets = new List<Quaternion>();
     }
 }
 

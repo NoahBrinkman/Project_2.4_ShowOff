@@ -86,12 +86,7 @@
      private void RotateAlongPath(){
          if (_rotating)
          {
-             if (snapNextRotation)
-             {
-                 snapNextRotation = false;
-                 _moveTarget.rotation = _rotationTarget;
-                 NextRotatePoint();
-             }
+
              StateMachine.PathTracker.RotationTimer += Time.deltaTime;
              Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  _smoothing * Time.deltaTime);
              
@@ -170,14 +165,24 @@
      {
          if(StateMachine.PathTracker.TargetPoints.Count <= 0) return;
          if(!StateMachine.PathTracker.TargetPoints[0].includeInRotation) return;
-        
+
+         
          Vector3 relativePos =  _moveTarget.position - StateMachine.PathTracker.TargetPoints[0].position;
          relativePos.y = 0;
          if(Vector3.Dot(relativePos, _moveTarget.forward) < 0f) return;
+         
 //         Debug.Log("CURRENT POINT: " + StateMachine.PathTracker.PassedPoints[^1] +"TARGET POINT: " + StateMachine.PathTracker.TargetPoints[0] + "Relative Pos: " + relativePos);
          _rotationTarget = Quaternion.LookRotation(relativePos.normalized);
          
          float a = Quaternion.Angle( _rotationTarget, _moveTarget.rotation);
+         if (snapNextRotation)
+         {
+                 
+             snapNextRotation = false;
+             _moveTarget.rotation = _rotationTarget;
+             NextRotatePoint();
+             return;
+         }
 //         Debug.LogError(a);
   
         // if (a <= StateMachine.PathTracker.RotationMargin) return;

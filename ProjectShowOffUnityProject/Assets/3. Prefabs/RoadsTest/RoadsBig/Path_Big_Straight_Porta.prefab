@@ -97,8 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40797f920e07e7744b2811ebc312b097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParentGenerator: {fileID: 0}
   _linkedPortal: {fileID: 0}
-  OutwardDirection: {x: 0, y: 0, z: 0}
+  OutwardDirection: {x: 1, y: 0, z: 0}
   TeleportPosition: {x: 0, y: 0, z: 0}
   _showVisualAids: 0
   targetBiome: {fileID: 0}

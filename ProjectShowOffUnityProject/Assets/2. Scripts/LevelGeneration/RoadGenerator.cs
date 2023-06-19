@@ -149,7 +149,7 @@ public class RoadGenerator : MonoBehaviour
 
         _activePieces.Clear();
         _generateNewPiece = true;
-        _clear = false;
+        _startPosition = transform.localPosition;
         _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ),
             transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
@@ -365,12 +365,19 @@ public class RoadGenerator : MonoBehaviour
     {
         //TODO: find inactive road and set it.
             List<RoadGenerator> gens = player.GetBiomes();
-            gens = gens.Where(b => !b.IsActive && b.player == null && !b.TargettedByPortal).ToList();
-            Debug.Log("Gens that fit criteria  " + gens.Count);
+            List<RoadGenerator> availableGenerators = new List<RoadGenerator>();
+            for (int i = 0; i < gens.Count; i++)
+            {
+                if (gens[i].player == null && gens[i] != this && !gens[i]._isActive && !gens[i].TargettedByPortal)
+                {
+                    availableGenerators.Add(gens[i]);
+                }
+            }
+            Debug.Log("Gens that fit criteria  " + availableGenerators.Count);
             try
             {
-                RoadGenerator target = gens[Random.Range(0, gens.Count)];
-                p.TeleportPosition = target.transform.position;
+                RoadGenerator target = availableGenerators[Random.Range(0, availableGenerators.Count)];
+                p.TeleportPosition = target.transform.position + target._startPosition;
                 p.OutwardDirection = target.transform.position +
                                      (Quaternion.Euler(0, target.StartRotationY, 0) * Vector3.right);
                 p.targetBiome = target;
@@ -481,11 +488,22 @@ public class RoadGenerator : MonoBehaviour
         return newPiece;
     }
 
-    public void SetPlayer(PlayerStateMachine p)
+    public void SetPlayer(PlayerStateMachine p, bool clear = true)
     {
         if (player != p)
         {
+         
             player = p;
+            if (player == null)
+            {
+                IsActive = false;
+                ClearGenerator();
+            }
+            else
+            {
+                IsActive = true;
+                Clear = false;
+            }
         }
     }
 }

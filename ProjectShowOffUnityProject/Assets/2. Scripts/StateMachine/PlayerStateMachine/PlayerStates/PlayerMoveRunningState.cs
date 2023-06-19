@@ -155,21 +155,17 @@ public class PlayerMoveRunningState : PlayerOnTrackState
 
     private void Teleport(Vector3 pos, Vector3 dir, RoadGenerator rG)
     {
-        StateMachine.PathTracker.PassedPoints.Clear();
-        StateMachine.PathTracker.TargetPoints.Clear();
-        StateMachine.PathTracker.PassedPoints.Add(pos);
+        StateMachine.PathTracker.ClearPoints();
+       // StateMachine.PathTracker.PassedPoints.Add(pos);
         
-        StateMachine.transform.position = pos; 
-        //_moveTarget.transform.rotation = Quaternion.LookRotation(dir);
-        snapNextRotation = true;
-        StateMachine.ActiveRoad.IsActive = false;
-        StateMachine.ActiveRoad.Clear = true;
+        Debug.LogWarning($"TELEPORTING: FROM { StateMachine.transform.position} TO: {pos}");
+        StateMachine.transform.position = pos;
+        StateMachine.transform.rotation = rG.transform.rotation;
+        base.snapNextRotation = true;
         StateMachine.ActiveRoad.SetPlayer( null);
         StateMachine.ActiveRoad = rG;
         StateMachine.ActiveRoad.TargettedByPortal = false;
         StateMachine.ActiveRoad.SetPlayer(StateMachine);
-        StateMachine.ActiveRoad.IsActive = true;
-        StateMachine.ActiveRoad.Clear = false;
         _moving = false;
 
     }

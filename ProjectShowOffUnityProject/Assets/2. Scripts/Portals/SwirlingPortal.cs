@@ -33,6 +33,7 @@ public class SwirlingPortal : MonoBehaviour
         try
         {
             ParentGenerator.DeterminePortalDestination(this);
+            targetBiome.TargettedByPortal = true;
         }
         catch (Exception e)
         {
