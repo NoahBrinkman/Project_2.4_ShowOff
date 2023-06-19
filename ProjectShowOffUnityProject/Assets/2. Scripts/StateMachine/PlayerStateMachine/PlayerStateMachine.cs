@@ -22,9 +22,10 @@ public class PlayerStateMachine : StateMachine<PlayerState>
         [field: Header("Roads")]
         [SerializeField] private List<RoadGenerator> biomes;
         [HideInInspector]
-        public RoadGenerator ActiveRoad { get; private set; }
+        public RoadGenerator ActiveRoad { get; set; }
         public PathTracker PathTracker { get; private set; }
-        
+        [HideInInspector] public bool GodMode = false;
+
         private void Awake()
         {
             PathTracker=  GetComponentInChildren<PathTracker>();
@@ -63,8 +64,11 @@ public class PlayerStateMachine : StateMachine<PlayerState>
                 _onPlayerDeath?.Invoke();
             }
         }
-        
-        
+
+        public List<RoadGenerator> GetBiomes()
+        {
+            return biomes;
+        }
         public float GetScore() 
         {
             if (CurrentState.GetType() != typeof(PlayerStaggerState))

@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -20,7 +21,8 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     [SerializeField]
     private float maxX = 2.0f;
     private Vector3 startXZ;
-   
+
+    
     [SerializeField] 
     private string _horizontalAxis = "Horizontal";
     [SerializeField]
@@ -143,19 +145,43 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     private void OnCollision(Collider info)
     {
         if (!Active || _staggered) return;
-        if (_obstacleLayer == (_obstacleLayer | (1 << info.gameObject.layer)))
+        if (_obstacleLayer == (_obstacleLayer | (1 << info.gameObject.layer))&& !StateMachine.GodMode)
         {
             _onObstacleHit?.Invoke();
             _staggered = true;
         }
-
-        if (info.gameObject.CompareTag("Grind"))
+          if (info.gameObject.CompareTag("Grind"))
         {
             if(Active)
                 StateMachine.SwitchState(StateMachine.GetState<PlayerGrindingState>());
         }
+        
+        
+
+        if (info.GetComponent<SwirlingPortal>() is SwirlingPortal p)
+        {
+            p.Initialize();
+            Teleport(p.TeleportPosition, p.OutwardDirection, p.targetBiome);
+        }
     }
 
+    private void Teleport(Vector3 pos, Vector3 dir, RoadGenerator rG)
+    {
+        StateMachine.PathTracker.ClearPoints();
+       // StateMachine.PathTracker.PassedPoints.Add(pos);
+      
+       
+        StateMachine.transform.position = pos;
+        StateMachine.transform.rotation = Quaternion.Euler(0,270,0);
+        base.snapNextRotation = true;
+        StateMachine.ActiveRoad.SetPlayer( null);
+        StateMachine.ActiveRoad = rG;
+        StateMachine.ActiveRoad.TargettedByPortal = false;
+        StateMachine.ActiveRoad.SetPlayer(StateMachine);
+        _moving = false;
+
+    }
+    
     protected override bool ShouldGoRight()
     {
         return _rb.transform.localPosition.x < 0;

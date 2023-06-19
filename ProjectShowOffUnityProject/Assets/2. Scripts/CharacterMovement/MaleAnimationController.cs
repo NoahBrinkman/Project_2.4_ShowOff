@@ -34,23 +34,23 @@ public class MaleAnimationController : MonoBehaviour
         if (isSliding)
         {
             animator.SetBool("isRunningSlide", true);
-            Debug.Log(isSliding);
+            //Debug.Log(isSliding);
         }
         if (!isSliding)
         {
             animator.SetBool("isRunningSlide", false);
-            Debug.Log(isSliding);
+//            Debug.Log(isSliding);
         }
         //RunningRight
         if (isRunningRight)
         {
             animator.SetBool("isRunningRight", true);
-            Debug.Log(isRunningRight);
+            //Debug.Log(isRunningRight);
         }
         if (!isRunningRight)
         {
             animator.SetBool("isRunningRight", false);
-            Debug.Log(isRunningRight);
+          //  Debug.Log(isRunningRight);
         }
         //Runningleft
         if (isRunningLeft)
