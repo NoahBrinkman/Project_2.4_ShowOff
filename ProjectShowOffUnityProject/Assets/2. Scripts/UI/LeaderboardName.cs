@@ -18,14 +18,13 @@ public class LeaderboardName : MonoBehaviour
     [SerializeField] private TMP_Text highScore;
     [SerializeField] private List<TMP_Text> letters;
     [SerializeField] private List<Image> arrows;
+    [SerializeField] private List<Image> highlights;
     [SerializeField] private bool horizontal;
     private string _verticalAxisPlayer1 = "Horizontal";
     private string _verticalAxisPlayer2 = "Horizontal2";
     private int _usedAlphabetLetter;
     private int _activeLetter;
-    [SerializeField] private int _score;
     private readonly Dictionary<int, int> _lettersAndPosition = new Dictionary<int, int>();
-    private ScoreManager _scoreManager;
 
     private string _fileName = "Leaderboard.txt";
     private string _folderPath;
@@ -41,7 +40,6 @@ public class LeaderboardName : MonoBehaviour
 
     private void Start()
     {
-        _scoreManager = GameObject.FindObjectOfType<ScoreManager>();
         for (int i = 0; i < letters.Count; i++)
         {
             _lettersAndPosition.Add(i, 0);
@@ -60,7 +58,7 @@ public class LeaderboardName : MonoBehaviour
 
     private void Update()
     {
-        highScore.text = $"Your score: {Mathf.RoundToInt(ScoreManager.Instance.Score):n0}";
+        highScore.text = $"{Mathf.RoundToInt(ScoreManager.Instance.Score):n0}";
         SwitchLetters();
 
         ChangeLetters(_activeLetter);
@@ -79,7 +77,7 @@ public class LeaderboardName : MonoBehaviour
             newName += letter.text;
         }
 
-        sd.Add(new HighScoreSave(_score, newName));
+        sd.Add(new HighScoreSave(Mathf.RoundToInt(ScoreManager.Instance.Score), newName));
 
         List<HighScoreSave> sortedList = new List<HighScoreSave>();
         sortedList = sd.OrderByDescending(o => o.HighScore).ToList();
@@ -147,10 +145,12 @@ public class LeaderboardName : MonoBehaviour
             if (i == _activeLetter)
             {
                 letters[_activeLetter].rectTransform.DOScale(scale, 0.2f);
+                highlights[_activeLetter].enabled = true;
             }
             else
             {
                 letters[i].rectTransform.DOScale(1, 0.2f);
+                highlights[i].enabled = false;
             }
         }
 
