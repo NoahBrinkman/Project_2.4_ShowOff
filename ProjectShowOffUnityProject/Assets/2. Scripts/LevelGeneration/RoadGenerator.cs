@@ -57,7 +57,11 @@ public class RoadGenerator : MonoBehaviour
         get => _clear;
         set => _clear = value;
     }
-
+    public bool TargettedByPortal
+    {
+        get => _targettedByPortal;
+        set => _targettedByPortal = value;
+    }
     private readonly List<GameObject> _activePieces = new List<GameObject>();
 
     private Vector3 _startPosition;
@@ -77,6 +81,7 @@ public class RoadGenerator : MonoBehaviour
     private bool _isActive;
     private bool _clear;
     private bool _clockwise;
+    private bool _targettedByPortal;
 
     //DEBUG -----------------------
     public bool ShowBorder { get; set; }
@@ -87,14 +92,16 @@ public class RoadGenerator : MonoBehaviour
     [HideInInspector] public float DefaultRotationX;
     [HideInInspector] public float DefaultRotationY;
     [HideInInspector] public float DefaultRotationZ;
+    [HideInInspector] public float StartRotationY;
 
 
     private void Start()
     {
-        _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ),
+        _targettedByPortal = false;
+        _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, StartRotationY, DefaultRotationZ),
             transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
-        Debug.Log($"I am {name} and my position is {transform.position}");
+//        Debug.Log($"I am {name} and my position is {transform.position}");
         _straightMark = portalVariants + straightVariants;
         _leftMark = portalVariants + straightVariants + leftVariants;
         _rightMark = portalVariants + straightVariants + leftVariants + rightVariants;
@@ -103,8 +110,10 @@ public class RoadGenerator : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(_isActive);
         if (_isActive)
         {
+            Debug.Log("CAN GENERATE START ROAD? " + _generateNewPiece);
             if (_generateNewPiece)
             {
                 GenerateStartRoads();
@@ -139,8 +148,9 @@ public class RoadGenerator : MonoBehaviour
         }
 
         _activePieces.Clear();
-
-        CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ),
+        _generateNewPiece = true;
+        _startPosition = transform.localPosition;
+        _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, DefaultRotationY, DefaultRotationZ),
             transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
     }
@@ -200,60 +210,60 @@ public class RoadGenerator : MonoBehaviour
         }
     }
 
-    private int RandomWithProbability()
-    {
-        int randomRoad = 0;
-        float cumulativeStraight=0;
-        float cumulativeStraightEmpty = 0;
-        float cumulativeLeft=0;
-        float cumulativeRight=0;
-        float cumulativeCross=0;
-        foreach (var road in roadPieces)
-        {
-            //cumulative += road.chance;
-            switch (road.TypeOfRoad)
-            {
-                case RoadPoints.RoadType.Straight:
-                    cumulativeStraight += road.chance;
-                    break;
-                case RoadPoints.RoadType.Left:
-                    cumulativeLeft += road.chance;
-                    break;
-                case RoadPoints.RoadType.Right:
-                    cumulativeRight += road.chance;
-                    break;
-                case RoadPoints.RoadType.Crossroad:
-                    cumulativeCross += road.chance;
-                    break;
-                case RoadPoints.RoadType.StraightEmpty:
-                    cumulativeStraightEmpty += road.chance;
-                    break;
-            }
-        }
-
-        float cumulativeTotal = cumulativeStraight + cumulativeCross + cumulativeLeft + cumulativeRight +
-                                cumulativeStraightEmpty;
-
-        float random = Random.Range(0, cumulativeTotal);
-
-        List<float> probabilities = new List<float>
-        {
-            cumulativeStraight,
-            cumulativeStraightEmpty,
-            cumulativeLeft,
-            cumulativeRight,
-            cumulativeCross
-        };
-
-        probabilities.Sort();
-
-        if (random < probabilities[0]) return 0;
-        if (random < probabilities[1]) return 1;
-        if (random < probabilities[2]) return 2;
-        if (random < probabilities[3]) return 3;
-        if (random < probabilities[4]) return 4;
-        return 4;
-    }
+    // private int RandomWithProbability()
+    // {
+    //     int randomRoad = 0;
+    //     float cumulativeStraight=0;
+    //     float cumulativeStraightEmpty = 0;
+    //     float cumulativeLeft=0;
+    //     float cumulativeRight=0;
+    //     float cumulativeCross=0;
+    //     foreach (var road in roadPieces)
+    //     {
+    //         //cumulative += road.chance;
+    //         switch (road.TypeOfRoad)
+    //         {
+    //             case RoadPoints.RoadType.Straight:
+    //                 cumulativeStraight += road.chance;
+    //                 break;
+    //             case RoadPoints.RoadType.Left:
+    //                 cumulativeLeft += road.chance;
+    //                 break;
+    //             case RoadPoints.RoadType.Right:
+    //                 cumulativeRight += road.chance;
+    //                 break;
+    //             case RoadPoints.RoadType.Crossroad:
+    //                 cumulativeCross += road.chance;
+    //                 break;
+    //             case RoadPoints.RoadType.StraightEmpty:
+    //                 cumulativeStraightEmpty += road.chance;
+    //                 break;
+    //         }
+    //     }
+    //
+    //     float cumulativeTotal = cumulativeStraight + cumulativeCross + cumulativeLeft + cumulativeRight +
+    //                             cumulativeStraightEmpty;
+    //
+    //     float random = Random.Range(0, cumulativeTotal);
+    //
+    //     List<float> probabilities = new List<float>
+    //     {
+    //         cumulativeStraight,
+    //         cumulativeStraightEmpty,
+    //         cumulativeLeft,
+    //         cumulativeRight,
+    //         cumulativeCross
+    //     };
+    //
+    //     probabilities.Sort();
+    //
+    //     if (random < probabilities[0]) return 0;
+    //     if (random < probabilities[1]) return 1;
+    //     if (random < probabilities[2]) return 2;
+    //     if (random < probabilities[3]) return 3;
+    //     if (random < probabilities[4]) return 4;
+    //     return 4;
+    // }
 
     /// <summary>
     /// Generates road piece depends on the previous ones rotation.
@@ -265,7 +275,9 @@ public class RoadGenerator : MonoBehaviour
         
         int randomRoad = Random.Range(1, roadPieces.Count - crossroadsVariants);
         bool isACrossroad = false;
+        bool isPortal = false;
         float yDirection = 0;
+        Debug.Log(_activePiece);
         float pieceYRotation = _activePiece.transform.eulerAngles.y;
 
         switch (_activePoints.TypeOfRoad)
@@ -284,8 +296,15 @@ public class RoadGenerator : MonoBehaviour
                 isACrossroad = true;
                 break;
             case RoadPoints.RoadType.Straight:
+                Debug.Log($"{_activePiece.name} I am straight");
                 yDirection = 0 + pieceYRotation;
                 CheckBorders(pieceYRotation);
+                break;
+            case RoadPoints.RoadType.Portal:
+                Debug.Log($"{_activePiece.name} I am portal");
+                yDirection = 0 + pieceYRotation;
+                CheckBorders(pieceYRotation);
+                isPortal = true;
                 break;
         }
 
@@ -295,19 +314,15 @@ public class RoadGenerator : MonoBehaviour
         }
         else if (_closeToEdge)
         {
-            //make brackets like for the crossroads. Make them for every type of roads. Maybe the code can count them, if not variable
-            //TODO: Make it a nice variable that changes depending on the pieces of roads!!
             Debug.LogWarning("Close to the edge!");
             if (!_clockwise)
             {
                 //Left
-                randomRoad = 3;
                 randomRoad = Random.Range(_straightMark + 1, _leftMark + 1);
             }
             else
             {
                 //Right
-                randomRoad = 2;
                 randomRoad = Random.Range(_leftMark + 1, _rightMark + 1);
             }
 
@@ -315,6 +330,14 @@ public class RoadGenerator : MonoBehaviour
             _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
             _closeToEdge = false;
+        }else if (isPortal)
+        {
+            SwirlingPortal p = _activePiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
+            Debug.Log("ACTIVE PIECE: "+ _activePiece.name + "IS IT A PORTAL? " + isPortal);
+            p.ParentGenerator = this;
+            Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
+            _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
+            _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
         }
         else
         {
@@ -332,13 +355,45 @@ public class RoadGenerator : MonoBehaviour
             {
                 randomRoad = Random.Range(portalVariants + 1, _straightMark + 1);
             }
-
             Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
             _activePiece = CreateNewActivePiece(rotation, _startPosition, 2);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
         }
     }
 
+    public RoadGenerator DeterminePortalDestination(SwirlingPortal p)
+    {
+        //TODO: find inactive road and set it.
+            List<RoadGenerator> gens = player.GetBiomes();
+            List<RoadGenerator> availableGenerators = new List<RoadGenerator>();
+            for (int i = 0; i < gens.Count; i++)
+            {
+                if (gens[i].player == null && gens[i] != this && !gens[i]._isActive && !gens[i].TargettedByPortal)
+                {
+                    availableGenerators.Add(gens[i]);
+                }
+            }
+           
+            try
+            {
+                RoadGenerator target = availableGenerators[Random.Range(0, availableGenerators.Count)];
+                p.TeleportPosition = target.transform.position;
+                p.OutwardDirection = target.transform.position +
+                                     (Quaternion.Euler(0, target.StartRotationY, 0) * Vector3.right);
+                p.targetBiome = target;
+                target.TargettedByPortal = true;
+
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+           
+            //TODO: Make sure it doesnt get double set (other generator should use this as a portal place)
+            
+        return this;
+    }
+    
     /// <summary>
     /// Checks if the piece fits in the borders.
     /// Makes it possible to specify how far it should stop generating from the border line.
@@ -422,8 +477,33 @@ public class RoadGenerator : MonoBehaviour
         GameObject newPiece = Instantiate(roadPieces[roadPieceNumber].gameObject, startPosition, rotation);
         if (roadPieceNumber > _straightMark && roadPieceNumber <= _leftMark) _clockwise = false;
         if (roadPieceNumber > _leftMark && roadPieceNumber <= _rightMark) _clockwise = true;
+        if (roadPieces[roadPieceNumber].TypeOfRoad == RoadPoints.RoadType.Portal)
+        {
+
+                SwirlingPortal p = newPiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
+                p.ParentGenerator = this;
+        }
         newPiece.transform.parent = transform;
         _activePieces.Add(newPiece);
         return newPiece;
+    }
+
+    public void SetPlayer(PlayerStateMachine p, bool clear = true)
+    {
+        if (player != p)
+        {
+         
+            player = p;
+            if (player == null)
+            {
+                IsActive = false;
+                ClearGenerator();
+            }
+            else
+            {
+                IsActive = true;
+                Clear = false;
+            }
+        }
     }
 }

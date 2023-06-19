@@ -14,7 +14,8 @@ public class RoadPoints : MonoBehaviour
         Right = 2,
         Left = 3,
         Crossroad = 4,
-        StraightEmpty = 5
+        StraightEmpty = 5,
+        Portal = 6
     };
 
     [SerializeField] private RoadType roadType;
@@ -257,6 +258,19 @@ public class RoadPoints : MonoBehaviour
                 SpawnPoints(0, -simpleZ, simpleX, zMinusLengthZ,
                      0, zMinusLengthZ, false, true,
                     -simpleX, zMinusLengthZ);
+                break;
+            //PORTAL---------------------------------------------------------------------------------------------
+            case RoadType.Portal when roadRotation == 0:
+                SpawnPoints(-simpleX, 0, simpleX, 0);
+                break;
+            case RoadType.Portal when roadRotation == 90:
+                SpawnPoints(0, simpleZ, 0, -simpleZ);
+                break;
+            case RoadType.Portal when roadRotation == 180:
+                SpawnPoints(simpleX, 0, -simpleX, 0);
+                break;
+            case RoadType.Portal when roadRotation == 270:
+                SpawnPoints(0, -simpleZ, 0, simpleZ);
                 break;
         }
     }
