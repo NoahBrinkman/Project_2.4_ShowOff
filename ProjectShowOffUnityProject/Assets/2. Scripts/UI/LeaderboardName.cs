@@ -25,6 +25,7 @@ public class LeaderboardName : MonoBehaviour
     private int _activeLetter;
     [SerializeField] private int _score;
     private readonly Dictionary<int, int> _lettersAndPosition = new Dictionary<int, int>();
+    private ScoreManager _scoreManager;
 
     private string _fileName = "Leaderboard.txt";
     private string _folderPath;
@@ -40,6 +41,7 @@ public class LeaderboardName : MonoBehaviour
 
     private void Start()
     {
+        _scoreManager = GameObject.FindObjectOfType<ScoreManager>();
         for (int i = 0; i < letters.Count; i++)
         {
             _lettersAndPosition.Add(i, 0);
@@ -58,10 +60,15 @@ public class LeaderboardName : MonoBehaviour
 
     private void Update()
     {
-        highScore.text = "Your score: " + _score;
+        highScore.text = $"Your score: {Mathf.RoundToInt(ScoreManager.Instance.Score):n0}";
         SwitchLetters();
 
         ChangeLetters(_activeLetter);
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            SaveData();
+        }
     }
 
     public void SaveData()
