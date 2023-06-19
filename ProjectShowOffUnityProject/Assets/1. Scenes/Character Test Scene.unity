@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 4
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -706,7 +706,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &167248333
 PrefabInstance:
@@ -1829,7 +1829,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
+  m_Color: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
   m_Intensity: 3000
   m_Range: 10
   m_SpotAngle: 30
@@ -2705,7 +2705,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 0.019607844}
+      maxColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 0.023529412}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -8662,7 +8662,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 0.019607844}
+      maxColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 0.023529412}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -15134,7 +15134,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 0.019607844}
+      maxColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 0.023529412}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -20337,7 +20337,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 0.019607844}
+      maxColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 0.023529412}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24995,7 +24995,7 @@ Transform:
   - {fileID: 1121897013}
   - {fileID: 384399255}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1909030986
 PrefabInstance:
@@ -25013,7 +25013,7 @@ PrefabInstance:
     - target: {fileID: 8227426944232512036, guid: 6e4e1eae4a67750449c1cef688fb740e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8747786646990389406, guid: 6e4e1eae4a67750449c1cef688fb740e,
         type: 3}
@@ -25023,7 +25023,7 @@ PrefabInstance:
     - target: {fileID: 8747786646990389406, guid: 6e4e1eae4a67750449c1cef688fb740e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.8
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 8747786646990389406, guid: 6e4e1eae4a67750449c1cef688fb740e,
         type: 3}
@@ -25091,7 +25091,7 @@ PrefabInstance:
     - target: {fileID: 2257546611971318173, guid: bc63f3a8ea7414db891fa84d7f7df19b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2257546611971318173, guid: bc63f3a8ea7414db891fa84d7f7df19b,
         type: 3}
@@ -25461,7 +25461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1980942506
 Transform:
   m_ObjectHideFlags: 0
