@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class Reviving : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Reviving : MonoBehaviour
     [SerializeField] private GameObject right;
     [SerializeField] private bool enableReviving = true;
     [SerializeField] private int reviveTime = 30;
+    [SerializeField] private Slider slider;
     
     private Renderer _leftRender;
     private Renderer _rightRender;
@@ -38,8 +40,8 @@ public class Reviving : MonoBehaviour
                 _leftRender.material.color = Color.white;
             }
         }
-        
 
+        slider.value = _value;
         if (_value >= reviveTime)
         {
             Debug.LogWarning("YOU REVIVED!!!");
@@ -47,7 +49,7 @@ public class Reviving : MonoBehaviour
         }
     }
 
-    
-    
-    
+
+
+
 }
