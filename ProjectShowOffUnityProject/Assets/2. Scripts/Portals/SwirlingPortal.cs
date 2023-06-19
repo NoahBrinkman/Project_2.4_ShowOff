@@ -29,7 +29,7 @@ public class SwirlingPortal : MonoBehaviour
 
     public void Initialize()
     {
-        Debug.Log("MY PARENT ISNT SET AAAAAAAAAAAAAAAAAAAAAAAAAH" + ParentGenerator == null);
+      
         try
         {
             ParentGenerator.DeterminePortalDestination(this);

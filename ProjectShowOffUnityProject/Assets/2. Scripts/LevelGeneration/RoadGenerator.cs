@@ -373,11 +373,11 @@ public class RoadGenerator : MonoBehaviour
                     availableGenerators.Add(gens[i]);
                 }
             }
-            Debug.Log("Gens that fit criteria  " + availableGenerators.Count);
+           
             try
             {
                 RoadGenerator target = availableGenerators[Random.Range(0, availableGenerators.Count)];
-                p.TeleportPosition = target.transform.position + target._startPosition;
+                p.TeleportPosition = target.transform.position;
                 p.OutwardDirection = target.transform.position +
                                      (Quaternion.Euler(0, target.StartRotationY, 0) * Vector3.right);
                 p.targetBiome = target;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4830755, g: 0.56883794, b: 0.5750363, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4004,6 +4004,16 @@ PrefabInstance:
       objectReference: {fileID: 485988576}
     - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
+      propertyPath: _playerStates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: _playerStates.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
       propertyPath: _onPlayerDeath.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4060,12 +4070,17 @@ PrefabInstance:
     - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: speedMultiplier
-      value: 0.99
+      value: 1.005
       objectReference: {fileID: 0}
     - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: SecondsPerDegree
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763318291307230848, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: speedAccelerationRate
+      value: 7.7
       objectReference: {fileID: 0}
     - target: {fileID: 3952888879460810029, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
@@ -5565,7 +5580,7 @@ PrefabInstance:
     - target: {fileID: 7340820889999105662, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7342418356307718211, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}

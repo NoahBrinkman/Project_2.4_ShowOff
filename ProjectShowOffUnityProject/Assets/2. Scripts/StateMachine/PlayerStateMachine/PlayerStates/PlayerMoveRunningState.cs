@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -140,7 +141,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     private void OnCollision(Collider info)
     {
         if (!Active || _staggered) return;
-        if (_obstacleLayer == (_obstacleLayer | (1 << info.gameObject.layer)))
+        if (_obstacleLayer == (_obstacleLayer | (1 << info.gameObject.layer))&& !StateMachine.GodMode)
         {
             _onObstacleHit?.Invoke();
             _staggered = true;
@@ -157,10 +158,10 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     {
         StateMachine.PathTracker.ClearPoints();
        // StateMachine.PathTracker.PassedPoints.Add(pos);
-        
-        Debug.LogWarning($"TELEPORTING: FROM { StateMachine.transform.position} TO: {pos}");
+      
+       
         StateMachine.transform.position = pos;
-        StateMachine.transform.rotation = rG.transform.rotation;
+        StateMachine.transform.rotation = Quaternion.Euler(0,270,0);
         base.snapNextRotation = true;
         StateMachine.ActiveRoad.SetPlayer( null);
         StateMachine.ActiveRoad = rG;

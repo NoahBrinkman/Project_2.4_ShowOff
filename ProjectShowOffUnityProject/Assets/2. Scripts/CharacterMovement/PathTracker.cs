@@ -6,7 +6,7 @@ public class PathTracker : MonoBehaviour
 {
     public float SecondsPerUnit;
     [SerializeField, Tooltip("if you want the character to slow down make this below 0 speed up? above 0")] private float speedMultiplier;
-   [HideInInspector] public float MoveTimer;
+    [HideInInspector] public float MoveTimer;
 
    [HideInInspector] public float RotationTimer;
    public float SecondsPerDegree;
@@ -21,8 +21,9 @@ public class PathTracker : MonoBehaviour
     }
 
     public void UpdateSpeed()
-    {
-        SecondsPerUnit *= speedMultiplier;
+    { 
+        SecondsPerUnit = Mathf.Pow(SecondsPerUnit, speedMultiplier);
+     //SecondsPerUnit *= .99f;
     }
 
     public void ClearPoints()

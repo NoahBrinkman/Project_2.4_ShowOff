@@ -24,7 +24,8 @@ public class PlayerStateMachine : StateMachine<PlayerState>
         [HideInInspector]
         public RoadGenerator ActiveRoad { get; set; }
         public PathTracker PathTracker { get; private set; }
-        
+        [HideInInspector] public bool GodMode = false;
+
         private void Awake()
         {
             PathTracker=  GetComponentInChildren<PathTracker>();

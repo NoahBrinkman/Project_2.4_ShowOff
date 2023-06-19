@@ -15,5 +15,15 @@ public class Cheats : MonoBehaviour
                 p[i].SubtractLife(-1000000);
             }
         }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            PlayerStateMachine[] p = FindObjectsOfType<PlayerStateMachine>();
+            for (int i = 0; i < p.Length; i++)
+            {
+                p[i].GodMode =  !p[i].GodMode;
+                Debug.LogWarning($"Godmode: {p[i].GodMode}");
+            }
+        }
+
     }
 }
