@@ -22,11 +22,12 @@ public class PlayerGrindingState : PlayerOnTrackState
     [SerializeField] private float angleLimit = 30;
     [SerializeField] private float speedOfRotation = 10;
     [SerializeField] private int timeToSubstractLife;
+    [SerializeField] private float _disBalanceSeverity = 10;
     private bool _staggered = false;
     private float _angle;
     private Vector3 startXZ;
     private int _lostBalance;
-
+    private float disBalanceCounter = 0;
     private void Start()
     {
         _col.OnCollisionEnterEvent.AddListener(OnCollision);
@@ -50,9 +51,20 @@ public class PlayerGrindingState : PlayerOnTrackState
     public override void Run()
     {
         base.Run();
+        AddDisbalance();
         Balance();
     }
 
+    private void AddDisbalance()
+    {
+        float angle = Random.Range(0,_disBalanceSeverity);
+        disBalanceCounter+= 0.1f;
+
+        angle = Mathf.Sin(disBalanceCounter) * (_disBalanceSeverity/2 +Random.Range(-_disBalanceSeverity/2, _disBalanceSeverity/2)) ;
+        Vector3 position = new Vector3(_moveTarget.position.x, _moveTarget.position.y, _moveTarget.position.z);
+        _moveTarget.RotateAround(position,new Vector3(1,0,0), angle*Time.deltaTime);
+        
+    }
     private void Balance()
     {
         float hor = Input.GetAxis(_horizontalAxis);
@@ -81,8 +93,8 @@ public class PlayerGrindingState : PlayerOnTrackState
             }
         }
         _angle = Mathf.Clamp(_angle, -angleLimit+speedOfRotation, angleLimit-speedOfRotation);
-        Vector3 position = new Vector3(_col.gameObject.transform.position.x, _col.gameObject.transform.position.y, _col.gameObject.transform.position.z);
-        _col.gameObject.transform.RotateAround(position,new Vector3(1,0,0), _angle*Time.deltaTime);
+        Vector3 position = new Vector3(_moveTarget.position.x, _moveTarget.position.y, _moveTarget.position.z);
+        _moveTarget.RotateAround(position,new Vector3(1,0,0), _angle*Time.deltaTime);
         float playerRotation = (_col.gameObject.transform.eulerAngles.z + 360) % 360;
         if (playerRotation > angleLimit && playerRotation < 360-angleLimit)
         {
