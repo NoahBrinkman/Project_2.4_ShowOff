@@ -179,10 +179,10 @@ public class LeaderboardName : MonoBehaviour
     {
         _usedAlphabetLetter = _lettersAndPosition[_activeLetter];
         float ver = Input.GetAxisRaw(_verticalAxisPlayer1);
-        if (ver > 0 && !hasSwitched)
+        if (ver < 0 && !hasSwitched)
         {
             hasSwitched = true;
-            StartColorChange(arrows[activeLetter * 2]);
+            StartColorChange(arrows[activeLetter * 2+1]);
             if (_usedAlphabetLetter == _alphabet.Count - 1)
             {
                 _usedAlphabetLetter = 0;
@@ -194,10 +194,10 @@ public class LeaderboardName : MonoBehaviour
 
             LetterShake(_alphabet[_usedAlphabetLetter], activeLetter);
         }
-        else if (ver < 0 && !hasSwitched)
+        else if (ver > 0 && !hasSwitched)
         {
             hasSwitched = true;
-            StartColorChange(arrows[activeLetter * 2 + 1]);
+            StartColorChange(arrows[activeLetter * 2]);
             if (_usedAlphabetLetter == 0)
             {
                 _usedAlphabetLetter = _alphabet.Count - 1;
@@ -245,7 +245,7 @@ public class LeaderboardName : MonoBehaviour
     /// <returns></returns>
     private IEnumerator ColorChangeCoroutine(Image image)
     {
-        image.color = Color.green;
+        image.color = Color.black;
 
         yield return new WaitForSeconds(timeOfColourChange);
 
