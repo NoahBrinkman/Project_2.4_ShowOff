@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : SingleTon<ScoreManager>
@@ -27,9 +28,12 @@ public class ScoreManager : SingleTon<ScoreManager>
 
     private void FixedUpdate()
     {
-        for (int i = 0; i < _players.Count; i++)
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LeaderboardTestHorizontal"))
         {
-            if(_players[i].enabled) Score += _players[i].GetScore() * _baseScoreModifier;
+            foreach (PlayerStateMachine player in _players)
+            {
+                if(player.enabled) Score += player.GetScore() * _baseScoreModifier;
+            }
         }
     }
 }
