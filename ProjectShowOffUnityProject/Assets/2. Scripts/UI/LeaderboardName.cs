@@ -16,6 +16,8 @@ public class LeaderboardName : MonoBehaviour
     [SerializeField] private float scale = 1.5f;
     [SerializeField] private float timeOfColourChange = 0.2f;
     [SerializeField] private TMP_Text highScore;
+    [SerializeField] private Image button;
+    [SerializeField] private Image buttonSelected;
     [SerializeField] private List<TMP_Text> letters;
     [SerializeField] private List<Image> arrows;
     [SerializeField] private List<Image> highlights;
@@ -66,6 +68,8 @@ public class LeaderboardName : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.W))
         {
             SaveData();
+            button.enabled = false;
+            buttonSelected.enabled = true;
         }
     }
 
