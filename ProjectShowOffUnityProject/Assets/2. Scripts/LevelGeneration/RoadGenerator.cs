@@ -356,7 +356,7 @@ public class RoadGenerator : MonoBehaviour
                 randomRoad = Random.Range(portalVariants + 1, _straightMark + 1);
             }
             Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
-            _activePiece = CreateNewActivePiece(rotation, _startPosition, 2);
+            _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
         }
     }
