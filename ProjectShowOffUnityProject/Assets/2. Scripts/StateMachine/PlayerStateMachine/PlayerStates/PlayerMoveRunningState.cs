@@ -142,13 +142,15 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         _rb.transform.localPosition = newPos;
     }
     
-    private void OnCollision(Collider info)
+    protected virtual void OnCollision(Collider info)
     {
         if (!Active || _staggered) return;
         if (_obstacleLayer == (_obstacleLayer | (1 << info.gameObject.layer))&& !StateMachine.GodMode)
         {
             _onObstacleHit?.Invoke();
             _staggered = true;
+         InvincibilityState s =   (InvincibilityState)StateMachine.GetState<InvincibilityState>();
+         s.ReturnTo = this;
         }
           if (info.gameObject.CompareTag("Grind"))
         {
@@ -165,7 +167,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         }
     }
 
-    private void Teleport(Vector3 pos, Vector3 dir, RoadGenerator rG)
+    protected void Teleport(Vector3 pos, Vector3 dir, RoadGenerator rG)
     {
         StateMachine.PathTracker.ClearPoints();
        // StateMachine.PathTracker.PassedPoints.Add(pos);
