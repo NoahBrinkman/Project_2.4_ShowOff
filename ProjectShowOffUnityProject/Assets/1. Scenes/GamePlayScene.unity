@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.48296636, g: 0.56865084, b: 0.5749251, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2553,7 +2553,7 @@ PrefabInstance:
         type: 3}
       propertyPath: roadPieces.Array.data[5]
       value: 
-      objectReference: {fileID: 871027808346099784, guid: 56e7bc948d4fbb8498eecde66068655b,
+      objectReference: {fileID: 5094684694730091655, guid: e54d86d3c240f40d4967df70dadd2f77,
         type: 3}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
@@ -5624,7 +5624,7 @@ PrefabInstance:
         type: 3}
       propertyPath: roadPieces.Array.data[2]
       value: 
-      objectReference: {fileID: 5094684694730091655, guid: e54d86d3c240f40d4967df70dadd2f77,
+      objectReference: {fileID: 871027808346099784, guid: 31fe331655fec0c43bd178cba21611d6,
         type: 3}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
@@ -5642,7 +5642,7 @@ PrefabInstance:
         type: 3}
       propertyPath: roadPieces.Array.data[5]
       value: 
-      objectReference: {fileID: 871027808346099784, guid: 56e7bc948d4fbb8498eecde66068655b,
+      objectReference: {fileID: 5094684694730091655, guid: e54d86d3c240f40d4967df70dadd2f77,
         type: 3}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
