@@ -3987,7 +3987,7 @@ PrefabInstance:
     - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: biomes.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
@@ -4003,12 +4003,12 @@ PrefabInstance:
         type: 3}
       propertyPath: biomes.Array.data[2]
       value: 
-      objectReference: {fileID: 1891957202}
+      objectReference: {fileID: 1450550690}
     - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: biomes.Array.data[3]
       value: 
-      objectReference: {fileID: 1450550690}
+      objectReference: {fileID: 485988576}
     - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: biomes.Array.data[4]
@@ -4733,6 +4733,7 @@ MonoBehaviour:
   angleLimit: 30
   speedOfRotation: 10
   timeToSubstractLife: 0
+  _disBalanceSeverity: 10
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1
@@ -5102,13 +5103,28 @@ PrefabInstance:
     - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: biomes.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: biomes.Array.data[0]
       value: 
       objectReference: {fileID: 1841792348}
+    - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: biomes.Array.data[1]
+      value: 
+      objectReference: {fileID: 1649023713}
+    - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: biomes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1450550690}
+    - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: biomes.Array.data[3]
+      value: 
+      objectReference: {fileID: 485988576}
     - target: {fileID: 2432507528982704445, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _playerStates.Array.size

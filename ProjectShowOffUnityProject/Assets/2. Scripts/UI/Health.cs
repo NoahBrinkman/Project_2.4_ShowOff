@@ -15,7 +15,7 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        if(player1 != null)        player1HealthText.text = player1.CurrentState.StateMachine.Lives+ "/" + player1.CurrentState.StateMachine.MaxLives;
-        if(player2 != null) player2HealthText.text = player2.CurrentState.StateMachine.Lives+ "/"+ player1.CurrentState.StateMachine.MaxLives;
+        if(player1 != null)        player1HealthText.text = (player1.CurrentState.StateMachine.GodMode ? "∞" : player1.CurrentState.StateMachine.Lives)+ "/" + player1.CurrentState.StateMachine.MaxLives;
+        if(player2 != null) player2HealthText.text = (player2.CurrentState.StateMachine.GodMode ? "∞" : player2.CurrentState.StateMachine.Lives)+ "/"+ player1.CurrentState.StateMachine.MaxLives;
     }
 }

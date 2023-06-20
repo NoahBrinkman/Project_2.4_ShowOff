@@ -123,7 +123,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 10, y: 1, z: 10.000001}
-  m_Center: {x: 0, y: -7, z: 0}
+  m_Center: {x: 0, y: -5.2, z: 0}
 --- !u!1 &7368175722752417968
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,6 +280,7 @@ Transform:
   m_Children:
   - {fileID: 6123024510181604405}
   - {fileID: 3039942219397390693}
+  - {fileID: 5114379121078273161}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -380,6 +381,7 @@ MonoBehaviour:
   _weight: 0
   CurvePoints: []
   CurvePointsCross: []
+  RoadCenter: {x: 0, y: 0, z: 0}
 --- !u!1 &8229534881181256508
 GameObject:
   m_ObjectHideFlags: 0
