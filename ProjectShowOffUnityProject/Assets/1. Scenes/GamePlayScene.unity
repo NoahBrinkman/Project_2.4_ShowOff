@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 4
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -1155,7 +1155,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 1
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
@@ -1600,7 +1600,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 1
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
@@ -2469,6 +2469,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  left: {fileID: 0}
+  right: {fileID: 0}
+  enableReviving: 1
+  reviveTime: 30
+  slider: {fileID: 0}
+  leftKey: 122
+  rightKey: 120
+  ReturnToState: {fileID: 0}
 --- !u!1 &753275786
 GameObject:
   m_ObjectHideFlags: 0
@@ -3044,6 +3052,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  left: {fileID: 0}
+  right: {fileID: 0}
+  enableReviving: 1
+  reviveTime: 30
+  slider: {fileID: 0}
+  leftKey: 122
+  rightKey: 120
+  ReturnToState: {fileID: 0}
 --- !u!1001 &994762816
 PrefabInstance:
   m_ObjectHideFlags: 0
