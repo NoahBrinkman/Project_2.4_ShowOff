@@ -101,7 +101,6 @@ public class RoadGenerator : MonoBehaviour
         _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, StartRotationY, DefaultRotationZ),
             transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
-//        Debug.Log($"I am {name} and my position is {transform.position}");
         _straightMark = portalVariants + straightVariants;
         _leftMark = portalVariants + straightVariants + leftVariants;
         _rightMark = portalVariants + straightVariants + leftVariants + rightVariants;
@@ -210,61 +209,6 @@ public class RoadGenerator : MonoBehaviour
         }
     }
 
-    // private int RandomWithProbability()
-    // {
-    //     int randomRoad = 0;
-    //     float cumulativeStraight=0;
-    //     float cumulativeStraightEmpty = 0;
-    //     float cumulativeLeft=0;
-    //     float cumulativeRight=0;
-    //     float cumulativeCross=0;
-    //     foreach (var road in roadPieces)
-    //     {
-    //         //cumulative += road.chance;
-    //         switch (road.TypeOfRoad)
-    //         {
-    //             case RoadPoints.RoadType.Straight:
-    //                 cumulativeStraight += road.chance;
-    //                 break;
-    //             case RoadPoints.RoadType.Left:
-    //                 cumulativeLeft += road.chance;
-    //                 break;
-    //             case RoadPoints.RoadType.Right:
-    //                 cumulativeRight += road.chance;
-    //                 break;
-    //             case RoadPoints.RoadType.Crossroad:
-    //                 cumulativeCross += road.chance;
-    //                 break;
-    //             case RoadPoints.RoadType.StraightEmpty:
-    //                 cumulativeStraightEmpty += road.chance;
-    //                 break;
-    //         }
-    //     }
-    //
-    //     float cumulativeTotal = cumulativeStraight + cumulativeCross + cumulativeLeft + cumulativeRight +
-    //                             cumulativeStraightEmpty;
-    //
-    //     float random = Random.Range(0, cumulativeTotal);
-    //
-    //     List<float> probabilities = new List<float>
-    //     {
-    //         cumulativeStraight,
-    //         cumulativeStraightEmpty,
-    //         cumulativeLeft,
-    //         cumulativeRight,
-    //         cumulativeCross
-    //     };
-    //
-    //     probabilities.Sort();
-    //
-    //     if (random < probabilities[0]) return 0;
-    //     if (random < probabilities[1]) return 1;
-    //     if (random < probabilities[2]) return 2;
-    //     if (random < probabilities[3]) return 3;
-    //     if (random < probabilities[4]) return 4;
-    //     return 4;
-    // }
-
     /// <summary>
     /// Generates road piece depends on the previous ones rotation.
     /// </summary>
@@ -272,8 +216,8 @@ public class RoadGenerator : MonoBehaviour
     {
         _generation++;
         _startPosition = _activePoints.AssetEnd;
-        
-        int randomRoad = Random.Range(1, roadPieces.Count - crossroadsVariants);
+        Debug.Log(_generation % whenToSpawnCross);
+        int randomRoad = Random.Range(portalVariants+1, roadPieces.Count - crossroadsVariants);
         bool isACrossroad = false;
         bool isPortal = false;
         float yDirection = 0;
@@ -285,12 +229,10 @@ public class RoadGenerator : MonoBehaviour
             case RoadPoints.RoadType.Right:
                 yDirection = 90 + pieceYRotation;
                 CheckBorders(pieceYRotation);
-
                 break;
             case RoadPoints.RoadType.Left:
                 yDirection = -90 + pieceYRotation;
                 CheckBorders(pieceYRotation);
-
                 break;
             case RoadPoints.RoadType.Crossroad:
                 isACrossroad = true;
@@ -388,8 +330,6 @@ public class RoadGenerator : MonoBehaviour
             {
                 Debug.LogError(e);
             }
-           
-            //TODO: Make sure it doesnt get double set (other generator should use this as a portal place)
             
         return this;
     }

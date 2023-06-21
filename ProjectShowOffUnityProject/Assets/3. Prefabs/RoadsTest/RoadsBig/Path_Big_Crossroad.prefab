@@ -401,6 +401,7 @@ GameObject:
   - component: {fileID: 3568018685547140821}
   - component: {fileID: 1027376838344773278}
   - component: {fileID: 4066264549881232073}
+  - component: {fileID: 6999593952306581738}
   m_Layer: 0
   m_Name: Path_Big_Crossroad
   m_TagString: Untagged
@@ -425,7 +426,6 @@ Transform:
   - {fileID: 637204649297687793}
   - {fileID: 5994917038229371395}
   - {fileID: 7417119261563369353}
-  - {fileID: 5062610142310044549}
   - {fileID: 8708984323532900769}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -527,6 +527,30 @@ MonoBehaviour:
   _weight: 0
   CurvePoints: []
   CurvePointsCross: []
+  RoadCenter: {x: 0, y: 0, z: 0}
+--- !u!114 &6999593952306581738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7980632650920533977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb2c8aba989c47358b1947382d85635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowHeightOffset: 2
+  creatureHeightOffset: -0.3
+  arrows:
+  - {fileID: 1628034536760460556, guid: 3a29813d5cf55445083eda0197462224, type: 3}
+  - {fileID: 5560425518278206435, guid: 93aa99688e5fb403a809efe536540c02, type: 3}
+  creatures:
+  - {fileID: 7138451107821287126, guid: d84f24139d2fd4148a994844ad172d64, type: 3}
+  - {fileID: 6235419569634832661, guid: e13f6f747d4de41ff8e50e57e7c82421, type: 3}
+  - {fileID: 51125647106385074, guid: c68201dcb02a247528894e05b6cdd890, type: 3}
+  - {fileID: 4282334417427931150, guid: a7602722d2f834513b09f188ab000ade, type: 3}
+  - {fileID: 1450082123407932199, guid: bc63f3a8ea7414db891fa84d7f7df19b, type: 3}
 --- !u!1001 &646744350764835468
 PrefabInstance:
   m_ObjectHideFlags: 0
