@@ -34,8 +34,6 @@
      public override void Enter()
      {
          base.Enter();
-         
-         Debug.Log("TARGET POINTS: "+StateMachine.PathTracker.TargetPoints.Count);
          if (StateMachine.PathTracker.TargetPoints.Count > 0)
          {
              if (StateMachine.PathTracker.PassedPoints.Count > 0)

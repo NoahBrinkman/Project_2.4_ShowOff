@@ -63,7 +63,6 @@ public class PlayerStateMachine : StateMachine<PlayerState>
             if (_lives <= 0)
             {
                 _onPlayerDeath?.Invoke();
-                
             }
         }
 

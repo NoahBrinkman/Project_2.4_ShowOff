@@ -15,22 +15,24 @@ public class DyingState : PlayerState
     [SerializeField] private KeyCode rightKey = KeyCode.X;
     private int _value;
     [HideInInspector] public PlayerState ReturnToState;
-    [SerializeField] private TMP_Text timerTexr;
+    [SerializeField] private TMP_Text timerText;
     [SerializeField] private float _secondsUntilTrueDeath;
-    [SerializeField] private float _timer;
+    private float _timer;
     [SerializeField] private UnityEvent _onDeath;
     public override void Enter()
     {
         base.Enter();
         _value = 0;
+        _timer = _secondsUntilTrueDeath;
         enableReviving = true;
     }
 
     public override void Run()
     {
         base.Run();
-        _timer += Time.deltaTime;
-        if (_timer > _secondsUntilTrueDeath)
+        _timer -= Time.deltaTime;
+        FormatTimer();
+        if (_timer <= 0)
         {
             _onDeath?.Invoke();
         }
@@ -55,4 +57,10 @@ public class DyingState : PlayerState
         }
     }
 
+    private void FormatTimer()
+    {
+        float minutes = Mathf.FloorToInt(_timer / 60);
+        float seconds = Mathf.FloorToInt(_timer % 60);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
 }
