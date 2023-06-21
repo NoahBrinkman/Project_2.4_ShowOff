@@ -36,15 +36,16 @@ public class PlayerGrindingState : PlayerOnTrackState
 
 
     public override void Enter()
-    {
+    { 
         base.Enter();
         Debug.Log("I AM GRINDING YESSS");
         _staggered = false;
         _moving = true;
-        Vector3 newPos = _rb.transform.localPosition;
-        newPos.x = Mathf.Clamp(_rb.transform.localPosition.x, startXZ.x, startXZ.x);
-        newPos.z = Mathf.Clamp(_rb.transform.localPosition.z, startXZ.z, startXZ.z);
-        _rb.transform.localPosition = newPos;
+        _rb.transform.localPosition = new Vector3(0,.5f,0);
+        // Vector3 newPos = _rb.transform.localPosition;
+        //   newPos.x = Mathf.Clamp(_rb.transform.localPosition.x, startXZ.x, startXZ.x);
+        //   newPos.z = Mathf.Clamp(_rb.transform.localPosition.z, startXZ.z, startXZ.z);
+        //  _rb.transform.localPosition = newPos;
     }
 
 

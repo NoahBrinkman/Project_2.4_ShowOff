@@ -43,7 +43,7 @@ public class InvincibilityState : PlayerMoveRunningState
         _invincibilityTimer += Time.deltaTime;
         if (_flickerTimer >= flickerTime)
         {
-            _meshRenderer.ForEach(x => enabled = !x.enabled);
+            _meshRenderer.ForEach(x => x.enabled = !x.enabled);
             _flickerTimer = 0;
         }
 

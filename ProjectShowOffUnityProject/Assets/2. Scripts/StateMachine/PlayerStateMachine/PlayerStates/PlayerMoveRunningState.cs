@@ -149,8 +149,8 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         {
             _onObstacleHit?.Invoke();
             _staggered = true;
-         InvincibilityState s =   (InvincibilityState)StateMachine.GetState<InvincibilityState>();
-         s.ReturnTo = this;
+         //InvincibilityState s =   (InvincibilityState)StateMachine.GetState<InvincibilityState>();
+        // s.ReturnTo = this;
         }
           if (info.gameObject.CompareTag("Grind"))
         {
