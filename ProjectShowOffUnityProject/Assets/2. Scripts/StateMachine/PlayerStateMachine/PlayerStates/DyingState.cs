@@ -41,17 +41,7 @@ public class DyingState : PlayerState
         {
             Debug.LogWarning("YOU REVIVED!!!");
             enableReviving = false;
-                StateMachine.SubtractLife(-StateMachine.MaxLives);
-            if (ReturnToState != null)
-            {
-                InvincibilityState i = (InvincibilityState)StateMachine.GetState<InvincibilityState>();
-                i.ReturnTo = ReturnToState;
-                StateMachine.SwitchState(i);
-            }
-            else
-            {
-                StateMachine.SwitchState(StateMachine.GetState<PlayerMoveRunningState>());
-            }
+           StateMachine.Revive();
         }
     }
 
