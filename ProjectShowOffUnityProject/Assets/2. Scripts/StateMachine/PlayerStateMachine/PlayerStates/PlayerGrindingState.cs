@@ -55,7 +55,12 @@ public class PlayerGrindingState : PlayerOnTrackState
         AddDisbalance();
         Balance();
     }
-
+    
+    private void FixedUpdate()
+    {
+        if(Active) ScoreManager.Instance.AddScore(StateMachine);
+    }
+    
     private void AddDisbalance()
     {
         float angle = Random.Range(0,_disBalanceSeverity);

@@ -128,9 +128,14 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         {
             MoveHorizontal();
         }
+        
     }
-    
-    
+
+    private void FixedUpdate()
+    {
+        if(Active) ScoreManager.Instance.AddScore(StateMachine);
+    }
+
     private void MoveHorizontal()
     {
         float hor = Input.GetAxis(_horizontalAxis);

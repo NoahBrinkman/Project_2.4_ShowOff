@@ -42,7 +42,6 @@ public class PlayerStateMachine : StateMachine<PlayerState>
 
         private void Start()
         {
-            ScoreManager.Instance.AddPlayer(this);
             if (biomes.Count > 0)
             {
                 ActiveRoad = biomes[0];
