@@ -24,6 +24,21 @@ public class Cheats : MonoBehaviour
                 Debug.LogWarning($"Godmode: {p[i].GodMode}");
             }
         }
-
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            PlayerStateMachine[] p = FindObjectsOfType<PlayerStateMachine>();
+            if (p.Length > 0)
+            {
+                p[0].SubtractLife(p[0].Lives);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            PlayerStateMachine[] p = FindObjectsOfType<PlayerStateMachine>();
+            if (p.Length > 1)
+            {
+                p[1].SubtractLife(p[1].Lives);
+            }
+        }
     }
 }

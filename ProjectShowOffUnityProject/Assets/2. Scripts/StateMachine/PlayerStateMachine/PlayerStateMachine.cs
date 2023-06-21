@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -65,6 +66,23 @@ public class PlayerStateMachine : StateMachine<PlayerState>
             }
         }
 
+        public void Revive()
+        {
+            _lives = _maxLives;
+            SwitchState(GetState<PlayerMoveRunningState>());
+        }
+        public void BackToMoveOrDeathState()
+        {
+            if (_lives > 0)
+            {
+                SwitchState(GetState<PlayerMoveRunningState>());
+            }
+            else
+            {
+                SwitchState(GetState<DyingState>());
+            }
+        }
+        
         public List<RoadGenerator> GetBiomes()
         {
             return biomes;
