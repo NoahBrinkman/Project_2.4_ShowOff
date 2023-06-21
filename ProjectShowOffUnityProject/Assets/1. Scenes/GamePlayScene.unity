@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4830755, g: 0.56883794, b: 0.5750363, a: 1}
+  m_IndirectSpecularColor: {r: 0.48296636, g: 0.56865084, b: 0.5749251, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1047,8 +1047,8 @@ MonoBehaviour:
       m_Calls: []
   _moveTarget: {fileID: 2029149596}
   _smoothing: 2.7
-  _col: {fileID: 1264551950}
-  _rb: {fileID: 1264551946}
+  _col: {fileID: 2035435273}
+  _rb: {fileID: 1020062428}
   _horizontalAxis: Horizontal
   angleOffset: 5
   angleLimit: 30
@@ -7562,6 +7562,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2035435270}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2035435273 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 888028318884084080, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 2035435270}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020062426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d2adc94226bf044a57b46ffe83e7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!137 &2040459708 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 59600382574830068, guid: 962c1f84c7461b6408c8788c0b0a1784,
@@ -7604,7 +7616,7 @@ PrefabInstance:
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
       propertyPath: portalVariants
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
@@ -7614,7 +7626,7 @@ PrefabInstance:
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
       propertyPath: straightVariants
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
