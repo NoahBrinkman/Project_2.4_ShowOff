@@ -13,6 +13,6 @@ public class AssetSpin : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.Rotate(0.1f, 0.1f, 0.1f, Space.Self); 
+        transform.Rotate(0.5f, 0.5f, 0.5f, Space.Self); 
     }
 }
