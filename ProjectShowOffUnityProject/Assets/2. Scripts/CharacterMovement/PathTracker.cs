@@ -14,6 +14,7 @@ public class PathTracker : MonoBehaviour
    public List<TargetPoint> TargetPoints { get; private set; }
     public List<Vector3> PassedPoints { get; private set; }
     public List<Quaternion> RotationTargets { get; private set; }
+    public bool SnapMovement = true;
 
     private void Awake()
     {

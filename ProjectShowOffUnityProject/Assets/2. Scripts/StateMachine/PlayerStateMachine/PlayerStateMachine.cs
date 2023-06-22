@@ -68,13 +68,17 @@ public class PlayerStateMachine : StateMachine<PlayerState>
         public void Revive()
         {
             _lives = _maxLives;
-            SwitchState(GetState<PlayerMoveRunningState>());
+            SwitchState(GetState<InvincibilityState>());
+            InvincibilityState s = (InvincibilityState)GetState<InvincibilityState>();
+            s.ReturnTo = GetState<PlayerMoveRunningState>();
         }
         public void BackToMoveOrDeathState()
         {
             if (_lives > 0)
             {
-                SwitchState(GetState<PlayerMoveRunningState>());
+                SwitchState(GetState<InvincibilityState>());
+                InvincibilityState s = (InvincibilityState)GetState<InvincibilityState>();
+                s.ReturnTo = GetState<PlayerMoveRunningState>();
             }
             else
             {

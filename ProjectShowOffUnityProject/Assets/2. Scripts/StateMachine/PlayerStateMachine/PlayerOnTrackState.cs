@@ -34,26 +34,33 @@
      public override void Enter()
      {
          base.Enter();
-         if (StateMachine.PathTracker.TargetPoints.Count > 0)
+         if (StateMachine.PathTracker.SnapMovement)
          {
-             if (StateMachine.PathTracker.PassedPoints.Count > 0)
+             if (StateMachine.PathTracker.TargetPoints.Count > 0)
              {
-                totalMoveTime = Vector3.Distance(StateMachine.PathTracker.PassedPoints[^1], StateMachine.PathTracker.TargetPoints[0].position) * StateMachine.PathTracker.SecondsPerUnit;
-                if (StateMachine.PathTracker.MoveTimer > 0)
-                {
-                    StateMachine.PathTracker.MoveTimer = Mathf.Lerp(0, totalMoveTime, StateMachine.PathTracker.MoveTimer);
-                }
-             }
-             else
-             {
-                 StateMachine.PathTracker.PassedPoints.Add(_moveTarget.transform.position);
-                 totalMoveTime = Vector3.Distance(_moveTarget.transform.position, StateMachine.PathTracker.TargetPoints[0].position) * StateMachine.PathTracker.SecondsPerUnit;
-                 if (StateMachine.PathTracker.MoveTimer > 0)
+                 if (StateMachine.PathTracker.PassedPoints.Count > 0)
                  {
-                     StateMachine.PathTracker.MoveTimer = Mathf.Lerp(0, totalMoveTime, StateMachine.PathTracker.MoveTimer);
+                    totalMoveTime = Vector3.Distance(StateMachine.PathTracker.PassedPoints[^1], StateMachine.PathTracker.TargetPoints[0].position) * StateMachine.PathTracker.SecondsPerUnit;
+                    if (StateMachine.PathTracker.MoveTimer > 0)
+                    {
+                        StateMachine.PathTracker.MoveTimer = Mathf.Lerp(0, totalMoveTime, StateMachine.PathTracker.MoveTimer);
+                    }
                  }
+                 else
+                 {
+                     StateMachine.PathTracker.PassedPoints.Add(_moveTarget.transform.position);
+                     totalMoveTime = Vector3.Distance(_moveTarget.transform.position, StateMachine.PathTracker.TargetPoints[0].position) * StateMachine.PathTracker.SecondsPerUnit;
+                     if (StateMachine.PathTracker.MoveTimer > 0)
+                     {
+                         StateMachine.PathTracker.MoveTimer = Mathf.Lerp(0, totalMoveTime, StateMachine.PathTracker.MoveTimer);
+                     }
+                 }
+                 //NextRotatePoint();
              }
-             //NextRotatePoint();
+         }
+         else
+         {
+             StateMachine.PathTracker.SnapMovement = true;
          }
      }
      

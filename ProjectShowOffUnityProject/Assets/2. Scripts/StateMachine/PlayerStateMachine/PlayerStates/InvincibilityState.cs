@@ -31,7 +31,9 @@ public class InvincibilityState : PlayerMoveRunningState
     public override void Enter()
     {
         base.Enter();
-        _meshRenderer.ForEach(x => x.enabled = false);
+        _moving = true;
+        
+       // _meshRenderer.ForEach(x => x.enabled = false);
         _flickerTimer = 0;
         _invincibilityTimer = 0;
     }
@@ -43,12 +45,13 @@ public class InvincibilityState : PlayerMoveRunningState
         _invincibilityTimer += Time.deltaTime;
         if (_flickerTimer >= flickerTime)
         {
-            _meshRenderer.ForEach(x => x.enabled = !x.enabled);
+           // _meshRenderer.ForEach(x => x.enabled = !x.enabled);
             _flickerTimer = 0;
         }
 
         if (_invincibilityTimer >= _duration)
         {
+            StateMachine.PathTracker.SnapMovement = false;
             StateMachine.SwitchState(ReturnTo);
         }
     }
@@ -56,7 +59,7 @@ public class InvincibilityState : PlayerMoveRunningState
     public override void Exit()
     {
         base.Exit();
-        _meshRenderer.ForEach(x => enabled = true);
+     //   _meshRenderer.ForEach(x => enabled = true);
         _flickerTimer = 0;
         _invincibilityTimer = 0;
     }
