@@ -65,7 +65,7 @@ public class LeaderboardName : MonoBehaviour
 
         ChangeLetters(_activeLetter);
 
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.C))
         {
             SaveData();
             button.enabled = false;
@@ -132,7 +132,7 @@ public class LeaderboardName : MonoBehaviour
     /// </summary>
     private void SwitchLetters()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.N))
         {
             if (_activeLetter == letters.Count - 1)
             {
