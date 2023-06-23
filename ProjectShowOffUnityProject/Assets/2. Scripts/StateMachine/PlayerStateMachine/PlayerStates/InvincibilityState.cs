@@ -32,8 +32,7 @@ public class InvincibilityState : PlayerMoveRunningState
     {
         base.Enter();
         _moving = true;
-        _rotating = true;
-       // _meshRenderer.ForEach(x => x.enabled = false);
+        // _meshRenderer.ForEach(x => x.enabled = false);
         _flickerTimer = 0;
         _invincibilityTimer = 0;
     }
