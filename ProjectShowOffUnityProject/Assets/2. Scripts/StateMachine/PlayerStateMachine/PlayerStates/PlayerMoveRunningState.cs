@@ -130,7 +130,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         }
         
     }
-
+    
     private void FixedUpdate()
     {
         if(Active) ScoreManager.Instance.AddScore(StateMachine);
@@ -142,8 +142,8 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         Vector3 vel = _rb.transform.right * hor * _speed;
         _rb.velocity = vel;
         Vector3 newPos = _rb.transform.localPosition;
-        newPos.x = Mathf.Clamp(_rb.transform.localPosition.x, startXZ.x + minX, startXZ.x + maxX);
-        newPos.z = Mathf.Clamp(_rb.transform.localPosition.z, startXZ.z + minX, startXZ.z + maxX);
+        newPos.x = Mathf.Clamp(_rb.transform.localPosition.x,  minX,  maxX);
+        newPos.z = Mathf.Clamp(_rb.transform.localPosition.z,  minX,  maxX);
         _rb.transform.localPosition = newPos;
     }
     
@@ -152,6 +152,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         if (!Active || _staggered) return;
         if (_obstacleLayer == (_obstacleLayer | (1 << info.gameObject.layer))&& !StateMachine.GodMode)
         {
+            _rb.velocity = new Vector3();
             _onObstacleHit?.Invoke();
             _staggered = true;
          //InvincibilityState s =   (InvincibilityState)StateMachine.GetState<InvincibilityState>();
@@ -193,6 +194,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     {
         return _rb.transform.localPosition.x < 0;
     }
+
 
     private void OnDrawGizmosSelected()
     {

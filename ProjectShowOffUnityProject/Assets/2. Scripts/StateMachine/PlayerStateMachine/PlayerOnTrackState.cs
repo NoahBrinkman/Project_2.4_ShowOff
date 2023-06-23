@@ -61,7 +61,17 @@
          else
          {
              StateMachine.PathTracker.SnapMovement = true;
+             //Set totalMoveTime
+             //Set Total Rotation Time
+             //NextRotatePoint();
+             
          }
+     }
+
+     public void SetTotalTimes(float move, float rot)
+     {
+         totalMoveTime = move;
+         totalRotationTime = rot;
      }
      
      /// <summary>
@@ -92,7 +102,6 @@
      private void RotateAlongPath(){
          if (_rotating)
          {
-
              StateMachine.PathTracker.RotationTimer += Time.deltaTime;
              Quaternion newRot = Quaternion.Slerp(_moveTarget.rotation, _rotationTarget,  _smoothing * Time.deltaTime);
              
