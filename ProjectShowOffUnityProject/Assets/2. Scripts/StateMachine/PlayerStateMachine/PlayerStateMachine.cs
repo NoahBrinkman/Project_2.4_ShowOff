@@ -101,4 +101,23 @@ public class PlayerStateMachine : StateMachine<PlayerState>
                 return 0;
             }
         }
+
+        private void OnDrawGizmos()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            Gizmos.color = Color.red;
+            for (int i = 0; i < PathTracker.PassedPoints.Count; i++)
+            {
+                Gizmos.DrawSphere(PathTracker.PassedPoints[i],.5f);
+            }
+            Gizmos.color = Color.green;
+            for (int i = 0; i < PathTracker.TargetPoints.Count; i++)
+            {
+                Gizmos.DrawSphere(PathTracker.TargetPoints[i].position,.5f);
+            }
+        }
     }

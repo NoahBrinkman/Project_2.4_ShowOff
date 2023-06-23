@@ -4,9 +4,9 @@ using UnityEngine;
 
     public class StateMachine<StateType> : MonoBehaviour where StateType : IState
     {
-        
+
         public StateType CurrentState { get; protected set; }
-   
+        
         protected List<StateType> _states = new List<StateType>();
         
         
@@ -19,16 +19,20 @@ using UnityEngine;
             if (EqualityComparer<StateType>.Default.Equals(CurrentState, newPlayState))
             {
                 //If current state is the same as the new state, return.
+                Debug.LogError("ËRROR: SAME STATE");
                 return;
             }
 
-            if (!_states.Contains(newPlayState))
+            try
             {
-                _states.Add(newPlayState);
+                CurrentState.Exit();
+                CurrentState = newPlayState;
+                CurrentState.Enter();
             }
-            CurrentState.Exit();
-            CurrentState = newPlayState;
-            CurrentState.Enter();
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
         /// <summary>
         /// returns a reference to the state you set in type parameter T.

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PathTracker : MonoBehaviour
@@ -32,6 +33,10 @@ public class PathTracker : MonoBehaviour
         TargetPoints = new List<TargetPoint>();
         PassedPoints = new List<Vector3>();
         RotationTargets = new List<Quaternion>();
+    }
+    public void CleanUpTargets()
+    {
+        TargetPoints = TargetPoints.Distinct().ToList();
     }
 }
 

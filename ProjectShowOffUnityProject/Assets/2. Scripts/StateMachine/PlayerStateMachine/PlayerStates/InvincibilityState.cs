@@ -32,7 +32,7 @@ public class InvincibilityState : PlayerMoveRunningState
     {
         base.Enter();
         _moving = true;
-        
+        _rotating = true;
        // _meshRenderer.ForEach(x => x.enabled = false);
         _flickerTimer = 0;
         _invincibilityTimer = 0;
@@ -52,6 +52,11 @@ public class InvincibilityState : PlayerMoveRunningState
         if (_invincibilityTimer >= _duration)
         {
             StateMachine.PathTracker.SnapMovement = false;
+            if (ReturnTo.GetType() == typeof(PlayerMoveRunningState))
+            {
+                PlayerMoveRunningState p = (PlayerMoveRunningState)ReturnTo;
+                p.SetTotalTimes(totalMoveTime,totalRotationTime);
+            }
             StateMachine.SwitchState(ReturnTo);
         }
     }

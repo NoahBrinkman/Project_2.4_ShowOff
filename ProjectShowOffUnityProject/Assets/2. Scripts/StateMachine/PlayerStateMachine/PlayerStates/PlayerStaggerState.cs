@@ -12,7 +12,7 @@ public class PlayerStaggerState : PlayerOnTrackState
     [SerializeField] private UnityEvent OnComplete;
     public override void Enter()
     {
-
+        
         //base.Enter();
         if (Vector3.Distance(StateMachine.PathTracker.PassedPoints[^1], _moveTarget.transform.position) <
             _distance)
