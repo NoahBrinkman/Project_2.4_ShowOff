@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.48296636, g: 0.56865084, b: 0.5749251, a: 1}
+  m_IndirectSpecularColor: {r: 0.48306262, g: 0.5688265, b: 0.5750269, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2310,7 +2310,7 @@ MonoBehaviour:
   rightKey: 112
   ReturnToState: {fileID: 0}
   timerText: {fileID: 1480115477}
-  _secondsUntilTrueDeath: 20
+  _secondsUntilTrueDeath: 10
   _onDeath:
     m_PersistentCalls:
       m_Calls:
@@ -2835,11 +2835,11 @@ MonoBehaviour:
   enableReviving: 1
   reviveTime: 30
   slider: {fileID: 1594630877}
-  leftKey: 99
-  rightKey: 110
+  leftKey: 110
+  rightKey: 99
   ReturnToState: {fileID: 0}
   timerText: {fileID: 1509647917}
-  _secondsUntilTrueDeath: 20
+  _secondsUntilTrueDeath: 10
   _onDeath:
     m_PersistentCalls:
       m_Calls:
