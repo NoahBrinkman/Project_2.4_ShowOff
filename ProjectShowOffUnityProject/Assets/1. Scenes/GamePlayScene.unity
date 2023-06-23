@@ -2355,6 +2355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8fff7c7acae80459625ed1eb0f2270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentState: {fileID: 0}
 --- !u!4 &753275788
 Transform:
   m_ObjectHideFlags: 0
@@ -4853,6 +4854,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033194779717946610, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: _duration
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1033194779717946610, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
