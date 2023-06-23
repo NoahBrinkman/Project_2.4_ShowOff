@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 6a18b9766cc484d3ebb9be7527e509b7
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Fragile Bombers
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4a38968cbc26744588e81c80b49513cd, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
