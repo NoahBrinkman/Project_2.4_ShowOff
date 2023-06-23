@@ -15,6 +15,8 @@ public class LeaderboardName : MonoBehaviour
     [SerializeField] private float shakeTime = 0.5f;
     [SerializeField] private float scale = 1.5f;
     [SerializeField] private float timeOfColourChange = 0.2f;
+    [SerializeField] private KeyCode confirmKey = KeyCode.C;
+    [SerializeField] private KeyCode nextKey = KeyCode.N;
     [SerializeField] private TMP_Text highScore;
     [SerializeField] private Image button;
     [SerializeField] private Image buttonSelected;
@@ -65,7 +67,7 @@ public class LeaderboardName : MonoBehaviour
 
         ChangeLetters(_activeLetter);
 
-        if (Input.GetKeyUp(KeyCode.C))
+        if (Input.GetKeyUp(confirmKey))
         {
             SaveData();
             button.enabled = false;
@@ -132,7 +134,7 @@ public class LeaderboardName : MonoBehaviour
     /// </summary>
     private void SwitchLetters()
     {
-        if (Input.GetKeyUp(KeyCode.N))
+        if (Input.GetKeyUp(nextKey))
         {
             if (_activeLetter == letters.Count - 1)
             {

@@ -2306,8 +2306,8 @@ MonoBehaviour:
   enableReviving: 1
   reviveTime: 30
   slider: {fileID: 1348702182}
-  leftKey: 99
-  rightKey: 110
+  leftKey: 111
+  rightKey: 112
   ReturnToState: {fileID: 0}
   timerText: {fileID: 1480115477}
   _secondsUntilTrueDeath: 20
@@ -2835,8 +2835,8 @@ MonoBehaviour:
   enableReviving: 1
   reviveTime: 30
   slider: {fileID: 1594630877}
-  leftKey: 111
-  rightKey: 112
+  leftKey: 99
+  rightKey: 110
   ReturnToState: {fileID: 0}
   timerText: {fileID: 1509647917}
   _secondsUntilTrueDeath: 20
