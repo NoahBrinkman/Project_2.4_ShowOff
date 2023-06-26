@@ -9,7 +9,7 @@ public class InvincibilityState : PlayerMoveRunningState
     [SerializeField] private List<SkinnedMeshRenderer> _meshRenderer;
     [SerializeField] private float flickerTime = .25f;
     private float _flickerTimer;
-    private float _invincibilityTimer;
+    private float timer;
     public PlayerState ReturnTo;
     protected override void OnCollision(Collider info)
     {
@@ -34,21 +34,21 @@ public class InvincibilityState : PlayerMoveRunningState
         _moving = true;
         // _meshRenderer.ForEach(x => x.enabled = false);
         _flickerTimer = 0;
-        _invincibilityTimer = 0;
+        timer = 0;
     }
 
     public override void Run()
     {
         base.Run();
         _flickerTimer += Time.deltaTime;
-        _invincibilityTimer += Time.deltaTime;
+        timer += Time.deltaTime;
         if (_flickerTimer >= flickerTime)
         {
            // _meshRenderer.ForEach(x => x.enabled = !x.enabled);
             _flickerTimer = 0;
         }
 
-        if (_invincibilityTimer >= _duration)
+        if (timer >= _duration)
         {
             StateMachine.PathTracker.SnapMovement = false;
             if (ReturnTo.GetType() == typeof(PlayerMoveRunningState))
@@ -65,6 +65,6 @@ public class InvincibilityState : PlayerMoveRunningState
         base.Exit();
      //   _meshRenderer.ForEach(x => enabled = true);
         _flickerTimer = 0;
-        _invincibilityTimer = 0;
+        timer = 0;
     }
 }

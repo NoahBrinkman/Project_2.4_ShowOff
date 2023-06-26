@@ -58,7 +58,10 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     [SerializeField] private bool _showVisualAid = true;
     [SerializeField, Tooltip("In case the player has no model. Use this")] private Transform _debugCube;
     [FormerlySerializedAs("debugCubeColor")] [SerializeField] private Color _debugCubeColor;
-    
+
+    [Header("Invincibility")] private bool _invincible = false;
+    [SerializeField] private float _invinvibilityDuration;
+     private float _invincibilityTimer = 0;
     private void Start()
     {
         _col.OnCollisionEnterEvent.AddListener(OnCollision);
@@ -71,6 +74,8 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     public override void Enter()
     {
         base.Enter();
+        _invincibilityTimer = _invinvibilityDuration;
+        _invincible = true;
         _staggered = false;
         //Make player straight (🤢) after the grinding
         Quaternion currentRotation = _col.gameObject.transform.rotation;
@@ -128,7 +133,16 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         {
             MoveHorizontal();
         }
-        
+
+          if (_invincible)
+          {
+              _invincibilityTimer -= Time.deltaTime;
+              if (_invincibilityTimer <= 0)
+              {
+                  _invincibilityTimer = _invinvibilityDuration;
+                  _invincible = false;
+              }
+          }
     }
     
     private void FixedUpdate()
@@ -150,7 +164,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
     protected virtual void OnCollision(Collider info)
     {
         if (!Active || _staggered) return;
-        if (_obstacleLayer == (_obstacleLayer | (1 << info.gameObject.layer))&& !StateMachine.GodMode)
+        if (_obstacleLayer == (_obstacleLayer | (1 << info.gameObject.layer))&& !StateMachine.GodMode && !_invincible)
         {
             _rb.velocity = new Vector3();
             _onObstacleHit?.Invoke();
@@ -172,7 +186,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
             Teleport(p.TeleportPosition, p.OutwardDirection, p.targetBiome);
         }
     }
-
+    
     protected void Teleport(Vector3 pos, Vector3 dir, RoadGenerator rG)
     {
         StateMachine.PathTracker.ClearPoints();
