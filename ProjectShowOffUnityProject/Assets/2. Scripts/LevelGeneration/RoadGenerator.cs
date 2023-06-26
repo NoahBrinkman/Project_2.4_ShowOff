@@ -1,18 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class RoadGenerator : MonoBehaviour
 {
-    [Tooltip("Pieces of roads specific to the generator / area." +
-             "Remember that the first one should always be straight start and the T variants should be at the end.")]
-    [SerializeField]
-    private List<RoadPoints> roadPieces;
-
+    //SETTINGS-------------------------------------------------------------------------------------------------------
+    [Header("----SETTINGS----")]
     [Tooltip(
-         "Time before a roadPiece actually gets destroyed theb the player leaves itself, it should be high enough that the player doesn't see it but low enough that you dont get pieces colliding with eachother"),
+         "Time before a roadPiece actually gets destroyed then the player leaves itself," +
+         "it should be high enough that the player doesn't see it but low enough that you dont get pieces colliding with each other"),
      SerializeField]
     private float destructionTimer;
 
@@ -20,27 +17,42 @@ public class RoadGenerator : MonoBehaviour
     private PlayerStateMachine player;
 
     [Tooltip(
-        "How many pieces the generator will keep generated at once. I recommend number smaller than 4 to prevent overlapping")]
+        "How many pieces the generator will keep generated at once.\n" +
+        "I recommend number smaller than 4 to prevent overlapping.")]
     [SerializeField]
     private int piecesAtOnce = 3;
-
-
-    [Tooltip("How many portal roads variants do we have in the generator")] [SerializeField]
-    private int portalVariants;
-    [Tooltip("How many straight roads variants do we have in the generator")] [SerializeField]
-    private int straightVariants;
-    [Tooltip("How many left turns variants do we have in the generator")] [SerializeField]
-    private int leftVariants;
-    [Tooltip("How many right turns variants do we have in the generator")] [SerializeField]
-    private int rightVariants;
-    [Tooltip("How many crossroads variants do we have in the generator")] [SerializeField]
-    private int crossroadsVariants;
 
     [Tooltip("After how many road pieces the crossroad should be generated")] [SerializeField]
     private int whenToSpawnCross = 6;
 
     [Tooltip("The size of the whole generator area")] [SerializeField]
     private int borderSize = 100;
+
+    //ROADS---------------------------------------------------------------------------------------------------------
+    [Header("----ROADS----")]
+    [Tooltip("Pieces of roads specific to the generator / area.\n" +
+             "Remember to follow the template of how to add them to the scene.")]
+    [SerializeField]
+    private List<RoadPoints> roadPieces;
+
+    [Tooltip("How many portal roads variants do we have in the generator")] [SerializeField]
+    private int portalVariants;
+
+    [Tooltip("How many straight roads variants do we have in the generator?\n" +
+             "Excluding the first straight one \n" +
+             "Including the obstacles (both straight with obstacles and the pipe)"
+    )]
+    [SerializeField]
+    private int straightVariants;
+
+    [Tooltip("How many left turns variants do we have in the generator")] [SerializeField]
+    private int leftVariants;
+
+    [Tooltip("How many right turns variants do we have in the generator")] [SerializeField]
+    private int rightVariants;
+
+    [Tooltip("How many crossroads variants do we have in the generator")] [SerializeField]
+    private int crossroadsVariants;
 
 
     private double _accumulatedWeights;
@@ -54,14 +66,15 @@ public class RoadGenerator : MonoBehaviour
 
     public bool Clear
     {
-        get => _clear;
         set => _clear = value;
     }
-    public bool TargettedByPortal
+
+    public bool TargetedByPortal
     {
-        get => _targettedByPortal;
-        set => _targettedByPortal = value;
+        get => _targetedByPortal;
+        set => _targetedByPortal = value;
     }
+
     private readonly List<GameObject> _activePieces = new List<GameObject>();
 
     private Vector3 _startPosition;
@@ -81,13 +94,21 @@ public class RoadGenerator : MonoBehaviour
     private bool _isActive;
     private bool _clear;
     private bool _clockwise;
-    private bool _targettedByPortal;
+    private bool _targetedByPortal;
 
     //DEBUG -----------------------
     public bool ShowBorder { get; set; }
     public int BorderSize => borderSize;
     public int NormalRoadBorderSpace { get; set; } = 3;
     public int CrossRoadBorderSpace { get; set; } = 5;
+
+    public int PortalVariants => portalVariants;
+    public int StraightVariants => straightVariants;
+    public int LeftVariants => leftVariants;
+    public int RightVariants => rightVariants;
+    public int CrossRoadVariants => crossroadsVariants;
+
+    public List<RoadPoints> RoadPieces => roadPieces;
 
     [HideInInspector] public float DefaultRotationX;
     [HideInInspector] public float DefaultRotationY;
@@ -97,14 +118,13 @@ public class RoadGenerator : MonoBehaviour
 
     private void Start()
     {
-        _targettedByPortal = false;
+        _targetedByPortal = false;
         _activePiece = CreateNewActivePiece(Quaternion.Euler(DefaultRotationX, StartRotationY, DefaultRotationZ),
             transform.position);
         _activePoints = _activePiece.GetComponent<RoadPoints>();
         _straightMark = portalVariants + straightVariants;
         _leftMark = portalVariants + straightVariants + leftVariants;
         _rightMark = portalVariants + straightVariants + leftVariants + rightVariants;
-        
     }
 
     private void Update()
@@ -217,7 +237,7 @@ public class RoadGenerator : MonoBehaviour
         _generation++;
         _startPosition = _activePoints.AssetEnd;
         Debug.Log(_generation % whenToSpawnCross);
-        int randomRoad = Random.Range(portalVariants+1, roadPieces.Count - crossroadsVariants);
+        int randomRoad = Random.Range(portalVariants + 1, roadPieces.Count - crossroadsVariants);
         bool isACrossroad = false;
         bool isPortal = false;
         float yDirection = 0;
@@ -272,10 +292,11 @@ public class RoadGenerator : MonoBehaviour
             _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
             _closeToEdge = false;
-        }else if (isPortal)
+        }
+        else if (isPortal)
         {
             SwirlingPortal p = _activePiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
-            Debug.Log("ACTIVE PIECE: "+ _activePiece.name + "IS IT A PORTAL? " + isPortal);
+            Debug.Log("ACTIVE PIECE: " + _activePiece.name + "IS IT A PORTAL? " + isPortal);
             p.ParentGenerator = this;
             Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
             _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
@@ -293,10 +314,12 @@ public class RoadGenerator : MonoBehaviour
                 {
                     randomRoad = Random.Range(roadPieces.Count - crossroadsVariants, roadPieces.Count);
                 }
-            } else if (_generation % 2 == 0)
+            }
+            else if (_generation % 2 == 0)
             {
                 randomRoad = Random.Range(portalVariants + 1, _straightMark + 1);
             }
+
             Quaternion rotation = Quaternion.Euler(DefaultRotationX, DefaultRotationY + yDirection, DefaultRotationZ);
             _activePiece = CreateNewActivePiece(rotation, _startPosition, randomRoad);
             _activePoints = _activePieces[^1].GetComponent<RoadPoints>();
@@ -306,34 +329,33 @@ public class RoadGenerator : MonoBehaviour
     public RoadGenerator DeterminePortalDestination(SwirlingPortal p)
     {
         //TODO: find inactive road and set it.
-            List<RoadGenerator> gens = player.GetBiomes();
-            List<RoadGenerator> availableGenerators = new List<RoadGenerator>();
-            for (int i = 0; i < gens.Count; i++)
+        List<RoadGenerator> gens = player.GetBiomes();
+        List<RoadGenerator> availableGenerators = new List<RoadGenerator>();
+        for (int i = 0; i < gens.Count; i++)
+        {
+            if (gens[i].player == null && gens[i] != this && !gens[i]._isActive && !gens[i].TargetedByPortal)
             {
-                if (gens[i].player == null && gens[i] != this && !gens[i]._isActive && !gens[i].TargettedByPortal)
-                {
-                    availableGenerators.Add(gens[i]);
-                }
+                availableGenerators.Add(gens[i]);
             }
-           
-            try
-            {
-                RoadGenerator target = availableGenerators[Random.Range(0, availableGenerators.Count)];
-                p.TeleportPosition = target.transform.position;
-                p.OutwardDirection = target.transform.position +
-                                     (Quaternion.Euler(0, target.StartRotationY, 0) * Vector3.right);
-                p.targetBiome = target;
-                target.TargettedByPortal = true;
+        }
 
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e);
-            }
-            
+        try
+        {
+            RoadGenerator target = availableGenerators[Random.Range(0, availableGenerators.Count)];
+            p.TeleportPosition = target.transform.position;
+            p.OutwardDirection = target.transform.position +
+                                 (Quaternion.Euler(0, target.StartRotationY, 0) * Vector3.right);
+            p.targetBiome = target;
+            target.TargetedByPortal = true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
+
         return this;
     }
-    
+
     /// <summary>
     /// Checks if the piece fits in the borders.
     /// Makes it possible to specify how far it should stop generating from the border line.
@@ -401,8 +423,8 @@ public class RoadGenerator : MonoBehaviour
         Vector3 rightPosition = _activePoints.AssetEnd;
         Vector3 leftPosition = _activePoints.AssetLeft;
 
-        _leftSpawn = CreateNewActivePiece(rotationT, leftPosition, Random.Range(1,portalVariants+1));
-        _rightSpawn = CreateNewActivePiece(rotation, rightPosition,Random.Range(1,portalVariants+1));
+        _leftSpawn = CreateNewActivePiece(rotationT, leftPosition, Random.Range(1, portalVariants + 1));
+        _rightSpawn = CreateNewActivePiece(rotation, rightPosition, Random.Range(1, portalVariants + 1));
     }
 
     /// <summary>
@@ -411,7 +433,7 @@ public class RoadGenerator : MonoBehaviour
     /// <param name="rotation">Rotation of the piece, important to make sure that the road is going correctly</param>
     /// <param name="startPosition">Start position of the piece</param>
     /// <param name="roadPieceNumber">Number deciding which piece of road should be generated</param>
-    /// <returns></returns>
+    /// <returns> New GameObject roadPiece (used to assign it to activePiece or left/right Spawn)</returns>
     private GameObject CreateNewActivePiece(Quaternion rotation, Vector3 startPosition, int roadPieceNumber = 0)
     {
         GameObject newPiece = Instantiate(roadPieces[roadPieceNumber].gameObject, startPosition, rotation);
@@ -419,10 +441,10 @@ public class RoadGenerator : MonoBehaviour
         if (roadPieceNumber > _leftMark && roadPieceNumber <= _rightMark) _clockwise = true;
         if (roadPieces[roadPieceNumber].TypeOfRoad == RoadPoints.RoadType.Portal)
         {
-
-                SwirlingPortal p = newPiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
-                p.ParentGenerator = this;
+            SwirlingPortal p = newPiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
+            p.ParentGenerator = this;
         }
+
         newPiece.transform.parent = transform;
         _activePieces.Add(newPiece);
         return newPiece;
@@ -432,7 +454,6 @@ public class RoadGenerator : MonoBehaviour
     {
         if (player != p)
         {
-         
             player = p;
             if (player == null)
             {

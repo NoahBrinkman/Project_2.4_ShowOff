@@ -198,7 +198,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         base.snapNextRotation = true;
         StateMachine.ActiveRoad.SetPlayer( null);
         StateMachine.ActiveRoad = rG;
-        StateMachine.ActiveRoad.TargettedByPortal = false;
+        StateMachine.ActiveRoad.TargetedByPortal = false;
         StateMachine.ActiveRoad.SetPlayer(StateMachine);
         _moving = false;
 
