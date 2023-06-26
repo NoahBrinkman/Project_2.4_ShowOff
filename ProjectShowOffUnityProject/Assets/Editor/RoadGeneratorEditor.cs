@@ -7,6 +7,8 @@ public class RoadGeneratorEditor : UnityEditor.Editor
 {
     private RoadGenerator _generator;
     private bool _showHiddenFields;
+    private int _roadPiecesRegistered;
+    private string _roadPiecesNumber = "";
 
     private void OnEnable()
     {
@@ -16,22 +18,36 @@ public class RoadGeneratorEditor : UnityEditor.Editor
 
     public override void OnInspectorGUI()
     {
+        _roadPiecesRegistered = _generator.PortalVariants + _generator.StraightVariants + _generator.LeftVariants +
+                                _generator.RightVariants + _generator.CrossRoadVariants + 1;
+        
         EditorGUILayout.HelpBox("Generator for the infinite road. Remember to add the road pieces to the list.",
             MessageType.Info);
         EditorGUILayout.HelpBox("It is important to set up generator!\n" +
                                 "1. Empty straight road - starting piece\n" +
                                 "2. Portals \n" +
-                                "3. Straights \n" +
+                                "3. Straights (pipes, obstacles, etc) \n" +
                                 "4. Lefts \n" +
                                 "5. Rights \n" +
                                 "6.CrossRoads \n" +
                                 "ALWAYS SPECIFY HOW MANY PIECES", MessageType.Warning);
         base.OnInspectorGUI();
-
+        if (_generator.RoadPieces.Count == _roadPiecesRegistered)
+        {
+            _roadPiecesNumber = "Numbers are correct! ✔︎✔︎✔︎";
+        }
+        else
+        {
+            _roadPiecesNumber = "Fix your numbers! ✖︎✖︎✖︎";
+        }
+        EditorGUILayout.LabelField(_roadPiecesNumber, EditorStyles.centeredGreyMiniLabel);
+        
         if (GUILayout.Button("Show Debug"))
         {
             ShowDebugFields();
         }
+        
+        
 
 
         if (_showHiddenFields)
