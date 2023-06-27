@@ -2657,37 +2657,37 @@ PrefabInstance:
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: parameters.negativeFade.x
-      value: 0
+      value: 0.035714287
       objectReference: {fileID: 0}
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: parameters.negativeFade.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: parameters.negativeFade.z
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: parameters.positiveFade.x
-      value: 0
+      value: 0.035714287
       objectReference: {fileID: 0}
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: parameters.positiveFade.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: parameters.positiveFade.z
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: parameters.m_EditorUniformFade
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
@@ -2707,7 +2707,7 @@ PrefabInstance:
     - target: {fileID: 3647056909535502469, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.4
+      value: 31.22
       objectReference: {fileID: 0}
     - target: {fileID: 3647056909535502469, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
