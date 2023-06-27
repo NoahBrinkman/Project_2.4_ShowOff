@@ -123,6 +123,7 @@ public class PlayerGrindingState : PlayerOnTrackState
         {
             if(Active)
                 StateMachine.SwitchState(StateMachine.GetState<PlayerMoveRunningState>());
+            StateMachine.GetState<PlayerMoveRunningState>().DisableInvincibility();
         }
     }
     

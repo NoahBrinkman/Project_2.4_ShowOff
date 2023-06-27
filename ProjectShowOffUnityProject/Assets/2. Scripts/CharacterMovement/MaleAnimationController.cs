@@ -64,7 +64,8 @@ public class MaleAnimationController : MonoBehaviour
         }
         if (isStumbelingBackwards)
         {
-            animator.SetBool("isStumblingBackwards", true);
+            Debug.Log("Gamebox gay");
+            animator.SetBool("isStumbelingBackwards", true);
         }
         if (!isStumbelingBackwards)
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class FemaleAnimationController : MonoBehaviour
 {
     Animator animator;
+    [SerializeField] private PlayerStateMachine _stateMachine;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class FemaleAnimationController : MonoBehaviour
         bool isSliding = Input.GetKey("k");
         bool isRunningRight = Input.GetKey("l");
         bool isRunningLeft = Input.GetKey("j");
-        bool isStumbelingBackwards = Input.GetKey("g");
+        bool isStumbelingBackwards = _stateMachine.GetCurrentState() == _stateMachine.GetState<PlayerStaggerState>();
         
         //JUMPING ANIMATION 
         if (isJumping)

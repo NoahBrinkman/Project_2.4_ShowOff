@@ -83,7 +83,11 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         _col.gameObject.transform.rotation = newRotation;
     }
 
-
+    public void DisableInvincibility()
+    {
+        _invincible = false;
+        _invincibilityTimer = _invinvibilityDuration;
+    }
     public override void Run()
     {
         base.Run();

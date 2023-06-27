@@ -8094,17 +8094,17 @@ PrefabInstance:
     - target: {fileID: 1973870742601487954, guid: 962c1f84c7461b6408c8788c0b0a1784,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2027984495722907406, guid: 962c1f84c7461b6408c8788c0b0a1784,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3137085873146826112, guid: 962c1f84c7461b6408c8788c0b0a1784,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4029552786023487637, guid: 962c1f84c7461b6408c8788c0b0a1784,
         type: 3}
@@ -8114,7 +8114,7 @@ PrefabInstance:
     - target: {fileID: 4366690186791801530, guid: 962c1f84c7461b6408c8788c0b0a1784,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5193301267511191895, guid: 962c1f84c7461b6408c8788c0b0a1784,
         type: 3}
@@ -8232,7 +8232,7 @@ PrefabInstance:
     - target: {fileID: 1292289985074114060, guid: 6e4e1eae4a67750449c1cef688fb740e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2785136705999589425, guid: 6e4e1eae4a67750449c1cef688fb740e,
         type: 3}
@@ -8247,18 +8247,23 @@ PrefabInstance:
     - target: {fileID: 5806641393872724500, guid: 6e4e1eae4a67750449c1cef688fb740e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5888244719418929263, guid: 6e4e1eae4a67750449c1cef688fb740e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5965396288893502660, guid: 6e4e1eae4a67750449c1cef688fb740e,
         type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7456795995922882184, guid: 6e4e1eae4a67750449c1cef688fb740e,
+        type: 3}
+      propertyPath: _stateMachine
+      value: 
+      objectReference: {fileID: 1318123336}
     - target: {fileID: 8227426944232512036, guid: 6e4e1eae4a67750449c1cef688fb740e,
         type: 3}
       propertyPath: m_Name
