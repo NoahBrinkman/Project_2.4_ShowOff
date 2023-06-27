@@ -42,7 +42,7 @@ public class StartScreen : MonoBehaviour
             if (highlightedStartImage.gameObject.activeSelf)
             {
                 // Load the next scene for Start image
-                SceneManager.LoadScene("NextSceneForStartImage");
+                SceneManager.LoadScene("GamePlayScene");
             }
             else if (highlightedQuitImage.gameObject.activeSelf)
             {
