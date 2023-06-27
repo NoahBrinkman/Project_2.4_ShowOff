@@ -5,6 +5,7 @@ using UnityEngine;
 public class MaleAnimationController : MonoBehaviour
 {
     Animator animator;
+    [SerializeField] private PlayerStateMachine _stateMachine;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class MaleAnimationController : MonoBehaviour
         bool isSliding = Input.GetKey("s");
         bool isRunningRight = Input.GetKey("d");
         bool isRunningLeft = Input.GetKey("a");
-        bool isStumbelingBackwards;
+        bool isStumbelingBackwards = _stateMachine.GetCurrentState() == _stateMachine.GetState<PlayerStaggerState>();
 
 
         //JUMPING ANIMATION 
@@ -61,7 +62,13 @@ public class MaleAnimationController : MonoBehaviour
         {
             animator.SetBool("isRunningLeft", false);
         }
-        
-
+        if (isStumbelingBackwards)
+        {
+            animator.SetBool("isStumblingBackwards", true);
+        }
+        if (!isStumbelingBackwards)
+        {
+            animator.SetBool("isStumbelingBackwards", false);
+        }
     }
 }

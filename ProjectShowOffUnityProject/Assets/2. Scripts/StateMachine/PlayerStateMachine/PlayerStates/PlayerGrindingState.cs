@@ -41,6 +41,7 @@ public class PlayerGrindingState : PlayerOnTrackState
         Debug.Log("I AM GRINDING YESSS");
         _staggered = false;
         _moving = true;
+        _rb.velocity = new Vector3();
         _rb.transform.localPosition = new Vector3(0,.5f,0);
         // Vector3 newPos = _rb.transform.localPosition;
         //   newPos.x = Mathf.Clamp(_rb.transform.localPosition.x, startXZ.x, startXZ.x);
