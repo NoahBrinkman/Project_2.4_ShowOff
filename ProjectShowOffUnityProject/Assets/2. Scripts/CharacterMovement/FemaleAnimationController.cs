@@ -14,10 +14,10 @@ public class FemaleAnimationController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        bool isJumping = Input.GetKey("up");
-        bool isSliding = Input.GetKey("down");
-        bool isRunningRight = Input.GetKey("right");
-        bool isRunningLeft = Input.GetKey("left");
+        bool isJumping = Input.GetKey("i");
+        bool isSliding = Input.GetKey("k");
+        bool isRunningRight = Input.GetKey("l");
+        bool isRunningLeft = Input.GetKey("j");
         bool isStumbelingBackwards = Input.GetKey("g");
         
         //JUMPING ANIMATION 
