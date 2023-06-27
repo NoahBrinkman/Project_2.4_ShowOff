@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 8627347531543821127}
   - component: {fileID: 8834182558194068561}
   m_Layer: 0
-  m_Name: Path_Pipe Variant
+  m_Name: DW_Path_Pipe Variant
   m_TagString: Grind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -538,8 +538,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9140048, y: 3.772851, z: 5.3200016}
-  m_Center: {x: 0.4570024, y: 1.6472073, z: 0}
+  m_Size: {x: 0.57254815, y: 2.882314, z: 5.3200016}
+  m_Center: {x: 0.28627408, y: 1.2019392, z: 0}
 --- !u!114 &8834182558194068561
 MonoBehaviour:
   m_ObjectHideFlags: 0

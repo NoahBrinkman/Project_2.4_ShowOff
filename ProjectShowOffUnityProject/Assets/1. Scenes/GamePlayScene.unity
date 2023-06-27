@@ -1140,7 +1140,7 @@ PrefabInstance:
         type: 3}
       propertyPath: roadPieces.Array.data[3]
       value: 
-      objectReference: {fileID: 871027808346099784, guid: c5f63d453443cd64091304e4cba6c639,
+      objectReference: {fileID: 8834182558194068561, guid: defdf0fe9a480934085991aec788f5a6,
         type: 3}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
@@ -4335,7 +4335,7 @@ PrefabInstance:
         type: 3}
       propertyPath: roadPieces.Array.data[4]
       value: 
-      objectReference: {fileID: 871027808346099784, guid: 64a55f031e6f4234694488616850ffb0,
+      objectReference: {fileID: 8834182558194068561, guid: 9158d4c33a505774eac1e89e6c797e14,
         type: 3}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
@@ -7889,7 +7889,7 @@ PrefabInstance:
         type: 3}
       propertyPath: roadPieces.Array.data[3]
       value: 
-      objectReference: {fileID: 871027808346099784, guid: 464f6a0804f0b1e43a26f4c0c9524de2,
+      objectReference: {fileID: 8834182558194068561, guid: 72ede9657cfa3c14abb388b9dd07f546,
         type: 3}
     - target: {fileID: 1393203216655593608, guid: 99e8c391d1df4436d9fc48623d4b0be6,
         type: 3}
