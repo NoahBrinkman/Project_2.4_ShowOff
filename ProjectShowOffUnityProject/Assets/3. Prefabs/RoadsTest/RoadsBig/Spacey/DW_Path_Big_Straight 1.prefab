@@ -168,6 +168,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 58883724ad92db547b3ccad816c37506, type: 2}
+  - {fileID: -876546973899608171, guid: 93344842358e1544083b408877aa0530, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -768,6 +769,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bender Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4022093750441426781, guid: b07784815012a6346827a65503277ec9,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4022093750441426781, guid: b07784815012a6346827a65503277ec9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 93344842358e1544083b408877aa0530,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -862,6 +874,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7062521371475175543, guid: ee84a6a0a951f3a4196305427a7995e3,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7062521371475175543, guid: ee84a6a0a951f3a4196305427a7995e3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 93344842358e1544083b408877aa0530,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1252,38 +1275,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8872669996482285396, guid: acf02b0f47af5cd4992449629eedb69b,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 286
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872669996482285396, guid: acf02b0f47af5cd4992449629eedb69b,
+        type: 3}
       propertyPath: m_LocalPosition.y
-      value: 203
+      value: 143
       objectReference: {fileID: 0}
     - target: {fileID: 8872669996482285396, guid: acf02b0f47af5cd4992449629eedb69b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 385.99997
+      value: 244
       objectReference: {fileID: 0}
     - target: {fileID: 8872669996482285396, guid: acf02b0f47af5cd4992449629eedb69b,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6336346
+      value: 0.9772629
       objectReference: {fileID: 0}
     - target: {fileID: 8872669996482285396, guid: acf02b0f47af5cd4992449629eedb69b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -8.881784e-15
+      value: 0.00000003631154
       objectReference: {fileID: 0}
     - target: {fileID: 8872669996482285396, guid: acf02b0f47af5cd4992449629eedb69b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.77363247
+      value: 0.21203125
       objectReference: {fileID: 0}
     - target: {fileID: 8872669996482285396, guid: acf02b0f47af5cd4992449629eedb69b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000058407608
+      value: 0.000000045748457
       objectReference: {fileID: 0}
     - target: {fileID: 8872669996482285396, guid: acf02b0f47af5cd4992449629eedb69b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 101.362
+      value: 24.483
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1997,6 +2025,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1190973579872593666}
     m_Modifications:
+    - target: {fileID: 1531032548522665140, guid: f0b538dd2e26dc140a4327aa40149cb0,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531032548522665140, guid: f0b538dd2e26dc140a4327aa40149cb0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 93344842358e1544083b408877aa0530,
+        type: 3}
     - target: {fileID: 2519913561291606894, guid: f0b538dd2e26dc140a4327aa40149cb0,
         type: 3}
       propertyPath: m_Name
