@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.48306262, g: 0.5688265, b: 0.5750269, a: 1}
+  m_IndirectSpecularColor: {r: 0.4830755, g: 0.56883794, b: 0.5750363, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -808,10 +808,10 @@ MonoBehaviour:
   _rb: {fileID: 1020062428}
   _horizontalAxis: Horizontal
   angleOffset: 5
-  angleLimit: 30
+  angleLimit: 20
   speedOfRotation: 10
-  timeToSubstractLife: 10
-  _disBalanceSeverity: 10
+  timeToSubstractLife: 0.5
+  _disBalanceSeverity: 100
 --- !u!1 &460957259
 GameObject:
   m_ObjectHideFlags: 0
@@ -7099,10 +7099,10 @@ MonoBehaviour:
   _rb: {fileID: 1264551946}
   _horizontalAxis: Horizontal2
   angleOffset: 5
-  angleLimit: 30
+  angleLimit: 10
   speedOfRotation: 10
-  timeToSubstractLife: 10
-  _disBalanceSeverity: 10
+  timeToSubstractLife: 0.1
+  _disBalanceSeverity: 100
 --- !u!1 &1995869940
 GameObject:
   m_ObjectHideFlags: 0
