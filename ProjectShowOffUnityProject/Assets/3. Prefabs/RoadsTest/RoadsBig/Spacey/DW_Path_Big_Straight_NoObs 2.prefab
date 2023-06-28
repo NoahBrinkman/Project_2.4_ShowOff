@@ -623,6 +623,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pill Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2903027950539279051, guid: ee84a6a0a951f3a4196305427a7995e3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.66
+      objectReference: {fileID: 0}
     - target: {fileID: 3051527131323548326, guid: ee84a6a0a951f3a4196305427a7995e3,
         type: 3}
       propertyPath: m_RootOrder
@@ -692,6 +697,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6571331627496403826, guid: ee84a6a0a951f3a4196305427a7995e3,
+        type: 3}
+      propertyPath: m_Range
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 7062521371475175543, guid: ee84a6a0a951f3a4196305427a7995e3,
         type: 3}
