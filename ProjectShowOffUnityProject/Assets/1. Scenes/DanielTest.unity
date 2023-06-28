@@ -697,6 +697,16 @@ PrefabInstance:
       propertyPath: parameters.textureOffset.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2966695262895992085, guid: 72ede9657cfa3c14abb388b9dd07f546,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2966695262895992085, guid: 72ede9657cfa3c14abb388b9dd07f546,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 988f2ea693c6c964a845e63db4980405, type: 2}
     - target: {fileID: 3615033633151143104, guid: 72ede9657cfa3c14abb388b9dd07f546,
         type: 3}
       propertyPath: m_Name
@@ -757,6 +767,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5500681461730195664, guid: 72ede9657cfa3c14abb388b9dd07f546,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500681461730195664, guid: 72ede9657cfa3c14abb388b9dd07f546,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 6637589492764951487, guid: 72ede9657cfa3c14abb388b9dd07f546,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6637589492764951487, guid: 72ede9657cfa3c14abb388b9dd07f546,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 93344842358e1544083b408877aa0530,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
