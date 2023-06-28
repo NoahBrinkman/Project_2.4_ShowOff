@@ -439,7 +439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AreasPoints: []
   obstaclesToAvoid:
-  - {fileID: 7771938409285033827, guid: f4258c7144a841143a15edb8369e240a, type: 3}
+  - {fileID: -1445797053579559911, guid: 346a1a301b75c52409a9ead3ebe0bb12, type: 3}
   - {fileID: -8675862962056301524, guid: 01384029311f6e648be8b99a59b7a7ba, type: 3}
   heightOffset: 0.5
   spacing: 10
