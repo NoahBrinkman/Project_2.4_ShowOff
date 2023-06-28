@@ -247,6 +247,7 @@ Transform:
   - {fileID: 4376198404337601929}
   - {fileID: 6960234143742379759}
   - {fileID: 2700164253943509157}
+  - {fileID: 2236455658790294858}
   - {fileID: 5004233224236812404}
   - {fileID: 4221492228695563981}
   - {fileID: 4398825013809914738}
@@ -255,7 +256,6 @@ Transform:
   - {fileID: 968172576716507038}
   - {fileID: 7773801639050977624}
   - {fileID: 2977856353769210242}
-  - {fileID: 2236455658790294858}
   - {fileID: 5895724926256390976}
   - {fileID: 3699092693797063773}
   - {fileID: 3450268493696808747}
@@ -2589,10 +2589,30 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -876546973899608171, guid: 93344842358e1544083b408877aa0530,
         type: 3}
+    - target: {fileID: 7801860996224064549, guid: 8347b37d72fc8234b8f1eeff8890c139,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1498
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801860996224064549, guid: 8347b37d72fc8234b8f1eeff8890c139,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.049
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801860996224064549, guid: 8347b37d72fc8234b8f1eeff8890c139,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0032
+      objectReference: {fileID: 0}
     - target: {fileID: 8215612598920829251, guid: 8347b37d72fc8234b8f1eeff8890c139,
         type: 3}
       propertyPath: m_Name
       value: Bullet Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640200075187456732, guid: 8347b37d72fc8234b8f1eeff8890c139,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 375.16193
       objectReference: {fileID: 0}
     - target: {fileID: 8739350035744293881, guid: 8347b37d72fc8234b8f1eeff8890c139,
         type: 3}
@@ -2663,6 +2683,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098591325717425560, guid: 8347b37d72fc8234b8f1eeff8890c139,
+        type: 3}
+      propertyPath: m_Range
+      value: 2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098591325717425560, guid: 8347b37d72fc8234b8f1eeff8890c139,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 29.854437
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
