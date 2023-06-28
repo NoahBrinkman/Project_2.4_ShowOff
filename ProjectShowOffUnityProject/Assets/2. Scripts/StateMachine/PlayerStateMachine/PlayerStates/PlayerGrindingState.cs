@@ -23,6 +23,8 @@ public class PlayerGrindingState : PlayerOnTrackState
     [SerializeField] private float speedOfRotation = 10;
     [SerializeField] private float timeToSubstractLife;
     [SerializeField] private float _disBalanceSeverity = 10;
+    [SerializeField] private KeyCode playerLeft = KeyCode.C;
+    [SerializeField] private KeyCode playerRight = KeyCode.N;
     private bool _staggered = false;
     private float _angle;
     private Vector3 startXZ;
@@ -69,16 +71,17 @@ public class PlayerGrindingState : PlayerOnTrackState
 
         angle = Mathf.Sin(disBalanceCounter) * (_disBalanceSeverity/2 +Random.Range(-_disBalanceSeverity/2, _disBalanceSeverity/2)) ;
         Vector3 position = new Vector3(_moveTarget.position.x, _moveTarget.position.y, _moveTarget.position.z);
-        _moveTarget.RotateAround(position,new Vector3(1,0,0), angle*Time.deltaTime);
+        _moveTarget.RotateAround(position, _moveTarget.forward, angle*Time.deltaTime*10);
         
     }
     private void Balance()
     {
-        float hor = Input.GetAxis(_horizontalAxis);
-        if (Mathf.Approximately(hor,0.0f))
-        {
+        // float hor = Input.GetAxis(_horizontalAxis);
+        // if (Mathf.Approximately(hor,0.0f))
+        // {
             int random = Random.Range(0, 51);
             random %= 2;
+            
             if (random == 0)
             {
                 _angle -= angleOffset;
@@ -87,24 +90,27 @@ public class PlayerGrindingState : PlayerOnTrackState
             {
                 _angle += angleOffset;
             }
-        }
-        else
-        {
-            if (hor > 0)
+        // }
+        // else
+        // {
+            if (Input.GetKeyUp(playerRight))
             {
                 _angle += angleOffset;
             }
-            else
+            else if (Input.GetKeyUp(playerLeft))
             {
                 _angle -= angleOffset;
             }
-        }
+        //}
         _angle = Mathf.Clamp(_angle, -angleLimit+speedOfRotation, angleLimit-speedOfRotation);
         Vector3 position = new Vector3(_moveTarget.position.x, _moveTarget.position.y, _moveTarget.position.z);
-        _moveTarget.RotateAround(position,new Vector3(1,0,0), _angle*Time.deltaTime);
+        _moveTarget.RotateAround(position, _moveTarget.forward, _angle*Time.deltaTime);
         float playerRotation = (_col.gameObject.transform.eulerAngles.z + 360) % 360;
+        Debug.Log($"Player rotation: {playerRotation}  Angle limit: {angleLimit}");
+        Debug.Log($"Player rotation: {playerRotation}  Angle limit: {360-angleLimit}");
         if (playerRotation > angleLimit && playerRotation < 360-angleLimit)
         {
+            
             Debug.Log("<Color=Orange>LOSING LIFE</Color>");
             _lostBalance += Time.deltaTime;
         }
