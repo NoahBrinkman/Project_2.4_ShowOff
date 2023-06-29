@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/1. Scenes/CurveFix.unity
     guid: 3152cf61694b6480fa82cf0ed8e368a6
+  - enabled: 1
+    path: Assets/1. Scenes/LeaderboardShow.unity
+    guid: 875006870032341ef8705008483a619e
   m_configObjects: {}
