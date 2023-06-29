@@ -127,6 +127,7 @@ public class PlayerGrindingState : PlayerOnTrackState
         base.Exit();
         Quaternion rot = _moveTarget.rotation;
         rot.z = 0;
+        rot.x = 0;
         _moveTarget.rotation = rot;
     }
 
