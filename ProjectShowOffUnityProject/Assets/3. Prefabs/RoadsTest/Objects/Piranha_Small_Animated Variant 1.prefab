@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2280935860723455230}
   - component: {fileID: 8676804921776335569}
   - component: {fileID: 7550970441144204959}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,10 +295,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7807137518062343097, guid: 4bb4a848638be484eaf703dee1c272c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -5625178055747869469, guid: 4bb4a848638be484eaf703dee1c272c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -2797864980895152918, guid: 4bb4a848638be484eaf703dee1c272c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -2323058541711574451, guid: 4bb4a848638be484eaf703dee1c272c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -2240151287705473546, guid: 4bb4a848638be484eaf703dee1c272c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -412989040442181847, guid: 4bb4a848638be484eaf703dee1c272c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4bb4a848638be484eaf703dee1c272c9,
         type: 3}
       propertyPath: m_Name
       value: Piranha_Small_Animated Variant 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4bb4a848638be484eaf703dee1c272c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536193797270376089, guid: 4bb4a848638be484eaf703dee1c272c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360947265711093766, guid: 4bb4a848638be484eaf703dee1c272c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5128583832987213145, guid: 4bb4a848638be484eaf703dee1c272c9,
         type: 3}
