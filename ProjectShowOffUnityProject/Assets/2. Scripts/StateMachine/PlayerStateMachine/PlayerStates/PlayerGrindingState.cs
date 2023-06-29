@@ -57,6 +57,10 @@ public class PlayerGrindingState : PlayerOnTrackState
         base.Run();
         AddDisbalance();
         Balance();
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            StateMachine.SubtractLife(1, this);
+        }
     }
     
     private void FixedUpdate()
@@ -106,8 +110,8 @@ public class PlayerGrindingState : PlayerOnTrackState
         Vector3 position = new Vector3(_moveTarget.position.x, _moveTarget.position.y, _moveTarget.position.z);
         _moveTarget.RotateAround(position, _moveTarget.forward, _angle*Time.deltaTime);
         float playerRotation = (_col.gameObject.transform.eulerAngles.z + 360) % 360;
-        Debug.Log($"Player rotation: {playerRotation}  Angle limit: {angleLimit}");
-        Debug.Log($"Player rotation: {playerRotation}  Angle limit: {360-angleLimit}");
+//        Debug.Log($"Player rotation: {playerRotation}  Angle limit: {angleLimit}");
+      //  Debug.Log($"Player rotation: {playerRotation}  Angle limit: {360-angleLimit}");
         if (playerRotation > angleLimit && playerRotation < 360-angleLimit)
         {
             
@@ -118,7 +122,7 @@ public class PlayerGrindingState : PlayerOnTrackState
         if (_lostBalance >= timeToSubstractLife)
         {
             _lostBalance = 0;
-            StateMachine.SubtractLife(1);
+            if(!StateMachine.GodMode) StateMachine.SubtractLife(1, this);
         }
     }
 

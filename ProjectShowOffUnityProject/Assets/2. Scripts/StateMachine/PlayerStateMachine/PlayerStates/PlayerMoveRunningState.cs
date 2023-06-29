@@ -172,6 +172,7 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         {
             _rb.velocity = new Vector3();
             _onObstacleHit?.Invoke();
+            StateMachine.SubtractLife(1,this);
             _staggered = true;
          //InvincibilityState s =   (InvincibilityState)StateMachine.GetState<InvincibilityState>();
         // s.ReturnTo = this;
@@ -207,7 +208,13 @@ public class PlayerMoveRunningState : PlayerOnTrackState
         _moving = false;
 
     }
-    
+
+    public override void Exit()
+    {
+        base.Exit();
+        DOTween.Kill(jumpTween, true);
+    }
+
     protected override bool ShouldGoRight()
     {
         return _rb.transform.localPosition.x < 0;

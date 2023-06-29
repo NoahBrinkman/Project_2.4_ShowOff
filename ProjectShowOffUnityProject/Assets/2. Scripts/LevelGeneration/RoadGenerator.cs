@@ -129,10 +129,10 @@ public class RoadGenerator : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_isActive);
+//        Debug.Log(_isActive);
         if (_isActive)
         {
-            Debug.Log("CAN GENERATE START ROAD? " + _generateNewPiece);
+//            Debug.Log("CAN GENERATE START ROAD? " + _generateNewPiece);
             if (_generateNewPiece)
             {
                 GenerateStartRoads();
@@ -236,12 +236,12 @@ public class RoadGenerator : MonoBehaviour
     {
         _generation++;
         _startPosition = _activePoints.AssetEnd;
-        Debug.Log(_generation % whenToSpawnCross);
+//        Debug.Log(_generation % whenToSpawnCross);
         int randomRoad = Random.Range(portalVariants + 1, roadPieces.Count - crossroadsVariants);
         bool isACrossroad = false;
         bool isPortal = false;
         float yDirection = 0;
-        Debug.Log(_activePiece);
+//        Debug.Log(_activePiece);
         float pieceYRotation = _activePiece.transform.eulerAngles.y;
 
         switch (_activePoints.TypeOfRoad)

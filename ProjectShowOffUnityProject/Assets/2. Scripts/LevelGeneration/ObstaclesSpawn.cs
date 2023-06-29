@@ -134,19 +134,19 @@ public class ObstaclesSpawn : MonoBehaviour
         {
             if (isAreaOne)
             {
-                Debug.Log("Area 1 is used!");
+//                Debug.Log("Area 1 is used!");
                 SpawnObject(roadRotation,1,controlAreaOne,area1Object);
             }
 
             if (isAreaTwo)
             {
-                Debug.Log("Area 2 is used!");
+           //     Debug.Log("Area 2 is used!");
                 SpawnObject(roadRotation,2,controlAreaTwo,area2Object);
             }
 
             if (isAreaThree)
             {
-                Debug.Log("Area 3 is used!");
+             //   Debug.Log("Area 3 is used!");
                 SpawnObject(roadRotation,3,controlAreaThree,area3Object);
             }
         }

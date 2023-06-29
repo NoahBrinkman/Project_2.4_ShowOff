@@ -26060,7 +26060,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1481278813
 Transform:
   m_ObjectHideFlags: 0
@@ -26088,6 +26088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e72a56794e2fd2d42848d7eb07b9cf84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leaderBoardSceneIndex: 3
 --- !u!1 &1482918285
 GameObject:
   m_ObjectHideFlags: 0
@@ -27069,7 +27070,7 @@ PrefabInstance:
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _onObstacleHit.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
@@ -31230,7 +31231,7 @@ PrefabInstance:
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _onObstacleHit.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}

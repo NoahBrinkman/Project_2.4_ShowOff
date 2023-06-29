@@ -44,12 +44,12 @@ using UnityEngine;
         public T GetState<T>() where T : StateType
         {
           
-            Debug.Log($"Getting Type: {typeof(T).Name}" );
+//            Debug.Log($"Getting Type: {typeof(T).Name}" );
             for (int i = 0; i < _states.Count; i++)
             {
                 if (typeof(T) == _states[i].GetType())
                 {
-                    Debug.Log("Found type!");
+//                    Debug.Log("Found type!");
                     return (T)_states[i];
                 }
             }
