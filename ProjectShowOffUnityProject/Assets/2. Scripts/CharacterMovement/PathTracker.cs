@@ -25,6 +25,7 @@ public class PathTracker : MonoBehaviour
     public void UpdateSpeed()
     { 
         SecondsPerUnit = Mathf.Pow(SecondsPerUnit, speedMultiplier);
+        SecondsPerDegree = Mathf.Pow(SecondsPerDegree, speedMultiplier);
      //SecondsPerUnit *= .99f;
     }
 

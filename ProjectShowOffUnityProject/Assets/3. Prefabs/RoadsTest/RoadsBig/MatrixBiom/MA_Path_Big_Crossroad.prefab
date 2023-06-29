@@ -726,8 +726,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2, z: 5}
-  m_Center: {x: 0.5, y: 1, z: 0}
+  m_Size: {x: 2, y: 5, z: 5}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!114 &4066264549881232073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2467,6 +2467,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8849681947126828141}
     m_Modifications:
+    - target: {fileID: 5208093206511037684, guid: 74425e5056c35904487c42f89ac589ec,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208093206511037684, guid: 74425e5056c35904487c42f89ac589ec,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -19.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208093206511037684, guid: 74425e5056c35904487c42f89ac589ec,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.7
+      objectReference: {fileID: 0}
     - target: {fileID: 6100382799070818402, guid: 74425e5056c35904487c42f89ac589ec,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -2552,6 +2567,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Green_pipe Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058895459096432059, guid: 74425e5056c35904487c42f89ac589ec,
+        type: 3}
+      propertyPath: m_Range
+      value: 1.3285513
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

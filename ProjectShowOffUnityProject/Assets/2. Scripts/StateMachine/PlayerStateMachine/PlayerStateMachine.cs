@@ -29,6 +29,7 @@ public class PlayerStateMachine : StateMachine<PlayerState>
 
         private void Awake()
         {
+            Debug.LogError("GOOD MORNING USA");
             PathTracker=  GetComponentInChildren<PathTracker>();
             _states = new List<PlayerState>(_playerStates);
             for (int i = 0; i < _states.Count; i++)
@@ -42,6 +43,7 @@ public class PlayerStateMachine : StateMachine<PlayerState>
 
         private void Start()
         {
+            Debug.LogError("TODAY IS GONNA BE THE DAY");
             if (biomes.Count > 0)
             {
                 ActiveRoad = biomes[0];
@@ -56,19 +58,29 @@ public class PlayerStateMachine : StateMachine<PlayerState>
             CurrentState.Run();
         }
 
-        public void SubtractLife(int amount)
+        public void SubtractLife(int amount, PlayerState s = null)
         {
             _lives -= amount;
+            
             if (_lives <= 0)
             {
+                if (s != null)
+                {
+                    GetState<DyingState>().ReturnToState = s;
+                }
                 _onPlayerDeath?.Invoke();
             }
         }
 
-        public void Revive()
+        public void Revive(PlayerState state)
         {
             _lives = _maxLives;
-            SwitchState(GetState<PlayerMoveRunningState>());
+            if (Vector3.Distance(transform.position, PathTracker.TargetPoints[0].position) > .1f)
+            {
+                transform.position = PathTracker.TargetPoints[0].position;
+            }
+            
+            SwitchState(state);
         }
         public void BackToMoveOrDeathState()
         {

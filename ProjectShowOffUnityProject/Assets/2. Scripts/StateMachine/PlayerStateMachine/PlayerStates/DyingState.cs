@@ -53,7 +53,7 @@ public class DyingState : PlayerState
         {
             Debug.LogWarning("YOU REVIVED!!!");
             enableReviving = false;
-           StateMachine.Revive();
+           StateMachine.Revive(ReturnToState);
         }
     }
 
