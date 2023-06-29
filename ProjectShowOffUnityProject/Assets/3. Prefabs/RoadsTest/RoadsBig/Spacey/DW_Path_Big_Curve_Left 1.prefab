@@ -3015,7 +3015,7 @@ PrefabInstance:
     - target: {fileID: 3004842841941316052, guid: f0b538dd2e26dc140a4327aa40149cb0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.49
+      value: 4.58
       objectReference: {fileID: 0}
     - target: {fileID: 3004842841941316052, guid: f0b538dd2e26dc140a4327aa40149cb0,
         type: 3}
@@ -3409,10 +3409,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5338748317263472797}
     m_Modifications:
+    - target: {fileID: 1990241178989410980, guid: ee84a6a0a951f3a4196305427a7995e3,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 296.08093
+      objectReference: {fileID: 0}
     - target: {fileID: 2383217216694884380, guid: ee84a6a0a951f3a4196305427a7995e3,
         type: 3}
       propertyPath: m_Name
       value: pill Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2903027950539279051, guid: ee84a6a0a951f3a4196305427a7995e3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 2903027950539279051, guid: ee84a6a0a951f3a4196305427a7995e3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 2903027950539279051, guid: ee84a6a0a951f3a4196305427a7995e3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 3051527131323548326, guid: ee84a6a0a951f3a4196305427a7995e3,
         type: 3}
@@ -3468,6 +3488,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -92.017
+      objectReference: {fileID: 0}
+    - target: {fileID: 6571331627496403826, guid: ee84a6a0a951f3a4196305427a7995e3,
+        type: 3}
+      propertyPath: m_Range
+      value: 3.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 6571331627496403826, guid: ee84a6a0a951f3a4196305427a7995e3,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 23.56137
       objectReference: {fileID: 0}
     - target: {fileID: 7062521371475175543, guid: ee84a6a0a951f3a4196305427a7995e3,
         type: 3}
