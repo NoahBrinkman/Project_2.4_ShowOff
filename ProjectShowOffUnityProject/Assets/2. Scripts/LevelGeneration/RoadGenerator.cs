@@ -13,7 +13,8 @@ public class RoadGenerator : MonoBehaviour
      SerializeField]
     private float destructionTimer;
 
-    [Tooltip("Player needs to be added to every area that needs to be active.")] [SerializeField]
+    [Tooltip("Player needs to be added to every area that needs to be active.")]
+    [SerializeField]
     private PlayerStateMachine player;
 
     [Tooltip(
@@ -22,10 +23,12 @@ public class RoadGenerator : MonoBehaviour
     [SerializeField]
     private int piecesAtOnce = 3;
 
-    [Tooltip("After how many road pieces the crossroad should be generated")] [SerializeField]
+    [Tooltip("After how many road pieces the crossroad should be generated")]
+    [SerializeField]
     private int whenToSpawnCross = 6;
 
-    [Tooltip("The size of the whole generator area")] [SerializeField]
+    [Tooltip("The size of the whole generator area")]
+    [SerializeField]
     private int borderSize = 100;
 
     //ROADS---------------------------------------------------------------------------------------------------------
@@ -35,7 +38,8 @@ public class RoadGenerator : MonoBehaviour
     [SerializeField]
     private List<RoadPoints> roadPieces;
 
-    [Tooltip("How many portal roads variants do we have in the generator")] [SerializeField]
+    [Tooltip("How many portal roads variants do we have in the generator")]
+    [SerializeField]
     private int portalVariants;
 
     [Tooltip("How many straight roads variants do we have in the generator?\n" +
@@ -45,17 +49,17 @@ public class RoadGenerator : MonoBehaviour
     [SerializeField]
     private int straightVariants;
 
-    [Tooltip("How many left turns variants do we have in the generator")] [SerializeField]
+    [Tooltip("How many left turns variants do we have in the generator")]
+    [SerializeField]
     private int leftVariants;
 
-    [Tooltip("How many right turns variants do we have in the generator")] [SerializeField]
+    [Tooltip("How many right turns variants do we have in the generator")]
+    [SerializeField]
     private int rightVariants;
 
-    [Tooltip("How many crossroads variants do we have in the generator")] [SerializeField]
+    [Tooltip("How many crossroads variants do we have in the generator")]
+    [SerializeField]
     private int crossroadsVariants;
-
-
-    private double _accumulatedWeights;
 
 
     public bool IsActive
@@ -75,16 +79,14 @@ public class RoadGenerator : MonoBehaviour
         set => _targetedByPortal = value;
     }
 
-    private readonly List<GameObject> _activePieces = new List<GameObject>();
+    private readonly List<RoadPoints> _activePieces = new();
 
     private Vector3 _startPosition;
-    private GameObject _activePiece;
-    private GameObject _rightSpawn;
-    private GameObject _leftSpawn;
+    private RoadPoints _activePiece;
+    private RoadPoints _rightSpawn;
+    private RoadPoints _leftSpawn;
     private RoadPoints _activePoints;
-    private GameObject _portalRoad;
     private int _generation;
-    private int _dangerZone;
     private int _straightMark;
     private int _leftMark;
     private int _rightMark;
@@ -129,10 +131,8 @@ public class RoadGenerator : MonoBehaviour
 
     private void Update()
     {
-//        Debug.Log(_isActive);
         if (_isActive)
         {
-//            Debug.Log("CAN GENERATE START ROAD? " + _generateNewPiece);
             if (_generateNewPiece)
             {
                 GenerateStartRoads();
@@ -161,9 +161,9 @@ public class RoadGenerator : MonoBehaviour
     private void ClearGenerator()
     {
         _clear = false;
-        foreach (GameObject piece in _activePieces)
+        foreach (RoadPoints piece in _activePieces)
         {
-            Destroy(piece);
+            Destroy(piece.gameObject);
         }
 
         _activePieces.Clear();
@@ -180,12 +180,12 @@ public class RoadGenerator : MonoBehaviour
     /// </summary>
     private void GenerateRoadsAfterCrossRoad()
     {
-        if (player.CurrentRoad == _leftSpawn)
+        if (player.CurrentRoad == _leftSpawn.gameObject)
         {
             ChooseRoad(_leftSpawn, _rightSpawn);
             _clockwise = false;
         }
-        else if (player.CurrentRoad == _rightSpawn)
+        else if (player.CurrentRoad == _rightSpawn.gameObject)
         {
             ChooseRoad(_rightSpawn, _leftSpawn);
             _clockwise = true;
@@ -197,11 +197,11 @@ public class RoadGenerator : MonoBehaviour
     /// </summary>
     /// <param name="roadToLeave">Road that player chose and is gonna leave soon</param>
     /// <param name="roadToRemove">Road that player hasn't chosen and is gonna be removed</param>
-    private void ChooseRoad(GameObject roadToLeave, GameObject roadToRemove)
+    private void ChooseRoad(RoadPoints roadToLeave, RoadPoints roadToRemove)
     {
         _activePiece = roadToLeave;
         _activePoints = roadToLeave.GetComponent<RoadPoints>();
-        Destroy(roadToRemove);
+        Destroy(roadToRemove.gameObject);
         _activePieces.Remove(roadToRemove);
         _crossRoadGenerated = false;
     }
@@ -222,9 +222,9 @@ public class RoadGenerator : MonoBehaviour
     /// </summary>
     private void RemoveRoad()
     {
-        if (player.CurrentRoad == _activePieces[1])
+        if (player.CurrentRoad == _activePieces[1].gameObject)
         {
-            StartCoroutine(_activePieces[0].GetComponent<RoadPoints>().DestroyMe(destructionTimer));
+            StartCoroutine(_activePieces[0].DestroyMe(destructionTimer));
             _activePieces.RemoveAt(0);
         }
     }
@@ -236,12 +236,10 @@ public class RoadGenerator : MonoBehaviour
     {
         _generation++;
         _startPosition = _activePoints.AssetEnd;
-//        Debug.Log(_generation % whenToSpawnCross);
         int randomRoad = Random.Range(portalVariants + 1, roadPieces.Count - crossroadsVariants);
         bool isACrossroad = false;
         bool isPortal = false;
         float yDirection = 0;
-//        Debug.Log(_activePiece);
         float pieceYRotation = _activePiece.transform.eulerAngles.y;
 
         switch (_activePoints.TypeOfRoad)
@@ -391,18 +389,6 @@ public class RoadGenerator : MonoBehaviour
         if (BordersCondition(((int)pieceYRotation + 360) % 360, NormalRoadBorderSpace))
         {
             _closeToEdge = true;
-            // Debug.DrawLine(_activePiece.transform.position, 
-            //     new Vector3(_activePiece.transform.position.x + _activePoints.Height * 3, _activePiece.transform.position.y, _activePiece.transform.position.z), 
-            //     Color.red, 20.0f);
-            // Debug.DrawLine(_activePiece.transform.position, 
-            //     new Vector3(_activePiece.transform.position.x - _activePoints.Height * 3, _activePiece.transform.position.y, _activePiece.transform.position.z), 
-            //     Color.red, 20.0f);
-            // Debug.DrawLine(_activePiece.transform.position, 
-            //     new Vector3(_activePiece.transform.position.x, _activePiece.transform.position.y, _activePiece.transform.position.z + _activePoints.RoadWidth * 3), 
-            //     Color.red, 20.0f);
-            // Debug.DrawLine(_activePiece.transform.position, 
-            //     new Vector3(_activePiece.transform.position.x, _activePiece.transform.position.y, _activePiece.transform.position.z - _activePoints.RoadWidth * 3), 
-            //     Color.red, 20.0f);
         }
     }
 
@@ -428,43 +414,45 @@ public class RoadGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// Creates new road piece and adds it to the list of active (present in the scene) pieces
+    /// Spawn new road piece and marks it as active
     /// </summary>
-    /// <param name="rotation">Rotation of the piece, important to make sure that the road is going correctly</param>
-    /// <param name="startPosition">Start position of the piece</param>
-    /// <param name="roadPieceNumber">Number deciding which piece of road should be generated</param>
-    /// <returns> New GameObject roadPiece (used to assign it to activePiece or left/right Spawn)</returns>
-    private GameObject CreateNewActivePiece(Quaternion rotation, Vector3 startPosition, int roadPieceNumber = 0)
+    private RoadPoints CreateNewActivePiece(Quaternion rotation, Vector3 startPosition, int roadPieceNumber = 0)
     {
-        GameObject newPiece = Instantiate(roadPieces[roadPieceNumber].gameObject, startPosition, rotation);
+        RoadPoints newPiece = Instantiate(roadPieces[roadPieceNumber], startPosition, rotation);
+        newPiece.transform.parent = transform;
+        _activePieces.Add(newPiece);
+
+        //Check if it's a turn and set if the generator is going clockwise or not
         if (roadPieceNumber > _straightMark && roadPieceNumber <= _leftMark) _clockwise = false;
-        if (roadPieceNumber > _leftMark && roadPieceNumber <= _rightMark) _clockwise = true;
+        else if (roadPieceNumber > _leftMark && roadPieceNumber <= _rightMark) _clockwise = true;
+
         if (roadPieces[roadPieceNumber].TypeOfRoad == RoadPoints.RoadType.Portal)
         {
             SwirlingPortal p = newPiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
             p.ParentGenerator = this;
         }
 
-        newPiece.transform.parent = transform;
-        _activePieces.Add(newPiece);
         return newPiece;
     }
 
+    /// <summary>
+    /// Assign the player to the generation. Needed to properly decide when to destroy road pieces
+    /// </summary>
     public void SetPlayer(PlayerStateMachine p, bool clear = true)
     {
-        if (player != p)
+        if (player == p) return;
+
+        player = p;
+
+        if (player == null)
         {
-            player = p;
-            if (player == null)
-            {
-                IsActive = false;
-                ClearGenerator();
-            }
-            else
-            {
-                IsActive = true;
-                Clear = false;
-            }
+            IsActive = false;
+            Clear = true;
+        }
+        else
+        {
+            IsActive = true;
+            Clear = false;
         }
     }
 }
