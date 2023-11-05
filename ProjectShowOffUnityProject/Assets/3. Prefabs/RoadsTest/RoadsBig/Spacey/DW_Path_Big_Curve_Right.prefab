@@ -132,7 +132,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4245008966660179645}
   m_LocalRotation: {x: -0.000000061613676, y: 0.735387, z: 0.00000003901145, w: -0.6776474}
-  m_LocalPosition: {x: 30.662079, y: 3.81, z: -11.31}
+  m_LocalPosition: {x: 30.662079, y: 3.81, z: -7.96}
   m_LocalScale: {x: 0.009999999, y: 0.01, z: 0.009999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -973,7 +973,8 @@ PrefabInstance:
       value: 1515
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5892361444824564840, guid: acf02b0f47af5cd4992449629eedb69b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acf02b0f47af5cd4992449629eedb69b, type: 3}
@@ -1178,7 +1179,8 @@ PrefabInstance:
       value: 1848
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5892361444824564840, guid: acf02b0f47af5cd4992449629eedb69b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acf02b0f47af5cd4992449629eedb69b, type: 3}
@@ -1778,7 +1780,8 @@ PrefabInstance:
       value: Shroom_Tree_1 Variant (10)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5167536217355805163, guid: 39e63aa57ba5c0d429d3938e758f3fc7, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39e63aa57ba5c0d429d3938e758f3fc7, type: 3}
@@ -2783,7 +2786,8 @@ PrefabInstance:
       value: 1515
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5892361444824564840, guid: acf02b0f47af5cd4992449629eedb69b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acf02b0f47af5cd4992449629eedb69b, type: 3}
@@ -3227,7 +3231,8 @@ PrefabInstance:
       value: Shroom_Tree_1 Variant (9)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5167536217355805163, guid: 39e63aa57ba5c0d429d3938e758f3fc7, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39e63aa57ba5c0d429d3938e758f3fc7, type: 3}
@@ -3327,7 +3332,8 @@ PrefabInstance:
       value: 1515
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5892361444824564840, guid: acf02b0f47af5cd4992449629eedb69b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acf02b0f47af5cd4992449629eedb69b, type: 3}
