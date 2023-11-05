@@ -1120,6 +1120,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_1_LP Variant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7426562176001624769, guid: b192bbe5d8e7c90478da36b834428eba,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 291
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426562176001624769, guid: b192bbe5d8e7c90478da36b834428eba,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 494
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426562176001624769, guid: b192bbe5d8e7c90478da36b834428eba,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 48
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1319,7 +1334,9 @@ PrefabInstance:
       value: Tree_3_LP Variant (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7746887468401996684, guid: 4ba5333e6d6f82e4a887317a9120f635, type: 3}
+    - {fileID: 6415231991924223453, guid: 4ba5333e6d6f82e4a887317a9120f635, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ba5333e6d6f82e4a887317a9120f635, type: 3}
@@ -1932,7 +1949,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8631697236017558028, guid: 428a2d960afbfa14cb8caf339ac6cd9c, type: 3}
+    - {fileID: 8062753668728826247, guid: 428a2d960afbfa14cb8caf339ac6cd9c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 428a2d960afbfa14cb8caf339ac6cd9c, type: 3}

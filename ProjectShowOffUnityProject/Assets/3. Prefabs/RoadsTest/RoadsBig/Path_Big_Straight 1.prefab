@@ -930,7 +930,9 @@ PrefabInstance:
       value: Tree_1_LP Variant (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7847868654955762316, guid: b192bbe5d8e7c90478da36b834428eba, type: 3}
+    - {fileID: 2991153898784000675, guid: b192bbe5d8e7c90478da36b834428eba, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b192bbe5d8e7c90478da36b834428eba, type: 3}
@@ -1217,7 +1219,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8631697236017558028, guid: 428a2d960afbfa14cb8caf339ac6cd9c, type: 3}
+    - {fileID: 8062753668728826247, guid: 428a2d960afbfa14cb8caf339ac6cd9c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 428a2d960afbfa14cb8caf339ac6cd9c, type: 3}
@@ -1545,7 +1549,7 @@ PrefabInstance:
     - target: {fileID: 146190990379152286, guid: 60a093f451e91314983c26ee12f947ff,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.84
+      value: 0.83
       objectReference: {fileID: 0}
     - target: {fileID: 146190990379152286, guid: 60a093f451e91314983c26ee12f947ff,
         type: 3}
@@ -1745,6 +1749,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8581502834448663392, guid: 60a093f451e91314983c26ee12f947ff, type: 3}
+    - {fileID: 3012172944682399459, guid: 60a093f451e91314983c26ee12f947ff, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8636800985054329462, guid: 60a093f451e91314983c26ee12f947ff,
         type: 3}
@@ -1892,7 +1897,7 @@ PrefabInstance:
     - target: {fileID: 2878509995535852368, guid: 4ba5333e6d6f82e4a887317a9120f635,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.3156491
+      value: -2.197
       objectReference: {fileID: 0}
     - target: {fileID: 2878509995535852368, guid: 4ba5333e6d6f82e4a887317a9120f635,
         type: 3}
@@ -2047,6 +2052,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Green_pipe Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921591863609883918, guid: 74425e5056c35904487c42f89ac589ec,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 36.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2389,7 +2399,7 @@ PrefabInstance:
     - target: {fileID: 1375044333297293994, guid: b192bbe5d8e7c90478da36b834428eba,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.08
+      value: -2.156
       objectReference: {fileID: 0}
     - target: {fileID: 1375044333297293994, guid: b192bbe5d8e7c90478da36b834428eba,
         type: 3}
