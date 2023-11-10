@@ -75,12 +75,12 @@ public class RoadGenerator : MonoBehaviour
         set => _targetedByPortal = value;
     }
 
-    private readonly List<GameObject> _activePieces = new List<GameObject>();
+    private readonly List<RoadPoints> _activePieces = new();
 
     private Vector3 _startPosition;
-    private GameObject _activePiece;
-    private GameObject _rightSpawn;
-    private GameObject _leftSpawn;
+    private RoadPoints _activePiece;
+    private RoadPoints _rightSpawn;
+    private RoadPoints _leftSpawn;
     private RoadPoints _activePoints;
     private GameObject _portalRoad;
     private int _generation;
@@ -129,7 +129,7 @@ public class RoadGenerator : MonoBehaviour
 
     private void Update()
     {
-//        Debug.Log(_isActive);
+        Debug.Log(_isActive);
         if (_isActive)
         {
 //            Debug.Log("CAN GENERATE START ROAD? " + _generateNewPiece);
@@ -161,9 +161,9 @@ public class RoadGenerator : MonoBehaviour
     private void ClearGenerator()
     {
         _clear = false;
-        foreach (GameObject piece in _activePieces)
+        foreach (RoadPoints piece in _activePieces)
         {
-            Destroy(piece);
+            Destroy(piece.gameObject);
         }
 
         _activePieces.Clear();
@@ -197,7 +197,7 @@ public class RoadGenerator : MonoBehaviour
     /// </summary>
     /// <param name="roadToLeave">Road that player chose and is gonna leave soon</param>
     /// <param name="roadToRemove">Road that player hasn't chosen and is gonna be removed</param>
-    private void ChooseRoad(GameObject roadToLeave, GameObject roadToRemove)
+    private void ChooseRoad(RoadPoints roadToLeave, RoadPoints roadToRemove)
     {
         _activePiece = roadToLeave;
         _activePoints = roadToLeave.GetComponent<RoadPoints>();
@@ -434,9 +434,10 @@ public class RoadGenerator : MonoBehaviour
     /// <param name="startPosition">Start position of the piece</param>
     /// <param name="roadPieceNumber">Number deciding which piece of road should be generated</param>
     /// <returns> New GameObject roadPiece (used to assign it to activePiece or left/right Spawn)</returns>
-    private GameObject CreateNewActivePiece(Quaternion rotation, Vector3 startPosition, int roadPieceNumber = 0)
+    private RoadPoints CreateNewActivePiece(Quaternion rotation, Vector3 startPosition, int roadPieceNumber = 0)
     {
         GameObject newPiece = Instantiate(roadPieces[roadPieceNumber].gameObject, startPosition, rotation);
+        RoadPoints newPieceScript = newPiece.GetComponent<RoadPoints>();
         if (roadPieceNumber > _straightMark && roadPieceNumber <= _leftMark) _clockwise = false;
         if (roadPieceNumber > _leftMark && roadPieceNumber <= _rightMark) _clockwise = true;
         if (roadPieces[roadPieceNumber].TypeOfRoad == RoadPoints.RoadType.Portal)
@@ -446,8 +447,8 @@ public class RoadGenerator : MonoBehaviour
         }
 
         newPiece.transform.parent = transform;
-        _activePieces.Add(newPiece);
-        return newPiece;
+        _activePieces.Add(newPieceScript);
+        return newPieceScript;
     }
 
     public void SetPlayer(PlayerStateMachine p, bool clear = true)
