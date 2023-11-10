@@ -180,12 +180,12 @@ public class RoadGenerator : MonoBehaviour
     /// </summary>
     private void GenerateRoadsAfterCrossRoad()
     {
-        if (player.CurrentRoad == _leftSpawn.gameObject)
+        if (player.CurrentRoad == _leftSpawn)
         {
             ChooseRoad(_leftSpawn, _rightSpawn);
             _clockwise = false;
         }
-        else if (player.CurrentRoad == _rightSpawn.gameObject)
+        else if (player.CurrentRoad == _rightSpawn)
         {
             ChooseRoad(_rightSpawn, _leftSpawn);
             _clockwise = true;
@@ -222,7 +222,7 @@ public class RoadGenerator : MonoBehaviour
     /// </summary>
     private void RemoveRoad()
     {
-        if (player.CurrentRoad == _activePieces[1].gameObject)
+        if (player.CurrentRoad == _activePieces[1])
         {
             StartCoroutine(_activePieces[0].DestroyMe(destructionTimer));
             _activePieces.RemoveAt(0);
@@ -420,19 +420,20 @@ public class RoadGenerator : MonoBehaviour
     /// <param name="startPosition">Start position of the piece</param>
     /// <param name="roadPieceNumber">Number deciding which piece of road should be generated</param>
     /// <returns> New GameObject roadPiece (used to assign it to activePiece or left/right Spawn)</returns>
-    private GameObject CreateNewActivePiece(Quaternion rotation, Vector3 startPosition, int roadPieceNumber = 0)
+    private RoadPoints CreateNewActivePiece(Quaternion rotation, Vector3 startPosition, int roadPieceNumber = 0)
     {
-        GameObject newPiece = Instantiate(roadPieces[roadPieceNumber].gameObject, startPosition, rotation);
+        GameObject newPieceObject = Instantiate(roadPieces[roadPieceNumber].gameObject, startPosition, rotation);
+        RoadPoints newPiece = newPieceObject.GetComponent<RoadPoints>();
         if (roadPieceNumber > _straightMark && roadPieceNumber <= _leftMark) _clockwise = false;
         else if (roadPieceNumber > _leftMark && roadPieceNumber <= _rightMark) _clockwise = true;
 
         if (roadPieces[roadPieceNumber].TypeOfRoad == RoadPoints.RoadType.Portal)
         {
-            SwirlingPortal p = newPiece.gameObject.GetComponentInChildren<SwirlingPortal>(true);
+            SwirlingPortal p = newPieceObject.gameObject.GetComponentInChildren<SwirlingPortal>(true);
             p.ParentGenerator = this;
         }
 
-        newPiece.transform.parent = transform;
+        newPieceObject.transform.parent = transform;
         _activePieces.Add(newPiece);
         return newPiece;
     }
@@ -442,19 +443,19 @@ public class RoadGenerator : MonoBehaviour
     /// </summary>
     public void SetPlayer(PlayerStateMachine p, bool clear = true)
     {
-        if (player == p) return;
-
-        player = p;
-
-        if (player == null)
+        if(player!= p)
         {
-            IsActive = false;
-            Clear = true;
-        }
-        else
-        {
-            IsActive = true;
-            Clear = false;
+            player = p;
+            if (player == null)
+            {
+                IsActive = false;
+                ClearGenerator();
+            }
+            else
+            {
+                IsActive = true;
+                Clear = false;
+            }
         }
     }
 }
