@@ -319,7 +319,7 @@
              return;
          }
          StateMachine.PathTracker.UpdateSpeed();
-         StateMachine.CurrentRoad = roadPoints.gameObject;
+         StateMachine.CurrentRoad = roadPoints;
          if (roadPoints.CurvePoints.Count > 0)
          {
              //In a curve, check if its a right or left curve
