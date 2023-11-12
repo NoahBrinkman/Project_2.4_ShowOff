@@ -9,7 +9,7 @@ public class PlayerStateMachine : StateMachine<PlayerState>
     {
         [SerializeField] private List<PlayerState> _playerStates;
         [SerializeField] private float _scoreModifier = 1.2f;
-        public GameObject CurrentRoad;
+        public RoadPoints CurrentRoad;
         
         [Header("Live & Death")]
         [SerializeField] private int _maxLives;

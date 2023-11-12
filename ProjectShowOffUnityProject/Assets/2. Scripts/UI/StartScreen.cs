@@ -3,19 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class StartScreen : MonoBehaviour
 {
-    public Image startImage;
-    public Image highlightedStartImage;
-    public Image quitImage;
-    public Image highlightedQuitImage;
+    [SerializeField] private Image startImage;
+    [SerializeField] private Image highlightedStartImage;
+    [SerializeField] private Image quitImage;
+    [SerializeField] private Image highlightedQuitImage;
+
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private Slider loadingScreenSlider;
+
+    private float _loadingScreenTarget;
 
     // Start is called before the first frame update
     void Start()
     {
         // Assign the images in the Unity editor by dragging and dropping
         // the image objects onto the script component in the Inspector.
+        loadingScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -42,7 +49,7 @@ public class StartScreen : MonoBehaviour
             if (highlightedStartImage.gameObject.activeSelf)
             {
                 // Load the next scene for Start image
-                SceneManager.LoadScene("GamePlayScene");
+                LoadScene("GamePlayScene");
             }
             else if (highlightedQuitImage.gameObject.activeSelf)
             {
@@ -50,5 +57,23 @@ public class StartScreen : MonoBehaviour
                 SceneManager.LoadScene("NextSceneForQuitImage");
             }
         }
+    }
+
+    public async void LoadScene(string sceneName)
+    {
+        loadingScreenSlider.value = 0;
+        _loadingScreenTarget = 0;
+        var scene = SceneManager.LoadSceneAsync(sceneName);
+        scene.allowSceneActivation = false;
+        loadingScreen.SetActive(true);
+
+        do
+        {
+            await Task.Delay(100);
+            _loadingScreenTarget = scene.progress;
+
+        } while (loadingScreenSlider.value < 0.9f);
+
+        scene.allowSceneActivation = true;
     }
 }
