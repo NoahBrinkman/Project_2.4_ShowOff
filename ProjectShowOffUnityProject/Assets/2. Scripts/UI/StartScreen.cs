@@ -12,17 +12,11 @@ public class StartScreen : MonoBehaviour
     [SerializeField] private Image quitImage;
     [SerializeField] private Image highlightedQuitImage;
 
-    [SerializeField] private GameObject loadingScreen;
-    [SerializeField] private Slider loadingScreenSlider;
-
-    private float _loadingScreenTarget;
-
     // Start is called before the first frame update
     void Start()
     {
         // Assign the images in the Unity editor by dragging and dropping
         // the image objects onto the script component in the Inspector.
-        loadingScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -49,7 +43,7 @@ public class StartScreen : MonoBehaviour
             if (highlightedStartImage.gameObject.activeSelf)
             {
                 // Load the next scene for Start image
-                LoadScene("GamePlayScene");
+                SceneManager.LoadScene("GamePlayScene");
             }
             else if (highlightedQuitImage.gameObject.activeSelf)
             {
@@ -58,22 +52,5 @@ public class StartScreen : MonoBehaviour
             }
         }
     }
-
-    public async void LoadScene(string sceneName)
-    {
-        loadingScreenSlider.value = 0;
-        _loadingScreenTarget = 0;
-        var scene = SceneManager.LoadSceneAsync(sceneName);
-        scene.allowSceneActivation = false;
-        loadingScreen.SetActive(true);
-
-        do
-        {
-            await Task.Delay(100);
-            _loadingScreenTarget = scene.progress;
-
-        } while (loadingScreenSlider.value < 0.9f);
-
-        scene.allowSceneActivation = true;
-    }
+    
 }
