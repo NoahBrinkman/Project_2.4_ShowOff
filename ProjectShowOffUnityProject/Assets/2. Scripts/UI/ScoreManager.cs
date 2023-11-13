@@ -8,7 +8,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class ScoreManager : SingleTon<ScoreManager>
 {
     private List<PlayerStateMachine> _players;
-    public float Score { get; private set; }
+    public float Score;// { get; private set; }
     [SerializeField] private float _baseScoreModifier = 1.15f;
     public override void Awake()
     {

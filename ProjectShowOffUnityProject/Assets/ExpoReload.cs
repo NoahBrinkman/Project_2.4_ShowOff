@@ -25,6 +25,7 @@ public class ExpoReload : SingleTon<ExpoReload>
         if (_timer >= _target)
         {
             _timer = 0.0f;
+            ScoreManager.Instance.Score = 0;
             SceneManager.LoadScene(0);
         }
     }
