@@ -24876,7 +24876,7 @@ PrefabInstance:
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
       propertyPath: _speed
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5015109449586282171, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
@@ -25127,6 +25127,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _onObstacleHit.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289837587108405996, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7340820889999105662, guid: f14a1a4b2b1ef064ebd8a5a78184f9a7,
         type: 3}
@@ -37492,6 +37497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87990a8c7d65c642a6e0967424f6b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Score: 0
   _baseScoreModifier: 1
 --- !u!1001 &6051835358862137920
 PrefabInstance:

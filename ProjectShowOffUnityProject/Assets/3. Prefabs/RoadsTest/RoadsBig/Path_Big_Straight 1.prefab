@@ -570,12 +570,12 @@ PrefabInstance:
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: parameters.negativeFade.x
-      value: 0.013636365
+      value: 0.06818182
       objectReference: {fileID: 0}
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: parameters.positiveFade.x
-      value: 0.013636365
+      value: 0.06818182
       objectReference: {fileID: 0}
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
@@ -646,6 +646,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Local Volumetric Fog
+      objectReference: {fileID: 0}
+    - target: {fileID: 7358320012864807907, guid: 03d30665e906e144c81c1e5077bf74e8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2186,12 +2191,12 @@ PrefabInstance:
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: parameters.negativeFade.x
-      value: 0.013636365
+      value: 0.06818182
       objectReference: {fileID: 0}
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
       propertyPath: parameters.positiveFade.x
-      value: 0.013636365
+      value: 0.06818182
       objectReference: {fileID: 0}
     - target: {fileID: 3427964670905865434, guid: 03d30665e906e144c81c1e5077bf74e8,
         type: 3}
@@ -2262,6 +2267,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Local Volumetric Fog (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7358320012864807907, guid: 03d30665e906e144c81c1e5077bf74e8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
