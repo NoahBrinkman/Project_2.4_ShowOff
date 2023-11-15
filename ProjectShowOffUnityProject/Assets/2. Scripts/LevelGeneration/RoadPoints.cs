@@ -28,7 +28,7 @@ public class RoadPoints : MonoBehaviour
     
     [Range(0, 100)] [SerializeField] public float chance = 50;
     public double _weight;
-    
+    private bool addedOnce = false;
     public int Width => width;
     public int Length => length;
     public RoadType TypeOfRoad => roadType;
@@ -277,7 +277,7 @@ public class RoadPoints : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
+        if (addedOnce) return;
         if (_playerLayer == (_playerLayer | (1 << other.gameObject.layer)))
         {
             List<PlayerOnTrackState> pT = other.GetComponentsInSiblings<PlayerOnTrackState>(true);
@@ -298,6 +298,7 @@ public class RoadPoints : MonoBehaviour
         {
             p.SetNewRoad(this);
         }
+            addedOnce = true;
     }
 
 
