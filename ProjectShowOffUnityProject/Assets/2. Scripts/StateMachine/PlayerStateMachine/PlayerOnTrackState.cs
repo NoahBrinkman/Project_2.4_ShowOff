@@ -210,9 +210,13 @@
      public void SetPath(List<TargetPoint> pPath)
      {
 
-         for (int i = 0; i < pPath.Count; i++)
-         {
-             StateMachine.PathTracker.TargetPoints.Add(pPath[i]);
+        for (int i = 0; i < pPath.Count; i++)
+        {
+            if (!StateMachine.PathTracker.TargetPoints.Contains(pPath[i]))
+            {
+                StateMachine.PathTracker.TargetPoints.Add(pPath[i]);
+
+            }
          }
          totalMoveTime = Vector3.Distance(_moveTarget.transform.position,  StateMachine.PathTracker.TargetPoints[0].position) * StateMachine.PathTracker.SecondsPerUnit;
          StateMachine.PathTracker.PassedPoints.Add( _moveTarget.transform.position);
@@ -328,7 +332,10 @@
                  List<TargetPoint> targets = new List<TargetPoint>();
                  for (int i = 0; i < roadPoints.CurvePointsCross.Count; i++)
                  {
-                     targets.Add(new TargetPoint(roadPoints.CurvePointsCross[i]));
+                    
+                     var p = new TargetPoint(roadPoints.CurvePointsCross[i]);
+                    if (!StateMachine.PathTracker.TargetPoints.Contains(p))
+                        targets.Add(p);
                  }
 
                  targets[0].includeInRotation = false;
@@ -340,7 +347,9 @@
                  List<TargetPoint> targets = new List<TargetPoint>();
                  for (int i = 0; i < roadPoints.CurvePoints.Count; i++)
                  {
-                     targets.Add(new TargetPoint(roadPoints.CurvePoints[i]));
+                    var p = new TargetPoint(roadPoints.CurvePoints[i]);
+                    if (!StateMachine.PathTracker.TargetPoints.Contains(p))
+                        targets.Add(p);
                  }
 
                  targets[0].includeInRotation = false;

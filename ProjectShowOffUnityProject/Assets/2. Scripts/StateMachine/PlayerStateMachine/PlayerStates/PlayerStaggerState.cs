@@ -12,7 +12,7 @@ public class PlayerStaggerState : PlayerOnTrackState
     [SerializeField] private UnityEvent OnComplete;
     public override void Enter()
     {
-        
+        Debug.LogError("EY YO I JUST ENTERED THE STAGGER STATE WHATS GOING ON. ON");
         //base.Enter();
         if (Vector3.Distance(StateMachine.PathTracker.PassedPoints[^1], _moveTarget.transform.position) <
             _distance)
@@ -20,7 +20,7 @@ public class PlayerStaggerState : PlayerOnTrackState
             
             List<Vector3> path = CalculatePath(new List<Vector3>() { _moveTarget.transform.position}, _distance, 0);
             _moveTarget.transform.DOPath(path.ToArray(), _duration, PathType.Linear)
-                .OnComplete(delegate (){  OnComplete?.Invoke();}).SetEase(_curve);
+                .OnComplete(delegate (){  OnComplete?.Invoke(); StateMachine.PathTracker.CleanUpTargets(); }).SetEase(_curve);
             StateMachine.PathTracker.MoveTimer = (path[^1] - StateMachine.PathTracker.PassedPoints[^1]).magnitude / (StateMachine.PathTracker.TargetPoints[0].position - StateMachine.PathTracker.PassedPoints[^1]).magnitude;
         }
         else
@@ -28,7 +28,9 @@ public class PlayerStaggerState : PlayerOnTrackState
             Vector3 direction = (StateMachine.PathTracker.TargetPoints[0].position - StateMachine.PathTracker.PassedPoints[^1]).normalized;
             Vector3 endValue =  _moveTarget.transform.position-(direction * _distance) ;
             _moveTarget.transform.DOMove(endValue, _duration).SetEase(_curve)
-                .OnComplete(delegate() { OnComplete?.Invoke(); });
+                .OnComplete(delegate() { OnComplete?.Invoke();
+                    StateMachine.PathTracker.CleanUpTargets();
+                });
             StateMachine.PathTracker.MoveTimer = (endValue - StateMachine.PathTracker.PassedPoints[^1]).magnitude / (StateMachine.PathTracker.TargetPoints[0].position - StateMachine.PathTracker.PassedPoints[^1]).magnitude;
         }
         //If not then just move back along the point
