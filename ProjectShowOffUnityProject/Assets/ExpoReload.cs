@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,10 @@ public class ExpoReload : SingleTon<ExpoReload>
 {
     private float _timer = 0.0f;
     private float _target = 3;
+
+
+    private float resetTimer = 0.0f;
+    private float timeToReset = 15.0f;
 
     // Update is called once per frame
     void Update()
@@ -28,5 +33,22 @@ public class ExpoReload : SingleTon<ExpoReload>
             ScoreManager.Instance.Score = 0;
             SceneManager.LoadScene(0);
         }
+
+        if (Input.anyKey)
+        {
+            resetTimer = 0.0f;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            resetTimer += Time.deltaTime;
+            if(resetTimer >= timeToReset)
+            {
+                Debug.Log("RELOADING");
+                resetTimer = 0;
+                ScoreManager.Instance.Score = 0;
+                SceneManager.LoadScene(0);
+            }
+        }
+
     }
 }
